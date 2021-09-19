@@ -6,15 +6,19 @@
 2. 班级成员仅需上传截图即可，无需手动加文字、手动调整截图大小
 3. 班级负责人可以一键下载截图压缩包、查看上交情况等
 
-首页
+### 首页
 
-![输入图片说明](https://images.gitee.com/uploads/images/2021/0919/183058_ea868365_5591048.png "屏幕截图.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0919/183928_b92a73e2_5591048.png "屏幕截图.png")
 
-上传界面
+### 上传界面
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0713/233411_e65eb708_5591048.png "屏幕截图.png")
 
-后台首页
+### 上传成功界面
+
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0919/184133_3523c180_5591048.png "屏幕截图.png")
+
+### 后台首页
 
 ![后台首页](https://images.gitee.com/uploads/images/2021/0429/202107_ad92149d_5591048.png "屏幕截图.png")
 
