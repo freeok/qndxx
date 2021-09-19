@@ -32,7 +32,7 @@
 2. SpringBoot2.4.1
 3. MySQL8
 4. Mybatis、分页助手pagehelper
-5. API文档使用Swagger3（）
+5. API文档使用Swagger3(http://localhost:8080/swagger-ui/index.html)
 
 #### 安装教程
 
