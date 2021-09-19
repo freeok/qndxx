@@ -1,0 +1,42 @@
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+
+spring:
+  application:
+    name: qndxx
+  profiles:
+    active: dev
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+  servlet:
+    multipart:
+      # 单个文件的大小
+      max-file-size: 10MB
+      # 单次请求的文件的总大小
+      max-request-size: 10MB
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: non_null
+
+mybatis:
+  # 映射文件路径
+  mapper-locations: classpath:mapper/*Mapper.xml
+  # 扫描pojo类的位置,在此处指明扫描实体类的包，在mapper中就可以不用写pojo类的全路径名了
+  type-aliases-package: work.pcdd.qndxx.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 开启下划线转驼峰，例如某个表字段student_id在JavaBean中就可以写为studentId
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+
+# mybatis分页助手
+pagehelper:
+  helper-dialect: mysql
+  params: count=countSql
+  reasonable: true
+  support-methods-arguments: true

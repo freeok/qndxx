@@ -1,0 +1,68 @@
+package work.pcdd.qndxx.controller;
+
+import cn.hutool.core.codec.Base64;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import work.pcdd.qndxx.common.vo.Result;
+import work.pcdd.qndxx.service.ImageService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+
+
+/**
+ * @author AD
+ */
+@Api(tags = "图片相关API")
+@RestController
+@RequestMapping("/image")
+public class ImageController {
+    @Autowired
+    private ImageService imageService;
+
+    @ApiOperation("图片上传")
+    @PostMapping("/upload/{id}/{name}/{par}/{clazzName}")
+    public Result upload(@RequestParam("file") MultipartFile mf
+            , @PathVariable("id") String id
+            , @PathVariable("name") String name
+            , @PathVariable("par") String par
+            , @PathVariable("clazzName") String clazzName) {
+        return imageService.upload(id, name, par, clazzName, mf);
+    }
+
+    @ApiOperation("图片下载")
+    @GetMapping("/download/{clazzName}")
+    public Result download(HttpServletRequest req, HttpServletResponse resp, @PathVariable String clazzName) {
+        return imageService.download(req, resp, clazzName);
+    }
+
+    @ApiOperation("判断用户是否上传")
+    @GetMapping("/isUploaded/{stuId}")
+    public Result isUploaded(@PathVariable String stuId) {
+        return imageService.isUploaded(stuId);
+    }
+
+    @ApiOperation("根据图片路径返回图片的base64编码")
+    @PostMapping("/base64")
+    public Result getImageBase64(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+        req.setCharacterEncoding("utf-8");
+        resp.setContentType("application/json;charset=utf-8");
+
+        String parentPath = System.getProperty("user.dir") + "/src/main/resources/static";
+        String path = parentPath + req.getParameter("path");
+        System.out.println(path);
+        // hutool工具
+        String base64 = "data:image/jpg;base64," + Base64.encode(new File(path));
+
+        return Result.success(base64);
+    }
+
+    @PostMapping("/empty")
+    public String empty() {
+        return "空api,防报405，无实际作用";
+    }
+}
