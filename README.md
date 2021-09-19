@@ -28,19 +28,21 @@
 2. SpringBoot2.4.1
 3. MySQL8
 4. Mybatis、分页助手pagehelper
-5. API文档使用Swagger
+5. API文档使用Swagger3
 
 #### 安装教程
 
 1. 执行sql脚本
 2. 分别在student和clazz表中导入班级成员信息和班级信息
 3. 修改application-dev.yml
+4. Dockerfile已配好
 
 #### 使用说明
 
-1.
-2. xxxx
-3. xxxx
+1. 导入班级相关数据，根据student表的role字段设置管理员和密码
+1. 管理员登录后台，设置青年大学习的季数、期数
+2. 收齐后下载即可，然后关闭系统
+3. 使用前重置提交（删除往期截图），开启系统
 
 #### 参与贡献
 
