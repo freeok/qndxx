@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="work.pcdd.qndxx.mapper.ImageMapper">
+    <!--查询用户是否上传-->
+    <select id="isUploaded" parameterType="string" resultType="upload">
+        SELECT stu_id,
+               img_key,
+               upload_time
+        FROM upload
+        WHERE stu_id = #{stuId}
+    </select>
+
+    <!--向upload表增加一条新记录，若主键已存在，则覆盖-->
+    <insert id="addUpload" parameterType="upload">
+        REPLACE INTO upload
+        VALUES (#{stuId}, #{imgKey}, #{uploadTime})
+    </insert>
+
+    <!--向image表增加一条新记录，若主键已存在，则覆盖-->
+    <insert id="addImage" parameterType="image">
+        REPLACE INTO image
+        VALUES (#{imgKey}, #{imgSize}, #{imgExtension})
+    </insert>
+
+    <!--删除班级删除upload表记录-->
+    <delete id="deleteUpload" parameterType="string">
+        DELETE
+        FROM upload
+        WHERE stu_id IN (SELECT stu_id FROM student WHERE clazz_name = #{clazzName})
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="work.pcdd.qndxx.mapper.AdminMapper">
+    <!--管理员登录-->
+    <select id="login" parameterType="student" resultType="student">
+        SELECT stu_id, stu_name, pwd, role, clazz_name
+        FROM student
+        WHERE stu_id = #{stuId}
+          AND pwd = #{pwd}
+          AND role IN ('admin', 'sa')
+    </select>
+
+    <!--根据班级名查询所有学生的学号，姓名，班级-->
+    <select id="findAllByClazzName" parameterType="string" resultType="student">
+        SELECT stu_id, stu_name, clazz_name
+        FROM student
+        WHERE clazz_name = #{clazzName}
+    </select>
+
+    <!--查询所有学生-->
+    <select id="findAll" resultType="student">
+        SELECT stu_id, stu_name, pwd, role, clazz_name
+        FROM student
+    </select>
+
+    <!--查询不同班级的截图已交人员-->
+    <select id="findSubmitted" parameterType="string" resultType="map">
+        SELECT student.stu_id,
+               stu_name,
+               upload_time
+        FROM student,
+             upload
+        WHERE clazz_name = #{clazzName}
+          AND student.stu_id = upload.stu_id
+        GROUP BY stu_id
+        ORDER BY upload_time DESC
+    </select>
+
+    <!--查询不同班级的截图未交人员-->
+    <select id="findUnpaid" parameterType="string" resultType="student">
+        SELECT stu_id,
+               stu_name
+        FROM student
+        WHERE stu_id NOT IN (
+            SELECT student.stu_id
+            FROM student,
+                 upload
+            WHERE clazz_name = #{clazzName}
+              AND student.stu_id = upload.stu_id
+        )
+          AND clazz_name = #{clazzName}
+    </select>
+
+    <!--查询不同班级的截图已交人数-->
+    <select id="findSubmittedCount" parameterType="string" resultType="int">
+        SELECT count(distinct student.stu_id)
+        FROM student,
+             upload
+        WHERE clazz_name = #{clazzName}
+          AND student.stu_id = upload.stu_id
+    </select>
+
+    <!--查询不同班级的截图未交人员-->
+    <select id="findUnpaidCount" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM student
+        WHERE stu_id NOT IN (
+            SELECT student.stu_id
+            FROM student,
+                 upload
+            WHERE clazz_name = #{clazzName}
+              AND student.stu_id = upload.stu_id
+        )
+          AND clazz_name = #{clazzName}
+    </select>
+
+    <!--管理员修改密码-->
+    <update id="updPwd" parameterType="student">
+        UPDATE student
+        SET pwd = #{pwd}
+        WHERE stu_id = #{stuId}
+    </update>
+</mapper>
