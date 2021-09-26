@@ -35,6 +35,10 @@
 5. API文档使用Swagger3(http://localhost:8080/swagger-ui/index.html)
 
 #### 安装教程
+小白请看，本地运行首先得有以下环境
+1. jdk8+
+2. maven
+3. mysql8+ & mysql图形管理工具（建议）
 
 1. 执行sql脚本
 2. 分别在student和clazz表中导入班级成员信息和班级信息
