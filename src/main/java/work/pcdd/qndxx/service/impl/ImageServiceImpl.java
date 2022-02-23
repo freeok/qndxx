@@ -3,6 +3,7 @@ package work.pcdd.qndxx.service.impl;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ZipUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,10 +25,12 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author AD
  */
+@Slf4j
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class ImageServiceImpl implements ImageService {
@@ -47,7 +50,7 @@ public class ImageServiceImpl implements ImageService {
      */
     @Override
     public Result upload(String id, String name, String par, String clazzName, MultipartFile mf) {
-        System.out.println("\n========================upload start========================\n");
+        log.info("========================upload start========================");
         // 若文件不存在，则拒绝上传
         if (mf.isEmpty()) {
             return Result.failure(ResultCode.FILE_NOT_FOUND);
@@ -56,21 +59,21 @@ public class ImageServiceImpl implements ImageService {
         // 判断上传到哪个目录
         String dirName = "upload1".equals(par) ? "朋友圈截图" : "首页截图";
         // 获取文件大小(B => KB)，保留两位小数
-        BigDecimal size = NumberUtil.round((double) mf.getSize() / 1024.0, 2);
-        System.out.println("fileSize:" + size.doubleValue() + "KB");
+        BigDecimal size = NumberUtil.round(mf.getSize() / 1024.0, 2);
+        log.info("fileSize:" + size.doubleValue() + "KB");
         // 获取文件名(文件主名 + 扩展名)
         String fileName = mf.getOriginalFilename();
-        System.out.println("fileName:" + fileName);
+        log.info("fileName:" + fileName);
         // 获取文件扩展名
-        String extension = fileName.substring(fileName.lastIndexOf("."));
+        String extension = Objects.requireNonNull(fileName).substring(fileName.lastIndexOf("."));
         // 获取指定文件在当前项目的绝对路径
         String filePath = UploadUtils.getRealPath("image", clazzName, dirName, fileName);
-        System.out.println("filePath:" + filePath);
+        log.info("filePath:" + filePath);
         // 相对路径
         String relativePath = filePath.substring(filePath.indexOf("uploads"));
         // 这里将\替换成了/ 目的在于便于springmvc访问路径，
         relativePath = "/" + relativePath.replaceAll("\\\\", "/");
-        System.out.println("相对路径：" + relativePath);
+        log.info("相对路径：" + relativePath);
 
         try {
             File file = new File(filePath);
@@ -89,14 +92,12 @@ public class ImageServiceImpl implements ImageService {
 
         Image image = new Image();
         image.setImgKey(relativePath);
-
         image.setImgSize(size.doubleValue());
         image.setImgExtension(extension);
-        System.out.println(image);
         // 将上传图片的路径、图片大小、图片扩展名保存到image表
         imageMapper.addImage(image);
 
-        System.out.println("\n========================upload end========================\n");
+        log.info("========================upload end========================");
         return Result.success();
     }
 
@@ -109,7 +110,7 @@ public class ImageServiceImpl implements ImageService {
      */
     @Override
     public Result download(HttpServletRequest req, HttpServletResponse resp, String clazzName) {
-        System.out.println("\n========================download start========================\n");
+        log.info("========================download start========================");
         // 若该班级无人上交，拒绝下载
         if (adminMapper.findSubmitted(clazzName).isEmpty()) {
             return Result.failure(ResultCode.DOWNLOAD_REFUSE);
@@ -117,7 +118,7 @@ public class ImageServiceImpl implements ImageService {
 
         // 指定压缩哪一个目录（目录名即为班级名）
         String zipPath = UploadUtils.IMG_REAL_PATH + clazzName;
-        System.out.println("zipPath:" + zipPath);
+        log.info("zipPath:" + zipPath);
         ZipUtil.zip(zipPath);
 
         // 指定压缩文件名
@@ -132,40 +133,26 @@ public class ImageServiceImpl implements ImageService {
             e.printStackTrace();
         }
 
-        //先使用文件输入流 将文件读到内存中 再使用输出流 将文件输出给用户
+        // 先使用文件输入流 将文件读到内存中 再使用输出流 将文件输出给用户
         File file = new File(zipPath + ".zip");
         if (!file.exists()) {
             return Result.failure(ResultCode.FILE_NOT_FOUND);
         }
 
-        FileInputStream fileIn = null;
-        try {
-            fileIn = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        //准备一个缓冲区
-        byte[] bytes = new byte[(int) file.length()];
-
-        //将文件读入缓冲区中
-        try {
-            fileIn.read(bytes);
+        try (InputStream fis = new FileInputStream(file)) {
+            // 准备一个缓冲区
+            byte[] bytes = new byte[(int) file.length()];
+            // 将文件读入缓冲区中
+            fis.read(bytes);
+            // 获得响应的输出流
+            ServletOutputStream sos = resp.getOutputStream();
+            sos.write(bytes);
+            sos.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
 
-        //获得响应的输出流
-        ServletOutputStream outputStream;
-        //调用response.getOutputStream()方法返回 ServletOutputStream 对象来向客户端写入文件内容。
-        try {
-            outputStream = resp.getOutputStream();
-            outputStream.write(bytes);
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("\n========================download end========================\n");
+        log.info("========================download end========================");
         return Result.success();
     }
 
@@ -173,7 +160,7 @@ public class ImageServiceImpl implements ImageService {
     public Result deleteUpload(String clazzName) {
         imageMapper.deleteUpload(clazzName);
         String path = UploadUtils.IMG_REAL_PATH + clazzName;
-        System.out.println("deleteUpload:" + path);
+        log.info("deleteUpload:" + path);
         // 删除指定班级的图片目录
         FileUtil.del(path);
         // 删除指定班级的压缩包
