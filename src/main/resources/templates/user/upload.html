@@ -255,7 +255,6 @@
                 // 等待效果
                 index = layer.msg('开始处理图片', {
                     icon: 16
-                    , shade: 0.01
                     , time: 15000
                     , shade: 0.3
                     , success: () => {
@@ -276,35 +275,36 @@
                 obj.preview(function (index, file, result) {// index得到文件索引 file得到文件对象 result 得到文件base64编码，比如图片
                     let size1 = (file.size / 1024).toFixed(2);
                     console.log("压缩前的大小:" + size1 + "kb")
-                    //console.log(file)
 
                     let layerMsg = $(".layui-layer-content,.layui-layer-padding");
                     let anim = "<i class='layui-layer-ico layui-layer-ico16'></i>";
                     layerMsg.html(anim + '生成文字中...');
 
-                    console.log(file)
+                    console.log('file', file)
                     /* 图片加文字 */
                     addTextToImg(result
                         , stuId + "_" + stuName
-                        , "70px 微软雅黑"
+                        , "80px 微软雅黑"
                         , "red").then(res => {
                         //.then是接收正确返回的信息
                         // res：加了文字后图片的base64
                         // 将base64转换为file类型 并指定文件名
                         file = dataURLtoFile(res, stuId + "_" + stuName + ".jpg")
-                        console.log(file)
+                        console.log('blob', file)
                         layerMsg.html(anim + '压缩图片中...');
                         /* 图片压缩 注意，这里的file就是this.files[0]，这个最关键 */
                         lrz(file, {
-                            //设置压缩参数
-                            width: 500,
+                            fieldName: 'file',
+                            width: null,
+                            height: null,
+                            // 压缩率
                             quality: 0.7
                         }).then(function (rst) {
                             /* 处理成功后执行 */
                             //res.formData.append('file', rst.base64); // 添加额外参数
                             let size2 = (rst.fileLen / 1024).toFixed(2);
                             console.log("压缩后的大小:" + size2 + "kb")
-                            console.log("压缩率：" + ((1 - size2 / size1) * 100).toFixed(2) + "%")
+                            console.log("体积减少：" + ((1 - size2 / size1) * 100).toFixed(2) + "%")
                             layerMsg.html(anim + '图片上传中');
 
                             $.ajax({
