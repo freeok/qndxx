@@ -35,16 +35,16 @@
 5. API文档使用Swagger3(http://localhost:8080/swagger-ui/index.html)
 
 #### 安装教程
-小白请看，本地运行首先得有以下环境
-1. jdk8
+环境准备
+1. jdk8（必须，否则无法使用后台）
 2. maven3+
 3. mysql8+ & mysql图形管理工具（建议）
 
 1. 执行sql脚本
 2. 分别在student和clazz表中导入班级成员信息和班级信息（仅启动可省略这一步）
 3. 修改application-dev.yml中数据库配置
-4. 如果你的jdk不是8请修改pom.xml中的java.version为你的jdk版本，否则maven报错
-5. 修改my.cnf，去掉ONLY_FULL_GROUP_BY，详见https://blog.csdn.net/jiang1245764446/article/details/72898137
+4. 修改my.cnf，去掉ONLY_FULL_GROUP_BY，详见https://blog.csdn.net/jiang1245764446/article/details/72898137
+
 #### 使用说明
 
 1. 导入班级相关数据，根据student表的role字段设置管理员和密码
@@ -55,11 +55,11 @@
 
 #### 部署
 
-传统部署
-1. 直接在服务器运行jar包即可
+1. 传统部署
+`nohup java -jar qndxx.jar`
 
-Docker部署（推荐）
-2. Dockerfile已配好
+2. Docker部署（推荐）
+Dockerfile已配好
 
 #### 参与贡献
 
