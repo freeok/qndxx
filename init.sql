@@ -101,19 +101,19 @@ CREATE TABLE `student`
 -- Records of student
 -- ----------------------------
 INSERT INTO `student`
-VALUES ('1', '唐三', '1', 'admin', '计算机科学与技术18-1');
+VALUES ('1', '唐三', '1', 'admin', '史莱克学院');
 INSERT INTO `student`
-VALUES ('2', '小舞', NULL, NULL, '计算机科学与技术18-1');
+VALUES ('2', '小舞', NULL, NULL, '史莱克学院');
 INSERT INTO `student`
-VALUES ('3', '戴沐白', NULL, NULL, '计算机科学与技术18-1');
+VALUES ('3', '戴沐白', NULL, NULL, '史莱克学院');
 INSERT INTO `student`
-VALUES ('4', '朱竹青', NULL, NULL, '计算机科学与技术18-1');
+VALUES ('4', '朱竹青', NULL, NULL, '史莱克学院');
 INSERT INTO `student`
-VALUES ('5', '宁荣荣', NULL, NULL, '计算机科学与技术18-1');
+VALUES ('5', '宁荣荣', NULL, NULL, '史莱克学院');
 INSERT INTO `student`
-VALUES ('6', '奥斯卡', NULL, NULL, '计算机科学与技术18-1');
+VALUES ('6', '奥斯卡', NULL, NULL, '史莱克学院');
 INSERT INTO `student`
-VALUES ('7', '马红骏', NULL, NULL, '计算机科学与技术18-1');
+VALUES ('7', '马红骏', NULL, NULL, '史莱克学院');
 
 -- ----------------------------
 -- Table structure for upload
