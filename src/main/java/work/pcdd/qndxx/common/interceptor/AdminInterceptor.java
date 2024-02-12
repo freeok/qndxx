@@ -1,5 +1,6 @@
 package work.pcdd.qndxx.common.interceptor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import work.pcdd.qndxx.entity.Student;
@@ -14,6 +15,7 @@ import java.util.Objects;
  *
  * @author pcdd
  */
+@Slf4j
 public class AdminInterceptor implements HandlerInterceptor {
 
     @Override
@@ -21,7 +23,7 @@ public class AdminInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         Student student = (Student) session.getAttribute("admin");
         boolean flag = student != null && (Objects.equals(student.getRole(), "admin") || Objects.equals(student.getRole(), "sa"));
-        System.out.println("普通管理员拦截器执行，是否放行？" + flag);
+        log.info("普通管理员拦截器执行，是否放行？" + flag);
         return flag;
     }
 

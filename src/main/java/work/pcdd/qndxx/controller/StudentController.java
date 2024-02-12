@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/student")
 public class StudentController {
-    
+
     @Autowired
     private StudentService studentService;
 
@@ -84,8 +84,7 @@ public class StudentController {
         student.setClazzName(clazzName);
         student.setPwd(pwd);
         student.setRole(role);
-        System.out.println(student);
         return studentService.updStudentById(student);
     }
-    
+
 }
