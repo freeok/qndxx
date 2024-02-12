@@ -1,5 +1,6 @@
 package work.pcdd.qndxx.mapper;
 
+import org.apache.ibatis.annotations.MapKey;
 import org.springframework.stereotype.Repository;
 import work.pcdd.qndxx.entity.Student;
 
@@ -40,6 +41,7 @@ public interface AdminMapper {
      * @param clazzName 班级名
      * @return 学生信息
      */
+    @MapKey("stu_id")
     List<Map<String, Object>> findSubmitted(String clazzName);
 
     /**

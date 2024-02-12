@@ -38,9 +38,7 @@ CREATE TABLE `clazz`
 -- Records of clazz
 -- ----------------------------
 INSERT INTO `clazz`
-VALUES ('计算机科学与技术18-1', 12, 8, b'1', '2021-01-23 15:14:07');
-INSERT INTO `clazz`
-VALUES ('软工升本20-2', 14, 3, b'1', '2021-01-10 02:29:55');
+VALUES ('史莱克学院', 12, 8, b'1', '2021-01-23 15:14:07');
 
 -- ----------------------------
 -- Table structure for image
