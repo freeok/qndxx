@@ -24,8 +24,6 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Result unSafeLogin(String stuId, HttpSession session) {
         Student student = studentMapper.findById(stuId);
-        System.out.println(student);
-
         if (student != null && Objects.equals(student.getStuId(), stuId)) {
             session.setAttribute("student", student);
             return Result.success();

@@ -55,7 +55,6 @@ public class ImageController {
 
         String parentPath = System.getProperty("user.dir") + "/src/main/resources/static";
         String path = parentPath + req.getParameter("path");
-        System.out.println(path);
         // hutool工具
         String base64 = "data:image/jpg;base64," + Base64.encode(new File(path));
 
