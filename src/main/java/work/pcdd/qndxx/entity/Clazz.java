@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @ApiModel(description = "班级表")
-public class Clazz {
+public class Clazz implements Serializable {
     @ApiModelProperty("班级名")
     private String clazzName;
 
