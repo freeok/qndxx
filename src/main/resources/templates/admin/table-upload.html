@@ -1,258 +1,258 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <title>layui</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/lib/layui-v2.5.6/css/layui.css" media="all">
-    <link rel="stylesheet" href="/css/public.css" media="all">
+  <meta charset="utf-8">
+  <title>layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="/lib/layui-v2.5.6/css/layui.css" media="all">
+  <link rel="stylesheet" href="/css/public.css" media="all">
 </head>
 <body>
 <div class="layuimini-container">
-    <div class="layuimini-main">
+  <div class="layuimini-main">
 
-        <fieldset class="table-search-fieldset">
-            <legend>搜索信息</legend>
-            <div style="margin: 10px 10px 10px 10px">
-                <form class="layui-form layui-form-pane" action="">
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">学号</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="stu_id" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">姓名</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="stu_name" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <button type="submit" class="layui-btn layui-btn-primary" lay-submit
-                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
-                            </button>
-                        </div>
-                    </div>
-                </form>
+    <fieldset class="table-search-fieldset">
+      <legend>搜索信息</legend>
+      <div style="margin: 10px 10px 10px 10px">
+        <form class="layui-form layui-form-pane" action="">
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">学号</label>
+              <div class="layui-input-inline">
+                <input type="text" name="stu_id" autocomplete="off" class="layui-input">
+              </div>
             </div>
-        </fieldset>
-
-        <script type="text/html" id="toolbarDemo">
-            <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add">一键提醒</button>
+            <div class="layui-inline">
+              <label class="layui-form-label">姓名</label>
+              <div class="layui-input-inline">
+                <input type="text" name="stu_name" autocomplete="off" class="layui-input">
+              </div>
             </div>
-        </script>
+            <div class="layui-inline">
+              <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                      lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </fieldset>
 
-        <div class="layui-col-md6" style="margin-top: 30px;">
-            <span style="text-align: center;color: #5FB878;"><h2>已交人员名单</h2></span>
-            <table class="layui-hide" id="currentTableId2" lay-filter="currentTableFilter2"></table>
-            <div id="layPage2"></div>
-        </div>
+    <script type="text/html" id="toolbarDemo">
+      <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add">一键提醒</button>
+      </div>
+    </script>
 
-        <div class="layui-col-md6" style="margin-top: 30px;">
-            <span style="text-align: center;color: #FF5722;"><h2>未交人员名单</h2></span>
-            <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
-            <div id="layPage"></div>
-        </div>
-
-        <script type="text/html" id="currentTableBar">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">提醒</a>
-        </script>
-
+    <div class="layui-col-md6" style="margin-top: 30px;">
+      <span style="text-align: center;color: #5FB878;"><h2>已交人员名单</h2></span>
+      <table class="layui-hide" id="currentTableId2" lay-filter="currentTableFilter2"></table>
+      <div id="layPage2"></div>
     </div>
+
+    <div class="layui-col-md6" style="margin-top: 30px;">
+      <span style="text-align: center;color: #FF5722;"><h2>未交人员名单</h2></span>
+      <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+      <div id="layPage"></div>
+    </div>
+
+    <script type="text/html" id="currentTableBar">
+      <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">提醒</a>
+    </script>
+
+  </div>
 </div>
 <script src="/lib/layui-v2.5.6/layui.js" charset="utf-8"></script>
 <script type="text/javascript" th:inline="javascript">
-    layui.use(['form', 'table', 'laypage'], function () {
-        var $ = layui.jquery,
-            form = layui.form,
-            table = layui.table,
-            laypage = layui.laypage;
+  layui.use(['form', 'table', 'laypage'], function () {
+    var $ = layui.jquery,
+      form = layui.form,
+      table = layui.table,
+      laypage = layui.laypage;
 
-        // 起始页
-        let curnum = 1;
-        // 每页显示的条数
-        let limitCount = 10
+    // 起始页
+    let curnum = 1;
+    // 每页显示的条数
+    let limitCount = 10
 
-        function showSubmittedTable(start, limit) {
-            // 加载已交人员名单
-            table.render({
-                elem: '#currentTableId2',
-                url: '/admin/findSubmitted/' + curnum + '/' + limitCount,
-                toolbar: '#toolbarDemo',
-                defaultToolbar: ['filter', 'exports', 'print', {
-                    title: '提示',
-                    layEvent: 'LAYTABLE_TIPS',
-                    icon: 'layui-icon-tips'
-                }],
-                cols: [
-                    [
-                        {field: 'stu_id', width: '30%', title: '学号', sort: true},
-                        {field: 'stu_name', width: '30%', title: '姓名'},
-                        {
-                            field: 'upload_time',
-                            width: '40%',
-                            title: '上传时间'//,templet: '<div>{{ layui.util.toDateString(d.upload_time, "yyyy-MM-dd HH:mm:ss") }}</div>'
-                        },
-                    ]
-                ],
-                skin: 'line',
-                text: {
-                    none: '暂无上交人员' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
-                },
-                height: 470,
-                done: function (res, curr, count) {  //如果是异步请求数据方式，res即为你接口返回的信息。
-                    laypage.render({
-                        elem: 'layPage2',
-                        count: count,
-                        curr: curnum, // 起始页
-                        limit: limitCount, // 每页显示的条数
-                        limits: [5, 10, 15, 20, 25, 50, 100],
-                        layout: ['prev', 'page', 'next', 'skip', 'count', 'limit', 'refresh'],
-                        jump: function (obj, first) {
-                            //首次不执行
-                            if (!first) {
-                                //得到当前页，以便向服务端请求对应页的数据。
-                                curnum = obj.curr;
-                                //得到每页显示的条数
-                                limitCount = obj.limit;
-                                showSubmittedTable(curnum, limitCount);
-                            }
-                        }
-                    });
-                }
-            });
-        }
-
-        showSubmittedTable(curnum, limitCount);
-
-        function showUnpaidTable(start, limit) {
-            // 加载未交人员名单
-            table.render({
-                elem: '#currentTableId',
-                url: '/admin/findUnpaid/' + curnum + '/' + limitCount,
-                toolbar: '#toolbarDemo',
-                defaultToolbar: ['filter', 'exports', 'print', {
-                    title: '提示',
-                    layEvent: 'LAYTABLE_TIPS',
-                    icon: 'layui-icon-tips'
-                }],
-                cols: [
-                    [
-                        {field: 'stuId', width: 200, title: '学号', sort: true},
-                        {field: 'stuName', width: 90, title: '姓名'},
-                        {title: '操作', minWidth: 50, toolbar: '#currentTableBar', align: "right"}
-                    ]
-                ],
-                skin: 'line',
-                text: {
-                    none: '全员已上交' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
-                },
-                height: 470,
-                done: function (res, curr, count) {  //如果是异步请求数据方式，res即为你接口返回的信息。
-                    laypage.render({
-                        elem: 'layPage',
-                        count: count,
-                        curr: curnum, // 起始页
-                        limit: limitCount, // 每页显示的条数
-                        limits: [5, 10, 15, 20, 25, 50, 100],
-                        layout: ['prev', 'page', 'next', 'skip', 'count', 'limit', 'refresh'],
-                        jump: function (obj, first) {
-                            //首次不执行
-                            if (!first) {
-                                //得到当前页，以便向服务端请求对应页的数据。
-                                curnum = obj.curr;
-                                //得到每页显示的条数
-                                limitCount = obj.limit;
-                                showUnpaidTable(curnum, limitCount);
-                            }
-                        }
-                    });
-                }
-            });
-        }
-
-        showUnpaidTable(curnum, limitCount);
-
-
-        // 监听搜索操作
-        form.on('submit(data-search-btn)', function (data) {
-            var result = JSON.stringify(data.field);
-            layer.alert(result, {
-                title: '最终的搜索信息'
-            });
-
-            //执行搜索重载
-            table.reload('currentTableId', {
-                page: {
-                    curr: 1
-                }
-                , where: {
-                    searchParams: result
-                }
-            }, 'data');
-
-            return false;
-        });
-
-        /**
-         * toolbar监听事件
-         */
-        table.on('toolbar(currentTableFilter)', function (obj) {
-            if (obj.event === 'add') {  // 监听添加操作
-                var index = layer.open({
-                    title: '添加用户',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin: true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '../page/table/add.html',
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-            } else if (obj.event === 'delete') {  // 监听删除操作
-                var checkStatus = table.checkStatus('currentTableId')
-                    , data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
+    function showSubmittedTable(start, limit) {
+      // 加载已交人员名单
+      table.render({
+        elem: '#currentTableId2',
+        url: '/admin/findSubmitted/' + curnum + '/' + limitCount,
+        toolbar: '#toolbarDemo',
+        defaultToolbar: ['filter', 'exports', 'print', {
+          title: '提示',
+          layEvent: 'LAYTABLE_TIPS',
+          icon: 'layui-icon-tips'
+        }],
+        cols: [
+          [
+            {field: 'stu_id', width: '30%', title: '学号', sort: true},
+            {field: 'stu_name', width: '30%', title: '姓名'},
+            {
+              field: 'upload_time',
+              width: '40%',
+              title: '上传时间'//,templet: '<div>{{ layui.util.toDateString(d.upload_time, "yyyy-MM-dd HH:mm:ss") }}</div>'
+            },
+          ]
+        ],
+        skin: 'line',
+        text: {
+          none: '暂无上交人员' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
+        },
+        height: 470,
+        done: function (res, curr, count) {  //如果是异步请求数据方式，res即为你接口返回的信息。
+          laypage.render({
+            elem: 'layPage2',
+            count: count,
+            curr: curnum, // 起始页
+            limit: limitCount, // 每页显示的条数
+            limits: [5, 10, 15, 20, 25, 50, 100],
+            layout: ['prev', 'page', 'next', 'skip', 'count', 'limit', 'refresh'],
+            jump: function (obj, first) {
+              //首次不执行
+              if (!first) {
+                //得到当前页，以便向服务端请求对应页的数据。
+                curnum = obj.curr;
+                //得到每页显示的条数
+                limitCount = obj.limit;
+                showSubmittedTable(curnum, limitCount);
+              }
             }
-        });
+          });
+        }
+      });
+    }
 
-        //监听表格复选框选择
-        table.on('checkbox(currentTableFilter)', function (obj) {
-            console.log(obj)
-        });
+    showSubmittedTable(curnum, limitCount);
 
-        table.on('tool(currentTableFilter)', function (obj) {
-            var data = obj.data;
-            if (obj.event === 'edit') {
-
-                var index = layer.open({
-                    title: '编辑用户',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin: true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '../page/table/edit.html',
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-                return false;
-            } else if (obj.event === 'delete') {
-                layer.confirm('真的删除行么', function (index) {
-                    obj.del();
-                    layer.close(index);
-                });
+    function showUnpaidTable(start, limit) {
+      // 加载未交人员名单
+      table.render({
+        elem: '#currentTableId',
+        url: '/admin/findUnpaid/' + curnum + '/' + limitCount,
+        toolbar: '#toolbarDemo',
+        defaultToolbar: ['filter', 'exports', 'print', {
+          title: '提示',
+          layEvent: 'LAYTABLE_TIPS',
+          icon: 'layui-icon-tips'
+        }],
+        cols: [
+          [
+            {field: 'stuId', width: 200, title: '学号', sort: true},
+            {field: 'stuName', width: 90, title: '姓名'},
+            {title: '操作', minWidth: 50, toolbar: '#currentTableBar', align: "right"}
+          ]
+        ],
+        skin: 'line',
+        text: {
+          none: '全员已上交' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
+        },
+        height: 470,
+        done: function (res, curr, count) {  //如果是异步请求数据方式，res即为你接口返回的信息。
+          laypage.render({
+            elem: 'layPage',
+            count: count,
+            curr: curnum, // 起始页
+            limit: limitCount, // 每页显示的条数
+            limits: [5, 10, 15, 20, 25, 50, 100],
+            layout: ['prev', 'page', 'next', 'skip', 'count', 'limit', 'refresh'],
+            jump: function (obj, first) {
+              //首次不执行
+              if (!first) {
+                //得到当前页，以便向服务端请求对应页的数据。
+                curnum = obj.curr;
+                //得到每页显示的条数
+                limitCount = obj.limit;
+                showUnpaidTable(curnum, limitCount);
+              }
             }
-        });
+          });
+        }
+      });
+    }
 
+    showUnpaidTable(curnum, limitCount);
+
+
+    // 监听搜索操作
+    form.on('submit(data-search-btn)', function (data) {
+      var result = JSON.stringify(data.field);
+      layer.alert(result, {
+        title: '最终的搜索信息'
+      });
+
+      //执行搜索重载
+      table.reload('currentTableId', {
+        page: {
+          curr: 1
+        }
+        , where: {
+          searchParams: result
+        }
+      }, 'data');
+
+      return false;
     });
+
+    /**
+     * toolbar监听事件
+     */
+    table.on('toolbar(currentTableFilter)', function (obj) {
+      if (obj.event === 'add') {  // 监听添加操作
+        var index = layer.open({
+          title: '添加用户',
+          type: 2,
+          shade: 0.2,
+          maxmin: true,
+          shadeClose: true,
+          area: ['100%', '100%'],
+          content: '../page/table/add.html',
+        });
+        $(window).on("resize", function () {
+          layer.full(index);
+        });
+      } else if (obj.event === 'delete') {  // 监听删除操作
+        var checkStatus = table.checkStatus('currentTableId')
+          , data = checkStatus.data;
+        layer.alert(JSON.stringify(data));
+      }
+    });
+
+    //监听表格复选框选择
+    table.on('checkbox(currentTableFilter)', function (obj) {
+      console.log(obj)
+    });
+
+    table.on('tool(currentTableFilter)', function (obj) {
+      var data = obj.data;
+      if (obj.event === 'edit') {
+
+        var index = layer.open({
+          title: '编辑用户',
+          type: 2,
+          shade: 0.2,
+          maxmin: true,
+          shadeClose: true,
+          area: ['100%', '100%'],
+          content: '../page/table/edit.html',
+        });
+        $(window).on("resize", function () {
+          layer.full(index);
+        });
+        return false;
+      } else if (obj.event === 'delete') {
+        layer.confirm('真的删除行么', function (index) {
+          obj.del();
+          layer.close(index);
+        });
+      }
+    });
+
+  });
 </script>
 
 </body>

@@ -124,7 +124,7 @@ public class ImageServiceImpl implements ImageService {
         // 指定压缩文件名
         String zipName = clazzName + ".zip";
 
-        //实现文件下载 设置响应头,zipName设置要下载的zip的名称
+        // 实现文件下载 设置响应头,zipName设置要下载的zip的名称
         resp.setContentType("application/force-download");
         try {
             // 防止文件名中文乱码

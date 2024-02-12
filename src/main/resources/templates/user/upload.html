@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>截图上交</title>
-    <meta charset="UTF-8">
-    <!--
-        在网页的<head>中增加以上这句话，可以让网页的宽度自动适应手机屏幕的宽度。其中：
-        width=device-width ：表示宽度是设备屏幕的宽度
-        initial-scale=1.0：表示初始的缩放比例
-        minimum-scale=0.5：表示最小的缩放比例
-        maximum-scale=2.0：表示最大的缩放比例
-        user-scalable=yes：表示用户是否可以调整缩放比例
-    -->
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no"/>
-    <!--iphone-->
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-    <meta name="format-detection" content="telephone=no">
+  <title>截图上交</title>
+  <meta charset="UTF-8">
+  <!--
+      在网页的<head>中增加以上这句话，可以让网页的宽度自动适应手机屏幕的宽度。其中：
+      width=device-width ：表示宽度是设备屏幕的宽度
+      initial-scale=1.0：表示初始的缩放比例
+      minimum-scale=0.5：表示最小的缩放比例
+      maximum-scale=2.0：表示最大的缩放比例
+      user-scalable=yes：表示用户是否可以调整缩放比例
+  -->
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no"/>
+  <!--iphone-->
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="format-detection" content="telephone=no">
 
-    <meta name="description" content="青年大学习截图上交系统"/>
-    <meta name="keywords" content="青年大学习"/>
-    <meta name="author" content="pc"/>
-    <meta name="robots" content="index,follow"/>
-    <link rel="stylesheet" href="/lib/layui-v2.5.6/css/layui.css">
+  <meta name="description" content="青年大学习截图上交系统"/>
+  <meta name="keywords" content="青年大学习"/>
+  <meta name="author" content="pc"/>
+  <meta name="robots" content="index,follow"/>
+  <link rel="stylesheet" href="/lib/layui-v2.5.6/css/layui.css">
 
-    <style type="text/css">
-        .center {
-            text-align: center;
-        }
+  <style type="text/css">
+    .center {
+      text-align: center;
+    }
 
-        .blue {
-            color: #01AAED;
-        }
-    </style>
+    .blue {
+      color: #01AAED;
+    }
+  </style>
 </head>
 <body>
 <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
@@ -44,76 +44,77 @@
 <div class="layui-container layui-hide">
 
 
-    <div class="layui-col-xs12 center">
+  <div class="layui-col-xs12 center">
 
-    </div>
+  </div>
 
-    <!--显示季数期数-->
-    <div class="layui-row">
-        <div class="layui-col-xs12 center" style="margin-top: 50px;">
-            <div>
+  <!--显示季数期数-->
+  <div class="layui-row">
+    <div class="layui-col-xs12 center" style="margin-top: 50px;">
+      <div>
                 <span id="issue"
                       style="font-size: 25px;font-family: 华文彩云;color: #01AAED;letter-spacing: 0px;"></span>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 
-    <!--按钮-->
-    <div class="layui-row">
-        <div class="layui-col-xs12 center" style="margin-top: 30px;">
-            <input type="button" id="btnLogout" value="切换用户" class="layui-btn layui-btn-normal layui-btn-xs">
-            <input type="button" value="返回首页" class="layui-btn layui-btn-xs" style="margin-left: 130px;"
-                   onclick="window.location='/index'">
-        </div>
+  <!--按钮-->
+  <div class="layui-row">
+    <div class="layui-col-xs12 center" style="margin-top: 30px;">
+      <input type="button" id="btnLogout" value="切换用户" class="layui-btn layui-btn-normal layui-btn-xs">
+      <input type="button" value="返回首页" class="layui-btn layui-btn-xs" style="margin-left: 130px;"
+             onclick="window.location='/index'">
     </div>
+  </div>
 
-    <!--学号姓名-->
-    <div class="layui-row">
-        <div class="layui-col-xs12 center" style="margin-top: 10px;">
+  <!--学号姓名-->
+  <div class="layui-row">
+    <div class="layui-col-xs12 center" style="margin-top: 10px;">
 
-            <i class="layui-icon layui-icon-key layui-anim layui-anim-scale"></i>
-            学号：<span id="stuId" style="color: #FF5722;font-weight: bolder;"
-                     th:text="${session.student.getStuId()}"></span>
+      <i class="layui-icon layui-icon-key layui-anim layui-anim-scale"></i>
+      学号：<span id="stuId" style="color: #FF5722;font-weight: bolder;"
+                 th:text="${session.student.getStuId()}"></span>
 
-            <i class="layui-icon layui-icon-username layui-anim layui-anim-scale"></i>
-            姓名：<span id="stuName" style="color: #FF5722;font-weight: bolder;"
-                     th:text="${session.student.getStuName()}"></span>
-        </div>
+      <i class="layui-icon layui-icon-username layui-anim layui-anim-scale"></i>
+      姓名：<span id="stuName" style="color: #FF5722;font-weight: bolder;"
+                 th:text="${session.student.getStuName()}"></span>
     </div>
+  </div>
 
-    <!--上传界面-->
-    <div class="layui-row">
-        <div class="layui-col-xs12 center layui-anim layui-anim-fadein" style="margin-top: 10px;">
-            <div class="layui-upload-drag" id="upload" style="background: #F2F2F2;width: 210px;">
-                <i class="layui-icon"></i>
-                <p>点击上传，或将文件拖拽到此处</p>
-                <div class="layui-hide" id="uploadDemoView">
-                    <hr>
-                    <div id="uploadInfo" style="color:#67C23A;font-weight: bold;"></div>
-                    <img src="" alt="图片渲染失败" id="img" style="max-width: 210px;">
-                </div>
-            </div>
+  <!--上传界面-->
+  <div class="layui-row">
+    <div class="layui-col-xs12 center layui-anim layui-anim-fadein" style="margin-top: 10px;">
+      <div class="layui-upload-drag" id="upload" style="background: #F2F2F2;width: 210px;">
+        <i class="layui-icon"></i>
+        <p>点击上传，或将文件拖拽到此处</p>
+        <div class="layui-hide" id="uploadDemoView">
+          <hr>
+          <div id="uploadInfo" style="color:#67C23A;font-weight: bold;"></div>
+          <img src="" alt="图片渲染失败" id="img" style="max-width: 210px;">
         </div>
+      </div>
     </div>
+  </div>
 
-    <div class="layui-row">
-        <div class="layui-col-xs-offset2 layui-col-xs6 layui-col-md-offset4 layui-col-md4 layui-col-sm-offset3 layui-col-sm6"
-             style="margin-top:50px;color: #6C757D;">
-            <div style="font-size: 16px;">
-                <a href="/index" class="blue">HOME</a>&nbsp;/&nbsp;<span id="location" style="color: #ee6153"></span>&nbsp;|&nbsp;
-                <a id="manager" href="javascript:void(0);" class="blue">管理</a>
-            </div>
+  <div class="layui-row">
+    <div
+      class="layui-col-xs-offset2 layui-col-xs6 layui-col-md-offset4 layui-col-md4 layui-col-sm-offset3 layui-col-sm6"
+      style="margin-top:50px;color: #6C757D;">
+      <div style="font-size: 16px;">
+        <a href="/index" class="blue">HOME</a>&nbsp;/&nbsp;<span id="location" style="color: #ee6153"></span>&nbsp;|&nbsp;
+        <a id="manager" href="javascript:void(0);" class="blue">管理</a>
+      </div>
 
-            <div style="font-size: 12px;">
-                <div th:text="${session.student.getClazzName()}"></div>
-                <span>若使用出现问题或您也希望使用本网站,<br/>
+      <div style="font-size: 12px;">
+        <div th:text="${session.student.getClazzName()}"></div>
+        <span>若使用出现问题或您也希望使用本网站,<br/>
                 请点击<a target="_blank"
-                      href="https://sighttp.qq.com/authd?IDKEY=b9e3f80ea31424e2fe18632e185e0b694e2a88566c299274"
-                      style="color: #01AAED;">
+                         href="https://sighttp.qq.com/authd?IDKEY=b9e3f80ea31424e2fe18632e185e0b694e2a88566c299274"
+                         style="color: #01AAED;">
                 联系我</a><br/>Copyright © 2020-2021 qndxx.pcdd.work</span>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 
 
 </div>
@@ -125,275 +126,275 @@
 <script type="text/javascript" src="/lib/addTextToImg.js"></script>
 <script type="text/javascript" src="/js/cookie.js"></script>
 <script th:inline="javascript">
-    layui.use(['element', 'layer', 'upload', 'form'], function () {
-        let form = layui.form
-            , element = layui.element
-            , layer = layui.layer
-            , upload = layui.upload;
+  layui.use(['element', 'layer', 'upload', 'form'], function () {
+    let form = layui.form
+      , element = layui.element
+      , layer = layui.layer
+      , upload = layui.upload;
 
-        let lastPath, par, clazzName, index;
-        let stuId = $("#stuId").text();
-        let stuName = $("#stuName").text();
-        let role = [[${session.student.getRole()}]];
-
-
-        $(function () {
-            // 显示加载效果
-            index = layer.msg('加载中...', {
-                icon: 16
-                , shade: 0.5
-            });
-
-            clazzName = [[${session.student.getClazzName()}]];
-            // 获取clazz表字段
-            $.get('/clazz/' + clazzName, (res) => {
-                $("#issue").text("青年大学习第" + res.data.season + "季第" + res.data.period + "期");
-                if (!res.data.isEnable) {
-                    let className = [[${session.student.getClazzName()}]];
-                    layer.close(index);
-                    layer.open({
-                        content: '<span style="color: orangered">' + className + '</span>截图上交系统暂未开启，如有需要，请联系该班负责人开启！'
-                        , btn: ['确定', '切换用户']
-                        , icon: 7
-                        , closeBtn: 0
-                        , move: false
-                        , yes: function (index) {
-                            window.location = "/index";
-                        }
-                        , btn2: function (index, layero) {
-                            //按钮【切换用户】的回调
-                            logout();
-                            //return false 开启该代码可禁止点击该按钮关闭
-                        }
-                    });
-                    return;
-                }
-
-                lastPath = window.location.href.substring(window.location.href.lastIndexOf('/') + 1)
-                // 传给上传请求的参数，判断打开的是的朋友圈截图上传页面，还是首页截图上传页面
-                par = (lastPath === "moments" ? "upload1" : "upload2");
-                console.log("lastPath:" + lastPath)
-                console.log("par:" + par)
-                let location = par === 'upload1' ? '朋友圈截图上交' : '首页截图上交';
-                let locationImgUrl;
-                $('#location').text(location);
-
-                // 判断用户是否已交朋友圈/首页截图，若已交，则显示对应的截图
-                $.get('/image/isUploaded/' + stuId, (res) => {
-                    console.log(res);
-                    // 有上交记录
-                    if (res.data.length !== 0) {
-                        let data = [];
-                        for (let i = 0; i < res.data.length; i++) {
-                            let imgKey = res.data[i].imgKey;
-                            let temp = imgKey.substring(0, imgKey.lastIndexOf('/'))
-                            let pageName = temp.substring(temp.lastIndexOf('/') + 1)
-                            console.log(pageName)
-                            let obj = {}
-                            obj[pageName] = res.data[i].uploadTime;
-                            data[i] = obj;
-                        }
-                        console.log(data)
-
-                        let uploadTime;
-                        for (let i = 0; i < data.length; i++) {
-                            let key = Object.keys(data[i]).toString();
-                            console.log(key)
-                            if (key === '朋友圈截图' && par === 'upload1') {
-                                uploadTime = data[i][key];
-                            }
-                            if (key === '首页截图' && par === 'upload2') {
-                                uploadTime = data[i][key];
-                            }
-                        }
-                        console.log(uploadTime)
-
-                        for (let i = 0; i < data.length; i++) {
-                            let temp = res.data[i].imgKey;
-                            // eg：朋友圈截图上交=>朋友圈截图
-                            let name = location.substring(0, location.length - 2);
-                            if (temp.indexOf(name) !== -1) {
-                                locationImgUrl = temp;
-                                break;
-                            }
-                        }
-                        console.log("locationImgUrl:" + locationImgUrl)
-
-                        if (uploadTime != null) {
-                            $.post("/image/base64", {path: locationImgUrl}, function (res) {
-                                //console.log(res.data);
-                                $('#uploadDemoView')
-                                    .removeClass('layui-hide')
-                                    .find('img')
-                                    .attr('src', res.data);
-
-                                $('#uploadInfo').html('<span style="color: #F56C6C;">'
-                                    + (lastPath === "moments" ? '朋友圈' : '首页')
-                                    + '截图</span>已上传  ，上传时间：' + uploadTime);
-                            });
-                        }
-
-                    }
-                });
-
-                layer.close(index);
-                $(".layui-container").removeClass("layui-hide");
-            });
-        });
+    let lastPath, par, clazzName, index;
+    let stuId = $("#stuId").text();
+    let stuName = $("#stuName").text();
+    let role = [[${session.student.getRole()}]];
 
 
-        let start;
-        // 图片上传
-        upload.render({
-            elem: '#upload'
-            , url: '/image/empty'
-            , accept: 'images' // 指定允许上传时校验的文件类型，可选值有：images（图片）、file（所有文件）、video（视频）、audio（音频）
-            , size: 5120 // 5M。不支持ie8/9
-            , multiple: false // 是否允许多文件上传 不支持ie8/9
-            , number: 1 // 设置同时可上传的文件数量，一般配合 multiple 参数出现。
-            , choose: function () {
-                // 等待效果
-                index = layer.msg('开始处理图片', {
-                    icon: 16
-                    , time: 15000
-                    , shade: 0.3
-                    , success: () => {
-                        start = new Date().getTime();
-                    },
-                    end: () => {
-                        if (new Date().getTime() - start > 14500) {
-                            layer.open({
-                                content: '上传时间超时，请检查图片是否损坏(上传时间主要取决于您网络环境和浏览器的性能)',
-                                icon: 7
-                            });
-                        }
-                    }
-                });
+    $(function () {
+      // 显示加载效果
+      index = layer.msg('加载中...', {
+        icon: 16
+        , shade: 0.5
+      });
+
+      clazzName = [[${session.student.getClazzName()}]];
+      // 获取clazz表字段
+      $.get('/clazz/' + clazzName, (res) => {
+        $("#issue").text("青年大学习第" + res.data.season + "季第" + res.data.period + "期");
+        if (!res.data.isEnable) {
+          let className = [[${session.student.getClazzName()}]];
+          layer.close(index);
+          layer.open({
+            content: '<span style="color: orangered">' + className + '</span>截图上交系统暂未开启，如有需要，请联系该班负责人开启！'
+            , btn: ['确定', '切换用户']
+            , icon: 7
+            , closeBtn: 0
+            , move: false
+            , yes: function (index) {
+              window.location = "/index";
             }
-            , before: function (obj) {
-                //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
-                obj.preview(function (index, file, result) {// index得到文件索引 file得到文件对象 result 得到文件base64编码，比如图片
-                    let size1 = (file.size / 1024).toFixed(2);
-                    console.log("压缩前的大小:" + size1 + "kb")
-
-                    let layerMsg = $(".layui-layer-content,.layui-layer-padding");
-                    let anim = "<i class='layui-layer-ico layui-layer-ico16'></i>";
-                    layerMsg.html(anim + '生成文字中...');
-
-                    console.log('file', file)
-                    /* 图片加文字 */
-                    addTextToImg(result
-                        , stuId + "_" + stuName
-                        , "80px 微软雅黑"
-                        , "red").then(res => {
-                        //.then是接收正确返回的信息
-                        // res：加了文字后图片的base64
-                        // 将base64转换为file类型 并指定文件名
-                        file = dataURLtoFile(res, stuId + "_" + stuName + ".jpg")
-                        console.log('blob', file)
-                        layerMsg.html(anim + '压缩图片中...');
-                        /* 图片压缩 注意，这里的file就是this.files[0]，这个最关键 */
-                        lrz(file, {
-                            fieldName: 'file',
-                            width: null,
-                            height: null,
-                            // 压缩率
-                            quality: 0.7
-                        }).then(function (rst) {
-                            /* 处理成功后执行 */
-                            //res.formData.append('file', rst.base64); // 添加额外参数
-                            let size2 = (rst.fileLen / 1024).toFixed(2);
-                            console.log("压缩后的大小:" + size2 + "kb")
-                            console.log("体积减少：" + ((1 - size2 / size1) * 100).toFixed(2) + "%")
-                            layerMsg.html(anim + '图片上传中');
-
-                            $.ajax({
-                                url: '/image/upload/' + stuId + '/' + stuName + '/' + par + '/' + clazzName
-                                , type: 'post'
-                                , data: rst.formData
-                                , processData: false
-                                , contentType: false
-                                , success: function (res) {
-                                    console.log(res)
-                                    layer.msg('上传成功，耗时:' + (new Date().getTime() - start) / 1000 + "s", {
-                                        icon: 1,
-                                        offset: 't'
-                                    });
-                                    //渲染处理后的图片
-                                    $('#uploadDemoView').removeClass('layui-hide').find('img').attr('src', rst.base64);
-                                    $('#uploadInfo').html('<span style="color: #f56c6c;">'
-                                        + (lastPath == "momentsScreenshot" ? '朋友圈' : '首页')
-                                        + '截图</span>已上传  ，上传时间：' + new Date().toLocaleString());
-                                    layer.close(index);
-                                }
-                                , error: function (res) {
-                                    console.log(res)
-                                    var msg = '接口异常！请联系管理员'
-                                    if (res.status === 503) {
-                                        msg = '操作过于频繁，请刷新页面后再试'
-                                    }
-                                    layer.msg(msg, {icon: 2});
-                                    layer.close(index);
-                                }
-                            });
-                        }).catch(function (err) {
-                            /* 处理失败后执行 */
-                        }).always(function () {
-                            /* 必然执行 */
-                        });
-                    });
-
-                });
+            , btn2: function (index, layero) {
+              //按钮【切换用户】的回调
+              logout();
+              //return false 开启该代码可禁止点击该按钮关闭
             }
-            , done: function (res) {
-                console.log(res)
-            },
-            error: function () {
-
-            }
-        });
-
-
-        // 切换用户
-        $("#btnLogout").on('click', () => {
-            logout();
-        });
-
-        function logout() {
-            $.get('/student/logout', (result) => {
-                console.log(result)
-                if (result.code === 200) {
-                    window.location.href = "/index";
-                }
-            });
+          });
+          return;
         }
 
-        //管理入口
-        $("#manager").on("click", function () {
-            if (role === "admin" || role === "sa") {
-                window.location.href = "/console/login-1";
-                return;
+        lastPath = window.location.href.substring(window.location.href.lastIndexOf('/') + 1)
+        // 传给上传请求的参数，判断打开的是的朋友圈截图上传页面，还是首页截图上传页面
+        par = (lastPath === "moments" ? "upload1" : "upload2");
+        console.log("lastPath:" + lastPath)
+        console.log("par:" + par)
+        let location = par === 'upload1' ? '朋友圈截图上交' : '首页截图上交';
+        let locationImgUrl;
+        $('#location').text(location);
+
+        // 判断用户是否已交朋友圈/首页截图，若已交，则显示对应的截图
+        $.get('/image/isUploaded/' + stuId, (res) => {
+          console.log(res);
+          // 有上交记录
+          if (res.data.length !== 0) {
+            let data = [];
+            for (let i = 0; i < res.data.length; i++) {
+              let imgKey = res.data[i].imgKey;
+              let temp = imgKey.substring(0, imgKey.lastIndexOf('/'))
+              let pageName = temp.substring(temp.lastIndexOf('/') + 1)
+              console.log(pageName)
+              let obj = {}
+              obj[pageName] = res.data[i].uploadTime;
+              data[i] = obj;
+            }
+            console.log(data)
+
+            let uploadTime;
+            for (let i = 0; i < data.length; i++) {
+              let key = Object.keys(data[i]).toString();
+              console.log(key)
+              if (key === '朋友圈截图' && par === 'upload1') {
+                uploadTime = data[i][key];
+              }
+              if (key === '首页截图' && par === 'upload2') {
+                uploadTime = data[i][key];
+              }
+            }
+            console.log(uploadTime)
+
+            for (let i = 0; i < data.length; i++) {
+              let temp = res.data[i].imgKey;
+              // eg：朋友圈截图上交=>朋友圈截图
+              let name = location.substring(0, location.length - 2);
+              if (temp.indexOf(name) !== -1) {
+                locationImgUrl = temp;
+                break;
+              }
+            }
+            console.log("locationImgUrl:" + locationImgUrl)
+
+            if (uploadTime != null) {
+              $.post("/image/base64", {path: locationImgUrl}, function (res) {
+                //console.log(res.data);
+                $('#uploadDemoView')
+                  .removeClass('layui-hide')
+                  .find('img')
+                  .attr('src', res.data);
+
+                $('#uploadInfo').html('<span style="color: #F56C6C;">'
+                  + (lastPath === "moments" ? '朋友圈' : '首页')
+                  + '截图</span>已上传  ，上传时间：' + uploadTime);
+              });
             }
 
-            layer.prompt({
-                formType: 1,
-                value: '',
-                title: '口令',
-                area: ['800px', '350px'], //自定义文本域宽高
-                shadeClose: true
-            }, function (value, index, elem) {
-                let pwd = value.trim();
-                if (pwd === "8848") {
-                    window.location.href = "/console/login-1";
-                } else {
-                    layer.msg('口令错误', {anim: '6', icon: 2, offset: 't'});
-                }
-                layer.close(index);
-            });
+          }
         });
 
-
+        layer.close(index);
+        $(".layui-container").removeClass("layui-hide");
+      });
     });
+
+
+    let start;
+    // 图片上传
+    upload.render({
+      elem: '#upload'
+      , url: '/image/empty'
+      , accept: 'images' // 指定允许上传时校验的文件类型，可选值有：images（图片）、file（所有文件）、video（视频）、audio（音频）
+      , size: 5120 // 5M。不支持ie8/9
+      , multiple: false // 是否允许多文件上传 不支持ie8/9
+      , number: 1 // 设置同时可上传的文件数量，一般配合 multiple 参数出现。
+      , choose: function () {
+        // 等待效果
+        index = layer.msg('开始处理图片', {
+          icon: 16
+          , time: 15000
+          , shade: 0.3
+          , success: () => {
+            start = new Date().getTime();
+          },
+          end: () => {
+            if (new Date().getTime() - start > 14500) {
+              layer.open({
+                content: '上传时间超时，请检查图片是否损坏(上传时间主要取决于您网络环境和浏览器的性能)',
+                icon: 7
+              });
+            }
+          }
+        });
+      }
+      , before: function (obj) {
+        //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+        obj.preview(function (index, file, result) {// index得到文件索引 file得到文件对象 result 得到文件base64编码，比如图片
+          let size1 = (file.size / 1024).toFixed(2);
+          console.log("压缩前的大小:" + size1 + "kb")
+
+          let layerMsg = $(".layui-layer-content,.layui-layer-padding");
+          let anim = "<i class='layui-layer-ico layui-layer-ico16'></i>";
+          layerMsg.html(anim + '生成文字中...');
+
+          console.log('file', file)
+          /* 图片加文字 */
+          addTextToImg(result
+            , stuId + "_" + stuName
+            , "80px 微软雅黑"
+            , "red").then(res => {
+            //.then是接收正确返回的信息
+            // res：加了文字后图片的base64
+            // 将base64转换为file类型 并指定文件名
+            file = dataURLtoFile(res, stuId + "_" + stuName + ".jpg")
+            console.log('blob', file)
+            layerMsg.html(anim + '压缩图片中...');
+            /* 图片压缩 注意，这里的file就是this.files[0]，这个最关键 */
+            lrz(file, {
+              fieldName: 'file',
+              width: null,
+              height: null,
+              // 压缩率
+              quality: 0.7
+            }).then(function (rst) {
+              /* 处理成功后执行 */
+              //res.formData.append('file', rst.base64); // 添加额外参数
+              let size2 = (rst.fileLen / 1024).toFixed(2);
+              console.log("压缩后的大小:" + size2 + "kb")
+              console.log("体积减少：" + ((1 - size2 / size1) * 100).toFixed(2) + "%")
+              layerMsg.html(anim + '图片上传中');
+
+              $.ajax({
+                url: '/image/upload/' + stuId + '/' + stuName + '/' + par + '/' + clazzName
+                , type: 'post'
+                , data: rst.formData
+                , processData: false
+                , contentType: false
+                , success: function (res) {
+                  console.log(res)
+                  layer.msg('上传成功，耗时:' + (new Date().getTime() - start) / 1000 + "s", {
+                    icon: 1,
+                    offset: 't'
+                  });
+                  //渲染处理后的图片
+                  $('#uploadDemoView').removeClass('layui-hide').find('img').attr('src', rst.base64);
+                  $('#uploadInfo').html('<span style="color: #f56c6c;">'
+                    + (lastPath == "momentsScreenshot" ? '朋友圈' : '首页')
+                    + '截图</span>已上传  ，上传时间：' + new Date().toLocaleString());
+                  layer.close(index);
+                }
+                , error: function (res) {
+                  console.log(res)
+                  var msg = '接口异常！请联系管理员'
+                  if (res.status === 503) {
+                    msg = '操作过于频繁，请刷新页面后再试'
+                  }
+                  layer.msg(msg, {icon: 2});
+                  layer.close(index);
+                }
+              });
+            }).catch(function (err) {
+              /* 处理失败后执行 */
+            }).always(function () {
+              /* 必然执行 */
+            });
+          });
+
+        });
+      }
+      , done: function (res) {
+        console.log(res)
+      },
+      error: function () {
+
+      }
+    });
+
+
+    // 切换用户
+    $("#btnLogout").on('click', () => {
+      logout();
+    });
+
+    function logout() {
+      $.get('/student/logout', (result) => {
+        console.log(result)
+        if (result.code === 200) {
+          window.location.href = "/index";
+        }
+      });
+    }
+
+    //管理入口
+    $("#manager").on("click", function () {
+      if (role === "admin" || role === "sa") {
+        window.location.href = "/console/login-1";
+        return;
+      }
+
+      layer.prompt({
+        formType: 1,
+        value: '',
+        title: '口令',
+        area: ['800px', '350px'], //自定义文本域宽高
+        shadeClose: true
+      }, function (value, index, elem) {
+        let pwd = value.trim();
+        if (pwd === "8848") {
+          window.location.href = "/console/login-1";
+        } else {
+          layer.msg('口令错误', {anim: '6', icon: 2, offset: 't'});
+        }
+        layer.close(index);
+      });
+    });
+
+
+  });
 </script>
 </body>
 </html>
