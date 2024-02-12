@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import work.pcdd.qndxx.common.vo.Result;
 
 /**
- * @author 1907263405@qq.com
- * @date 2021/7/13 18:22
+ * @author pcdd
+ * created by 2021/7/13 18:22
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {

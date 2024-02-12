@@ -8,11 +8,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author AD
+ * @author pcdd
  */
 @Data
 @ApiModel(description = "上传记录表")
 public class Upload implements Serializable {
+
     @ApiModelProperty("学号")
     private String stuId;
 
@@ -21,4 +22,5 @@ public class Upload implements Serializable {
 
     @ApiModelProperty("上传时间")
     private Date uploadTime;
+
 }

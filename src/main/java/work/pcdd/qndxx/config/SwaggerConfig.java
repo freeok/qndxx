@@ -10,12 +10,12 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 /**
- * @author PC
- * @version 1.0
- * @date 2021/9/19 16:55
+ * @author pcdd
+ * created by 2021/9/19 16:55
  */
 @Configuration
 public class SwaggerConfig {
+
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.OAS_30)
@@ -33,4 +33,5 @@ public class SwaggerConfig {
                 .description("青年大学习截图上交系统")
                 .build();
     }
+
 }

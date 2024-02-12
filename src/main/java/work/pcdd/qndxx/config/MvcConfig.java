@@ -10,10 +10,11 @@ import work.pcdd.qndxx.common.interceptor.StaticResourcesInterceptor;
 import work.pcdd.qndxx.common.interceptor.UserInterceptor;
 
 /**
- * @author AD
+ * @author pcdd
  */
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
+
     /**
      * 设置html访问路径
      * addViewController设置映射路径（任意）
@@ -67,7 +68,6 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/form").setViewName("page/form");
         // 分布表单
         registry.addViewController("/form-step").setViewName("page/form-step");*/
-
     }
 
     /**
@@ -161,4 +161,5 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**");
     }*/
+
 }

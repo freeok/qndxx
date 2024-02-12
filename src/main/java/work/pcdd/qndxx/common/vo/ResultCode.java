@@ -1,7 +1,7 @@
 package work.pcdd.qndxx.common.vo;
 
 /**
- * @author AD
+ * @author pcdd
  */
 public enum ResultCode {
     /* 成功状态码 */

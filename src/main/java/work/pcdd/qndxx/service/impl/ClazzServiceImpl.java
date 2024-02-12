@@ -10,10 +10,11 @@ import work.pcdd.qndxx.service.ClazzService;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author AD
+ * @author pcdd
  */
 @Service
 public class ClazzServiceImpl implements ClazzService {
+
     @Autowired
     private ClazzMapper clazzMapper;
 
@@ -33,4 +34,5 @@ public class ClazzServiceImpl implements ClazzService {
     public Result updateIsEnable(Clazz clazz, HttpSession session) {
         return Result.success(clazzMapper.updateIsEnable(clazz));
     }
+
 }

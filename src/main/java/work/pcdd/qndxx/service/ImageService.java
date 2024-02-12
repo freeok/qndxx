@@ -7,9 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author AD
+ * @author pcdd
  */
 public interface ImageService {
+
     /**
      * 上传图片
      *

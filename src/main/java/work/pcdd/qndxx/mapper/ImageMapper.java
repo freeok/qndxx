@@ -7,10 +7,11 @@ import work.pcdd.qndxx.entity.Upload;
 import java.util.List;
 
 /**
- * @author AD
+ * @author pcdd
  */
 @Repository
 public interface ImageMapper {
+
     /**
      * 增加一条图片上传记录
      *
@@ -36,4 +37,5 @@ public interface ImageMapper {
     int deleteUpload(String clazzName);
 
     List<Upload> isUploaded(String stuId);
+
 }

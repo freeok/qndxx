@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/clazz")
 public class ClazzController {
+
     @Autowired
     private ClazzService clazzService;
 
@@ -25,9 +26,7 @@ public class ClazzController {
 
     @ApiOperation("根据班级修改季数和期数")
     @PutMapping("/issue/{season}/{period}/{clazzName}")
-    public Result updateIssue(@PathVariable String season
-            , @PathVariable String period
-            , @PathVariable String clazzName) {
+    public Result updateIssue(@PathVariable String season, @PathVariable String period, @PathVariable String clazzName) {
         Clazz clazz = new Clazz();
         clazz.setSeason(season);
         clazz.setPeriod(period);
@@ -43,4 +42,5 @@ public class ClazzController {
         clazz.setClazzName(clazzName);
         return clazzService.updateIsEnable(clazz, session);
     }
+
 }

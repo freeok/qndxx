@@ -13,12 +13,13 @@ import work.pcdd.qndxx.service.ImageService;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author AD
+ * @author pcdd
  */
 @Api(tags = "管理员相关API")
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+
     @Autowired
     private AdminService adminService;
     @Autowired

@@ -13,20 +13,20 @@ import javax.servlet.http.HttpSession;
 
 
 /**
- * @author AD
- * @date 2021/1/6
+ * @author pcdd
+ * created by 2021/1/6
  */
 @Api(tags = "学生相关API")
 @RestController
 @RequestMapping("/student")
 public class StudentController {
+    
     @Autowired
     private StudentService studentService;
 
     @ApiOperation("用户无密码登录")
     @PostMapping("/login/{stuId}")
-    public Result login(@PathVariable String stuId
-            , HttpSession session) {
+    public Result login(@PathVariable String stuId, HttpSession session) {
         return studentService.unSafeLogin(stuId, session);
     }
 
@@ -87,4 +87,5 @@ public class StudentController {
         System.out.println(student);
         return studentService.updStudentById(student);
     }
+    
 }

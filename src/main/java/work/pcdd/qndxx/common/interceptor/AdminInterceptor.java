@@ -12,18 +12,16 @@ import java.util.Objects;
 /**
  * 普通管理员拦截器
  *
- * @author AD
+ * @author pcdd
  */
 public class AdminInterceptor implements HandlerInterceptor {
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
         Student student = (Student) session.getAttribute("admin");
         boolean flag = student != null && (Objects.equals(student.getRole(), "admin") || Objects.equals(student.getRole(), "sa"));
         System.out.println("普通管理员拦截器执行，是否放行？" + flag);
-        /*if (!flag) {
-            response.sendRedirect("/");
-        }*/
         return flag;
     }
 

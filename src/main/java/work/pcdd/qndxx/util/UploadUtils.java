@@ -3,8 +3,8 @@ package work.pcdd.qndxx.util;
 import java.io.File;
 
 /**
- * @author AD
- * @date 2021/1/7
+ * @author pcdd
+ * created by 2021/1/7
  */
 public class UploadUtils {
 
@@ -75,4 +75,5 @@ public class UploadUtils {
         // 关键：返回文件绝对路径，这里的绝对路径是相当于当前项目的路径而不是"容器"路径
         return file.getAbsolutePath() + File.separator + args[args.length - 1];
     }
+    
 }

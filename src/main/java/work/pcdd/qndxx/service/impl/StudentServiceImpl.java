@@ -13,10 +13,11 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author AD
+ * @author pcdd
  */
 @Service
 public class StudentServiceImpl implements StudentService {
+
     @Autowired
     private StudentMapper studentMapper;
 
@@ -56,4 +57,5 @@ public class StudentServiceImpl implements StudentService {
     public Result updStudentById(Student student) {
         return Result.success(studentMapper.updStudentById(student));
     }
+
 }

@@ -10,12 +10,13 @@ import java.io.Serializable;
 /**
  * 图片表
  *
- * @author AD
+ * @author pcdd
  */
 @Data
 @NoArgsConstructor
 @ApiModel(description = "图片表")
 public class Image implements Serializable {
+
     @ApiModelProperty("图片绝对路径")
     private String imgKey;
 
@@ -24,4 +25,5 @@ public class Image implements Serializable {
 
     @ApiModelProperty("图片扩展名）")
     private String imgExtension;
+
 }

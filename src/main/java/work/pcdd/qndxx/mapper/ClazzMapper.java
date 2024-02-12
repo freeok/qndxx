@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 import work.pcdd.qndxx.entity.Clazz;
 
 /**
- * @author AD
+ * @author pcdd
  */
 @Repository
 public interface ClazzMapper {

@@ -15,12 +15,13 @@ import java.io.File;
 
 
 /**
- * @author AD
+ * @author pcdd
  */
 @Api(tags = "图片相关API")
 @RestController
 @RequestMapping("/image")
 public class ImageController {
+
     @Autowired
     private ImageService imageService;
 
@@ -65,4 +66,5 @@ public class ImageController {
     public String empty() {
         return "空api,防报405，无实际作用";
     }
+
 }

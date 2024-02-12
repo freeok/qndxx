@@ -10,9 +10,10 @@ import javax.servlet.http.HttpSession;
 /**
  * 用户拦截器
  *
- * @author AD
+ * @author pcdd
  */
 public class UserInterceptor implements HandlerInterceptor {
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession(true);
@@ -34,4 +35,5 @@ public class UserInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
     }
+
 }
