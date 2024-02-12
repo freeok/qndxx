@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no"/>
-    <!--iphone-->
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-    <meta name="format-detection" content="telephone=no">
-    <title>login</title>
-    <link rel="stylesheet" href="/lib/layui-v2.5.6/css/layui.css">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no"/>
+  <!--iphone-->
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="format-detection" content="telephone=no">
+  <title>login</title>
+  <link rel="stylesheet" href="/lib/layui-v2.5.6/css/layui.css">
 </head>
 <body>
 <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
@@ -19,31 +19,31 @@
 <![endif]-->
 
 <div style="margin-top: 50px; margin-left: 10px;">
-    <form class="layui-form" method="post" action="">
-        <div class="layui-form-item">
-            <label class="layui-form-label">学&nbsp;号</label>
-            <div class="layui-input-inline" style="width: 200px;">
-                <input type="number" id="txt_id" name="id" placeholder="请输入你的学号"
-                       autocomplete="off"
-                       class="layui-input"
-                       maxlength="12"
-                       oninput="value=value.replace(/[^\d]/g,'')">
-            </div>
+  <form class="layui-form" method="post" action="">
+    <div class="layui-form-item">
+      <label class="layui-form-label">学&nbsp;号</label>
+      <div class="layui-input-inline" style="width: 200px;">
+        <input type="number" id="txt_id" name="id" placeholder="请输入你的学号"
+               autocomplete="off"
+               class="layui-input"
+               maxlength="12"
+               oninput="value=value.replace(/[^\d]/g,'')">
+      </div>
 
-            <label class="layui-form-label">状&nbsp;态</label>
-            <div class="layui-input-inline" style="width: 200px;">
-                <input type="checkbox" id="checkbox" lay-skin="switch" lay-filter="filter" lay-text="记住我|不保存" checked>
-            </div>
-        </div>
+      <label class="layui-form-label">状&nbsp;态</label>
+      <div class="layui-input-inline" style="width: 200px;">
+        <input type="checkbox" id="checkbox" lay-skin="switch" lay-filter="filter" lay-text="记住我|不保存" checked>
+      </div>
+    </div>
 
 
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <input type="button" id="btnLogin" class="layui-btn " value="确定">
-                <input type="reset" id="btnReset" class="layui-btn layui-btn-primary" value="重置">
-            </div>
-        </div>
-    </form>
+    <div class="layui-form-item">
+      <div class="layui-input-block">
+        <input type="button" id="btnLogin" class="layui-btn " value="确定">
+        <input type="reset" id="btnReset" class="layui-btn layui-btn-primary" value="重置">
+      </div>
+    </div>
+  </form>
 </div>
 
 
@@ -52,90 +52,90 @@
 <!--cookie操作-->
 <script type="text/javascript" src="/js/cookie.js"></script>
 <script type="text/javascript">
-    layui.use(['element', 'layer', 'form'], function () {
-        let element = layui.element;
-        let layer = layui.layer;
-        let form = layui.form;
+  layui.use(['element', 'layer', 'form'], function () {
+    let element = layui.element;
+    let layer = layui.layer;
+    let form = layui.form;
 
-        // 获取“是否记住账号”开关的状态，布尔值
-        let isRemember = $("#checkbox").prop('checked');
+    // 获取“是否记住账号”开关的状态，布尔值
+    let isRemember = $("#checkbox").prop('checked');
 
-        $(function () {
-            // 获取名为id的cookie的值，并将此值保存在文本框中
-            $("#txt_id").val(getCookie('id'));
-        });
-
-        // 监听开关
-        form.on('switch(filter)', function (data) {
-            // 获取开关的状态:true or false
-            isRemember = data.elem.checked;
-            /*console.log(data.elem); //得到checkbox原始DOM对象
-            console.log(data.elem.checked); //开关是否开启，true或者false
-            console.log(data.value); //开关value值，也可以通过data.elem.value得到
-            console.log(data.othis); //得到美化后的DOM对象*/
-        });
-
-        /*$(document).keydown(function (event) {
-            if (event.keyCode == 13) { //判断为Enter键
-                console.log("回车事件执行！");
-                login();
-            }
-        });*/
-
-        // 登录
-        $("#btnLogin").click(function () {
-            id = $("#txt_id").val().trim();
-            if (/^\s*$/.test(id)) {
-                layer.msg('学号不能为空！', {icon: 0, time: 1500, anim: 6});
-                $("#txt_id").val("").focus();
-                //很奇怪，写成return;就会乱码
-                return false;
-            }
-
-            // 点击确认按钮后禁用，防多次校验请求
-            $(this).attr('disabled', true).addClass("layui-btn-disabled");
-
-            // 实现登录中等待的效果
-            let index = layer.msg('校验中', {
-                icon: 16,
-                shade: 0.5
-            }); //校验loading
-            $.ajax({
-                url: "/student/login/" + id,
-                type: "post",
-                dataType: "json",
-                success: function (result, status, xhr) {
-                    console.log(result);
-                    // 学号校验成功后，显示上传界面
-                    if (result.code == 200) {
-                        // 若开关状态为true，将正确的id保存进cookie(若重复则覆盖，若不存在则创建)
-                        if (isRemember) {
-                            setCookie('id', id, 365);
-                        } else {
-                            clearCookie('id');
-                        }
-                        // 先得到当前iframe层的索引
-                        let index = parent.layer.getFrameIndex(window.name);
-                        //再执行关闭
-                        parent.layer.close(index);
-                        // 变量传参
-                        parent.location.href = "upload/" + decodeURI(window.location.href.split("?")[1].split("=")[1].trim());
-                    } else {
-                        layer.msg(result.message, {icon: 2, time: 2000, anim: 6});
-                        $("#txt_id").val("").focus();
-                    }
-                },
-                error: function () {
-                    alert("login请求失败！");
-                }
-            });
-            layer.close(index);
-            // 解除登录按钮禁用状态
-            $(this).removeClass("layui-btn-disabled").attr('disabled', false);
-        });
-
-
+    $(function () {
+      // 获取名为id的cookie的值，并将此值保存在文本框中
+      $("#txt_id").val(getCookie('id'));
     });
+
+    // 监听开关
+    form.on('switch(filter)', function (data) {
+      // 获取开关的状态:true or false
+      isRemember = data.elem.checked;
+      /*console.log(data.elem); //得到checkbox原始DOM对象
+      console.log(data.elem.checked); //开关是否开启，true或者false
+      console.log(data.value); //开关value值，也可以通过data.elem.value得到
+      console.log(data.othis); //得到美化后的DOM对象*/
+    });
+
+    /*$(document).keydown(function (event) {
+        if (event.keyCode == 13) { //判断为Enter键
+            console.log("回车事件执行！");
+            login();
+        }
+    });*/
+
+    // 登录
+    $("#btnLogin").click(function () {
+      id = $("#txt_id").val().trim();
+      if (/^\s*$/.test(id)) {
+        layer.msg('学号不能为空！', {icon: 0, time: 1500, anim: 6});
+        $("#txt_id").val("").focus();
+        //很奇怪，写成return;就会乱码
+        return false;
+      }
+
+      // 点击确认按钮后禁用，防多次校验请求
+      $(this).attr('disabled', true).addClass("layui-btn-disabled");
+
+      // 实现登录中等待的效果
+      let index = layer.msg('校验中', {
+        icon: 16,
+        shade: 0.5
+      }); //校验loading
+      $.ajax({
+        url: "/student/login/" + id,
+        type: "post",
+        dataType: "json",
+        success: function (result, status, xhr) {
+          console.log(result);
+          // 学号校验成功后，显示上传界面
+          if (result.code == 200) {
+            // 若开关状态为true，将正确的id保存进cookie(若重复则覆盖，若不存在则创建)
+            if (isRemember) {
+              setCookie('id', id, 365);
+            } else {
+              clearCookie('id');
+            }
+            // 先得到当前iframe层的索引
+            let index = parent.layer.getFrameIndex(window.name);
+            //再执行关闭
+            parent.layer.close(index);
+            // 变量传参
+            parent.location.href = "upload/" + decodeURI(window.location.href.split("?")[1].split("=")[1].trim());
+          } else {
+            layer.msg(result.message, {icon: 2, time: 2000, anim: 6});
+            $("#txt_id").val("").focus();
+          }
+        },
+        error: function () {
+          alert("login请求失败！");
+        }
+      });
+      layer.close(index);
+      // 解除登录按钮禁用状态
+      $(this).removeClass("layui-btn-disabled").attr('disabled', false);
+    });
+
+
+  });
 </script>
 
 </body>

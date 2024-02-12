@@ -1,219 +1,219 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>layui</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/lib/layui-v2.5.6/css/layui.css" media="all">
-    <link rel="stylesheet" href="/css/public.css" media="all">
+  <meta charset="utf-8">
+  <title>layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="/lib/layui-v2.5.6/css/layui.css" media="all">
+  <link rel="stylesheet" href="/css/public.css" media="all">
 </head>
 <body>
 <div class="layuimini-container">
-    <div class="layuimini-main">
+  <div class="layuimini-main">
 
-        <fieldset class="table-search-fieldset">
-            <legend>搜索信息</legend>
-            <div style="margin: 10px 10px 10px 10px">
-                <form class="layui-form layui-form-pane" action="">
-                    <div class="layui-form-item">
+    <fieldset class="table-search-fieldset">
+      <legend>搜索信息</legend>
+      <div style="margin: 10px 10px 10px 10px">
+        <form class="layui-form layui-form-pane" action="">
+          <div class="layui-form-item">
 
-                        <div class="layui-inline">
-                            <label class="layui-form-label">姓名</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="stu_name" autocomplete="off" class="layui-input"
-                                       lay-verify="required">
-                            </div>
-                        </div>
-
-                        <div class="layui-inline">
-                            <button type="submit" class="layui-btn layui-btn-primary" lay-submit
-                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
-                            </button>
-                        </div>
-                    </div>
-                </form>
+            <div class="layui-inline">
+              <label class="layui-form-label">姓名</label>
+              <div class="layui-input-inline">
+                <input type="text" name="stu_name" autocomplete="off" class="layui-input"
+                       lay-verify="required">
+              </div>
             </div>
-        </fieldset>
 
-        <script type="text/html" id="toolbarDemo">
-            <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add">添加用户</button>
-                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete">批量删除</button>
+            <div class="layui-inline">
+              <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                      lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
+              </button>
             </div>
-        </script>
+          </div>
+        </form>
+      </div>
+    </fieldset>
 
-        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
-        <div id="layPage"></div>
+    <script type="text/html" id="toolbarDemo">
+      <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add">添加用户</button>
+        <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete">批量删除</button>
+      </div>
+    </script>
+
+    <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+    <div id="layPage"></div>
 
 
-        <script type="text/html" id="currentTableBar">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-        </script>
+    <script type="text/html" id="currentTableBar">
+      <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+      <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+    </script>
 
-    </div>
+  </div>
 </div>
 <script src="/lib/layui-v2.5.6/layui.js" charset="utf-8"></script>
 <script src="/js/cookie.js"></script>
 <script>
-    layui.use(['form', 'table', 'laypage'], function () {
-        var $ = layui.jquery,
-            form = layui.form,
-            table = layui.table,
-            laypage = layui.laypage;
+  layui.use(['form', 'table', 'laypage'], function () {
+    var $ = layui.jquery,
+      form = layui.form,
+      table = layui.table,
+      laypage = layui.laypage;
 
-        // 起始页
-        let curnum = 1;
-        // 每页显示的条数
-        let limitCount = 10
+    // 起始页
+    let curnum = 1;
+    // 每页显示的条数
+    let limitCount = 10
 
-        // 分页表格
-        function showTable(start, limit) {
-            table.render({
-                elem: '#currentTableId',
-                //url: '../api/table.json',
-                url: '/admin/findAllByClazzName/' + start + '/' + limit,
-                toolbar: '#toolbarDemo',
-                defaultToolbar: ['filter', 'exports', 'print', {
-                    title: '提示',
-                    layEvent: 'LAYTABLE_TIPS',
-                    icon: 'layui-icon-tips'
-                }],
-                cols: [
-                    [
-                        {type: "checkbox", width: 50},
-                        {field: 'stuId', width: 150, title: '学号', sort: true},
-                        {field: 'stuName', width: 150, title: '姓名'},
-                        {field: 'clazzName', width: 200, title: '班级'},
-                        {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: 'right'}
-                    ]
-                ],
-                skin: 'line',
-                height: 470,
-                done: function (res, curr, count) {  //如果是异步请求数据方式，res即为你接口返回的信息。
-                    laypage.render({
-                        elem: 'layPage',
-                        count: count,
-                        curr: curnum, // 起始页
-                        limit: limitCount, // 每页显示的条数
-                        limits: [5, 10, 15, 20, 25, 50, 100],
-                        layout: ['prev', 'page', 'next', 'skip', 'count', 'limit', 'refresh'],
+    // 分页表格
+    function showTable(start, limit) {
+      table.render({
+        elem: '#currentTableId',
+        //url: '../api/table.json',
+        url: '/admin/findAllByClazzName/' + start + '/' + limit,
+        toolbar: '#toolbarDemo',
+        defaultToolbar: ['filter', 'exports', 'print', {
+          title: '提示',
+          layEvent: 'LAYTABLE_TIPS',
+          icon: 'layui-icon-tips'
+        }],
+        cols: [
+          [
+            {type: "checkbox", width: 50},
+            {field: 'stuId', width: 150, title: '学号', sort: true},
+            {field: 'stuName', width: 150, title: '姓名'},
+            {field: 'clazzName', width: 200, title: '班级'},
+            {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: 'right'}
+          ]
+        ],
+        skin: 'line',
+        height: 470,
+        done: function (res, curr, count) {  //如果是异步请求数据方式，res即为你接口返回的信息。
+          laypage.render({
+            elem: 'layPage',
+            count: count,
+            curr: curnum, // 起始页
+            limit: limitCount, // 每页显示的条数
+            limits: [5, 10, 15, 20, 25, 50, 100],
+            layout: ['prev', 'page', 'next', 'skip', 'count', 'limit', 'refresh'],
 
-                        jump: function (obj, first) {
-                            //首次不执行
-                            if (!first) {
-                                //得到当前页，以便向服务端请求对应页的数据。
-                                curnum = obj.curr;
-                                //得到每页显示的条数
-                                limitCount = obj.limit;
-                                showTable(curnum, limitCount);
-                            }
-                        }
-                    });
-                }
-            });
+            jump: function (obj, first) {
+              //首次不执行
+              if (!first) {
+                //得到当前页，以便向服务端请求对应页的数据。
+                curnum = obj.curr;
+                //得到每页显示的条数
+                limitCount = obj.limit;
+                showTable(curnum, limitCount);
+              }
+            }
+          });
         }
+      });
+    }
 
-        showTable(curnum, limitCount);
+    showTable(curnum, limitCount);
 
 
-        // 监听搜索操作
-        form.on('submit(data-search-btn)', function (data) {
-            let stuName = data.field.stu_name;
-            let clazzName = getCookie('clazz');
-            //执行搜索重载
-            table.reload('currentTableId', {
-                url: '/student/findByIdOrName/' + stuName + '/' + clazzName
-            });
-            return false;
+    // 监听搜索操作
+    form.on('submit(data-search-btn)', function (data) {
+      let stuName = data.field.stu_name;
+      let clazzName = getCookie('clazz');
+      //执行搜索重载
+      table.reload('currentTableId', {
+        url: '/student/findByIdOrName/' + stuName + '/' + clazzName
+      });
+      return false;
+    });
+
+    // 复选框上方：添加、删除按钮
+    table.on('toolbar(currentTableFilter)', function (obj) {
+      // 监听添加操作
+      if (obj.event === 'add') {
+        let index = layer.open({
+          title: '添加用户',
+          type: 2,
+          shade: 0.2,
+          maxmin: true,
+          shadeClose: true,
+          area: ['100%', '100%'],
+          content: '/console/admin/table/add',
+          end: () => {
+            //tableStu.reload();
+            table.reload('currentTableId');
+          }
         });
+        $(window).on("resize", function () {
+          layer.full(index);
+        });
+      }
+      // 监听删除操作
+      else if (obj.event === 'delete') {
+        let checkStatus = table.checkStatus('currentTableId')
+          , data = checkStatus.data;
+        layer.alert(JSON.stringify(data));
+      }
+    });
 
-        // 复选框上方：添加、删除按钮
-        table.on('toolbar(currentTableFilter)', function (obj) {
-            // 监听添加操作
-            if (obj.event === 'add') {
-                let index = layer.open({
-                    title: '添加用户',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin: true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '/console/admin/table/add',
-                    end: () => {
-                        //tableStu.reload();
-                        table.reload('currentTableId');
-                    }
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
+    // 监听表格复选框选择
+    table.on('checkbox(currentTableFilter)', function (obj) {
+      console.log(obj)
+    });
+
+    // 右侧 编辑、删除按钮
+    table.on('tool(currentTableFilter)', function (obj) {
+      let data = obj.data;
+      let event = obj.event;
+      let stuId = data.stuId;
+      let stuName = data.stuName;
+      let clazzName = data.clazzName;
+      if (event === 'edit') {
+        /*obj.update({
+            stuId: '123'
+            ,stuName: 'xxx'
+            ,clazzName:'123'
+        });*/
+        console.log(data); //所在行的所有相关数据
+        let index = layer.open({
+          title: '编辑用户',
+          type: 2,
+          shade: 0.2,
+          maxmin: true,
+          shadeClose: true,
+          area: ['100%', '100%'],
+          content: '/console/admin/table/edit?stuId=' + stuId + '&stuName=' + stuName + '&clazzName=' + clazzName,
+          end: () => {
+            //tableStu.reload();
+            table.reload('currentTableId');
+          }
+        });
+        $(window).on("resize", function () {
+          layer.full(index);
+        });
+        return false;
+      } else if (event === 'delete') {
+        layer.confirm('确定删除' + stuName + '同学吗？', {title: '提示'}, function (index) {
+          obj.del();
+          $.ajax({
+            type: 'delete',
+            url: '/student/delById/' + stuId,
+            success: (res) => {
+              if (res.code == 200) {
+                layer.msg('删除成功', {icon: 1, offset: 't'});
+              }
             }
-            // 监听删除操作
-            else if (obj.event === 'delete') {
-                let checkStatus = table.checkStatus('currentTableId')
-                    , data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
-            }
+          })
+          layer.close(index);
         });
+      }
+    });
 
-        // 监听表格复选框选择
-        table.on('checkbox(currentTableFilter)', function (obj) {
-            console.log(obj)
-        });
-
-        // 右侧 编辑、删除按钮
-        table.on('tool(currentTableFilter)', function (obj) {
-            let data = obj.data;
-            let event = obj.event;
-            let stuId = data.stuId;
-            let stuName = data.stuName;
-            let clazzName = data.clazzName;
-            if (event === 'edit') {
-                /*obj.update({
-                    stuId: '123'
-                    ,stuName: 'xxx'
-                    ,clazzName:'123'
-                });*/
-                console.log(data); //所在行的所有相关数据
-                let index = layer.open({
-                    title: '编辑用户',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin: true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '/console/admin/table/edit?stuId=' + stuId + '&stuName=' + stuName + '&clazzName=' + clazzName,
-                    end: () => {
-                        //tableStu.reload();
-                        table.reload('currentTableId');
-                    }
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-                return false;
-            } else if (event === 'delete') {
-                layer.confirm('确定删除' + stuName + '同学吗？', {title: '提示'}, function (index) {
-                    obj.del();
-                    $.ajax({
-                        type: 'delete',
-                        url: '/student/delById/' + stuId,
-                        success: (res) => {
-                            if (res.code == 200) {
-                                layer.msg('删除成功', {icon: 1, offset: 't'});
-                            }
-                        }
-                    })
-                    layer.close(index);
-                });
-            }
-        });
-
-    })
-    ;
+  })
+  ;
 </script>
 
 </body>

@@ -44,13 +44,11 @@
         SELECT stu_id,
                stu_name
         FROM student
-        WHERE stu_id NOT IN (
-            SELECT student.stu_id
-            FROM student,
-                 upload
-            WHERE clazz_name = #{clazzName}
-              AND student.stu_id = upload.stu_id
-        )
+        WHERE stu_id NOT IN (SELECT student.stu_id
+                             FROM student,
+                                  upload
+                             WHERE clazz_name = #{clazzName}
+                               AND student.stu_id = upload.stu_id)
           AND clazz_name = #{clazzName}
     </select>
 
@@ -67,13 +65,11 @@
     <select id="findUnpaidCount" parameterType="string" resultType="int">
         SELECT COUNT(*)
         FROM student
-        WHERE stu_id NOT IN (
-            SELECT student.stu_id
-            FROM student,
-                 upload
-            WHERE clazz_name = #{clazzName}
-              AND student.stu_id = upload.stu_id
-        )
+        WHERE stu_id NOT IN (SELECT student.stu_id
+                             FROM student,
+                                  upload
+                             WHERE clazz_name = #{clazzName}
+                               AND student.stu_id = upload.stu_id)
           AND clazz_name = #{clazzName}
     </select>
 
