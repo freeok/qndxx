@@ -3,20 +3,19 @@ package work.pcdd.qndxx.mapper;
 import org.springframework.stereotype.Repository;
 import work.pcdd.qndxx.entity.Clazz;
 
-import java.util.List;
-
 /**
  * @author AD
  */
 @Repository
 public interface ClazzMapper {
+
     /**
      * 根据班级查询clazz表
      *
      * @param clazzName 班级名
      * @return Clazz bean
      */
-    List<Clazz> getClazz(String clazzName);
+    Clazz getClazz(String clazzName);
 
     /**
      * 根据班级修改期数
@@ -33,6 +32,5 @@ public interface ClazzMapper {
      * @return 影响的行数
      */
     int updateIsEnable(Clazz clazz);
-
 
 }

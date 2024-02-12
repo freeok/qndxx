@@ -19,7 +19,7 @@ public class ClazzServiceImpl implements ClazzService {
 
     @Override
     public Result getClazz(String clazzName, HttpSession session) {
-        Clazz clazz = clazzMapper.getClazz(clazzName).get(0);
+        Clazz clazz = clazzMapper.getClazz(clazzName);
         session.setAttribute("clazz", clazz);
         return Result.success(clazz);
     }
