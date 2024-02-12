@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>截图上交</title>
+  <title>截图上交 | 主页</title>
   <meta charset="UTF-8">
   <!--强制让文档的宽度与设备的宽度保持1:1，并且文档最大的宽度比例是1.0，且不允许用户点击屏幕放大浏览；-->
   <meta name="viewport"
@@ -9,24 +9,20 @@
   <!--iphone-->
   <!-- 网站开启对web app程序的支持，其实意思就是删除默认的苹果工具栏和菜单栏，开启全屏显示-->
   <meta name="apple-mobile-web-app-capable" content="yes"/>
-
   <!--制定iphone中safari顶端的状态条的样式（default:白色，black:黑色，black-translucent：半透明）-->
   <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-
   <!--告诉设备忽略将页面中的数字识别为电话号码。-->
   <meta name="format-detection" content="telephone=no">
-
   <!-- 添加到IOS主屏后的标题。-->
   <!--<meta name="apple-mobile-web-app-title" content="标题名称">-->
-
   <meta name="description" content="截图上交系统"/>
   <meta name="keywords" content="青年大学习"/>
   <meta name="author" content="pc"/>
   <meta name="robots" content="index,follow"/>
-
   <link rel="stylesheet" href="/lib/layui-v2.5.6/css/layui.css">
-  <style type="text/css">
-    body::before { /*顶部阴影*/
+  <style>
+    /* 顶部阴影效果 */
+    body::before {
       content: "";
       position: fixed;
       top: -80px;
@@ -36,10 +32,28 @@
       box-shadow: 5px 5px 800px black;
       z-index: 100;
     }
+
+    .btn1 {
+      height: 100px;
+      background: #2F4056;
+      border-radius: 3px;
+      font-size: 18px;
+      box-shadow: 0 0 5px black;
+      padding: 30px;
+    }
+
+    .btn2 {
+      height: 100px;
+      background: #17a2b8;
+      padding: 30px;
+      border-radius: 3px;
+      font-size: 18px;
+      box-shadow: 0 0 5px black;
+    }
   </style>
 </head>
 <body>
-<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!-- 让 IE8/9 支持媒体查询，从而兼容栅格 -->
 <!--[if lt IE 9]>
 <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
 <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
@@ -48,85 +62,68 @@
 <div class="layui-container" style="text-align: center;">
   <div class="layui-row">
 
-    <div class="layui-col-md12" style="margin-top: 80px;">
-      <div class="layui-col-md-offset3 layui-col-md6">
-        <i class="layui-icon layui-icon-upload-drag" style="font-size: 30px;"></i>
-        <div style="font-family: 'Microsoft YaHei UI';" class="layui-card-body">青年大学习截图上交系统<i>1.1</i></div>
+    <div class="layui-col-lg8 layui-col-sm10 layui-col-xs11" style="margin-top: 80px;">
+      <div class="layui-col-lg-offset6 layui-col-sm-offset2 layui-col-xs-offset1">
+        <i class="layui-icon layui-icon-upload-drag" style="font-size: 40px;"></i>
+        <div style="font-family: 'Microsoft YaHei UI';font-size: 16px;" class="layui-card-body">青年大学习截图上交系统 <i>1.1</i></div>
       </div>
     </div>
 
-
-    <div class="layui-col-md12" style="margin-top: 30px;">
-      <div class="layui-col-md-offset3 layui-col-md6  layui-anim layui-anim-upbit">
-        <a id="a1" href="javascript:void(0);" class="layui-btn layui-btn-lg layui-btn-fluid"
-           style="width: 80%;height:100px;background:#2F4056;
-                   border-radius: 3px;font-size: 18px;box-shadow: 0px 0px 5px black;padding: 30px;">
-          <span id="title1">🚀朋友圈截图上交</span>
+    <div class="layui-col-lg8 layui-col-sm10 layui-col-xs11" style="margin-top: 30px;">
+      <div class="layui-col-lg-offset6 layui-col-sm-offset2 layui-col-xs-offset1  layui-anim layui-anim-upbit">
+        <a id="a1" href="javascript:void(0);" class="layui-btn layui-btn-lg layui-btn-fluid btn1">
+          <span id="title1">🚀 朋友圈截图上交</span>
           <span style="font-weight: lighter;font-size:13px;color:#FFFFFF80;">点此进入</span>
         </a>
       </div>
     </div>
 
-    <div class="layui-col-md12" style="margin-top: 30px;">
-      <div class="layui-col-md-offset3 layui-col-md6   layui-anim layui-anim-upbit">
-        <a id="a2" href="javascript:void(0);" class="layui-btn layui-btn-lg layui-btn-fluid"
-           style="width: 80%;height:100px;background:#17a2b8;padding: 30px;
-                   border-radius: 3px;font-size: 18px;box-shadow: 0px 0px 5px black;">
-          <span id="title2">🚀首页截图上交</span>
+    <div class="layui-col-lg8 layui-col-sm10 layui-col-xs11" style="margin-top: 30px;">
+      <div class="layui-col-lg-offset6 layui-col-sm-offset2 layui-col-xs-offset1 layui-anim layui-anim-upbit">
+        <a id="a2" href="javascript:void(0);" class="layui-btn layui-btn-lg layui-btn-fluid btn2">
+          <span id="title2">🚀 首页截图上交</span>
           <span style="font-weight: lighter;font-size:13px;color:#FFFFFF80;">点此进入</span>
         </a>
       </div>
     </div>
 
-    <div class="layui-col-md12" style="margin-top:50px;color: #6C757D;">
-      <div class="layui-col-md-offset3 layui-col-md6 ">
-        <div style="width: 80%;margin-left: 11%;text-align: left;">
-                    <span style="font-size: 16px;">
-                       <!-- <a href="https://gitee.com/pcdd-group/qndxx/stargazers">
-                            <img src="https://gitee.com/pcdd-group/qndxx/badge/star.svg"/>
-                        </a>-->
-                        <img src="/images/gitee.jpg" style="width: 16px;height: 16px;">
-                        <a href="https://gitee.com/pcdd-group/qndxx" target="_blank" style="">
-                            有帮助就给个Star<i class="layui-icon layui-icon-star-fill" style="color: #ffab00"></i>吧
-                        </a>
-                    </span><br/>
-          <span style="font-size: 12px;">若使用出现问题或您也希望使用本网站,
-                        <br/>请在pc端点击
-                        <a target="_blank"
-                           href="http://sighttp.qq.com/authd?IDKEY=b9e3f80ea31424e2fe18632e185e0b694e2a88566c299274"
-                           style="   color: #01AAED;">联系我</a><br/>
-                    Copyright © 2020-2021 qndxx.pcdd.work</span>
+    <div class="layui-col-lg8 layui-col-sm10 layui-col-xs11" style="margin-top:50px;color: #6C757D;">
+      <div class="layui-col-lg-offset6 layui-col-sm-offset2 layui-col-xs-offset1">
+        <div style="text-align: left;">
+          <div style="font-size: 16px;">
+            <a href='https://gitee.com/pcdd-group/qndxx/stargazers'>
+              <img src='https://gitee.com/pcdd-group/qndxx/badge/star.svg?theme=dark' alt='star'>
+            </a>
+            有帮助就给个 Star <i class="layui-icon layui-icon-star-fill" style="color: #ffab00"></i> 吧
+          </div>
+          <div style="font-size: 12px;margin-top: 5px;">
+            <p>若使用出现问题或您也希望使用本网站</p>
+            <p>
+              请在
+              <a href="https://gitee.com/pcdd-group" target="_blank" style="color: #01AAED;">作者 Gitee 主页</a>
+              QQ 联系作者
+            </p>
+            <p>Copyright © pcdd</p>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="layui-col-xs12">
-      <!--
-      <div class="layui-col-xs12" style="width: 80%;margin:100px 0 0 10%">
-          <div class="layui-collapse" lay-filter="test">
-              <div class="layui-colla-item">
-                  <h2 class="layui-colla-title">为什么JS社区大量采用未发布或者未广泛支持的语言特性？</h2>
-                  <div class="layui-colla-content">
-                      <p>
-                          有不少其他答案说是因为JS太差。我下面的答案已经说了，这不是根本性的原因。但除此之外，我还要纠正一些对JS具体问题的误解。JS当初是被作为脚本语言设计的，所以某些问题并不是JS设计得差或者是JS设计者的失误。比如let的作用域问题，并不是“错误”，而是当时绝大部分脚本语言都是这样的，如perl/php/sh等。模块的问题也是，脚本语言几乎都没有模块/命名空间功能。弱类型、for-in之类的问题也是，只不过现在用那些老的脚本语言的人比较少，所以很多人都误以为是JS才有的坑。另外有人说JS是半残语言，满足不了开发需求，1999年就该死。半残这个嘛，就夸张了。JS虽然有很多问题，但是设计总体还是优秀的。——来自知乎@贺师俊</p>
-                  </div>
-              </div>
-              <div class="layui-colla-item">
-                  <h2 class="layui-colla-title">为什么前端工程师多不愿意用 Bootstrap 框架？</h2>
-                  <div class="layui-colla-content">
-                      <p>
-                          因为不适合。如果希望开发长期的项目或者制作产品类网站，那么就需要实现特定的设计，为了在维护项目中可以方便地按设计师要求快速修改样式，肯定会逐步编写出各种业务组件、工具类，相当于为项目自行开发一套框架。——来自知乎@Kayo</p>
-                  </div>
-              </div>
+    <!-- <div class="layui-col-md12">
+      <div class="layui-col-md-offset3 layui-col-md6" style="margin-top:100px;">
+        <div class="layui-collapse" lay-filter="test">
+          <div class="layui-colla-item">
+            <h2 class="layui-colla-title">为什么登录不需要密码？</h2>
+            <div class="layui-colla-content">
+              <p>因为相信大家都是有素质的人</p>
+            </div>
           </div>
-          -->
-    </div>
-
-    <h1 th:text="${#request.getAttribute('pageName')}"></h1>
+        </div>
+      </div>
+    </div> -->
 
   </div>
 </div>
-
 
 <script type="text/javascript" src="/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="/lib/layui-v2.5.6/layui.js"></script>
@@ -164,7 +161,7 @@
       }
       layer.open({
         type: 2
-        , title: '身份认证'
+        , title: '身份验证'
         , maxmin: false//最大最小化
         , anim: 0
         , shadeClose: true//点击遮罩是否关闭层

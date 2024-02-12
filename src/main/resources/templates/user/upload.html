@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>截图上交</title>
+  <title>截图上交 | 上传</title>
   <meta charset="UTF-8">
   <!--
       在网页的<head>中增加以上这句话，可以让网页的宽度自动适应手机屏幕的宽度。其中：
@@ -24,7 +24,7 @@
   <meta name="robots" content="index,follow"/>
   <link rel="stylesheet" href="/lib/layui-v2.5.6/css/layui.css">
 
-  <style type="text/css">
+  <style>
     .center {
       text-align: center;
     }
@@ -35,56 +35,49 @@
   </style>
 </head>
 <body>
-<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!-- 让 IE8/9 支持媒体查询，从而兼容栅格 -->
 <!--[if lt IE 9]>
 <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
 <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 
 <div class="layui-container layui-hide">
-
-
-  <div class="layui-col-xs12 center">
-
-  </div>
-
   <!--显示季数期数-->
   <div class="layui-row">
     <div class="layui-col-xs12 center" style="margin-top: 50px;">
       <div>
-                <span id="issue"
-                      style="font-size: 25px;font-family: 华文彩云;color: #01AAED;letter-spacing: 0px;"></span>
+        <span id="issue" style="font-size: 28px;font-family: 华文彩云;color: #01AAED;letter-spacing: 0;"></span>
       </div>
     </div>
   </div>
 
-  <!--按钮-->
-  <div class="layui-row">
-    <div class="layui-col-xs12 center" style="margin-top: 30px;">
-      <input type="button" id="btnLogout" value="切换用户" class="layui-btn layui-btn-normal layui-btn-xs">
-      <input type="button" value="返回首页" class="layui-btn layui-btn-xs" style="margin-left: 130px;"
+  <!-- 两个按钮 -->
+  <div class="layui-row" style="margin-top: 30px;">
+    <div class="layui-col-xs5  layui-col-xs-offset1" style="text-align: left;">
+      <input type="button" value="返回首页" class="layui-btn layui-btn-normal layui-btn-xs"
              onclick="window.location='/index'">
     </div>
+    <div class="layui-col-xs5" style="text-align: right;">
+      <input type="button" id="btnLogout" value="切换用户" class="layui-btn layui-btn-warm layui-btn-xs">
+    </div>
+
   </div>
 
-  <!--学号姓名-->
-  <div class="layui-row">
-    <div class="layui-col-xs12 center" style="margin-top: 10px;">
-
-      <i class="layui-icon layui-icon-key layui-anim layui-anim-scale"></i>
-      学号：<span id="stuId" style="color: #FF5722;font-weight: bolder;"
-                 th:text="${session.student.getStuId()}"></span>
-
-      <i class="layui-icon layui-icon-username layui-anim layui-anim-scale"></i>
-      姓名：<span id="stuName" style="color: #FF5722;font-weight: bolder;"
+  <!-- 学号、姓名 -->
+  <div class="layui-row" style="margin-top: 20px;">
+    <div class="layui-col-xs5 layui-col-xs-offset1" style="text-align: left;">
+      学号：<span id="stuId" style="font-weight: bolder;" th:text="${session.student.getStuId()}"></span>
+    </div>
+    <div class="layui-col-xs5" style="text-align: right;">
+      姓名：<span id="stuName" style="font-weight: bolder;"
                  th:text="${session.student.getStuName()}"></span>
     </div>
   </div>
 
-  <!--上传界面-->
+  <!-- 上传界面 -->
   <div class="layui-row">
-    <div class="layui-col-xs12 center layui-anim layui-anim-fadein" style="margin-top: 10px;">
-      <div class="layui-upload-drag" id="upload" style="background: #F2F2F2;width: 210px;">
+    <div class="layui-col-xs11 center layui-anim layui-anim-fadein" style="margin-top: 20px;">
+      <div class="layui-col-xs-offset1 layui-upload-drag" id="upload" style="background: #F2F2F2;">
         <i class="layui-icon"></i>
         <p>点击上传，或将文件拖拽到此处</p>
         <div class="layui-hide" id="uploadDemoView">
@@ -97,28 +90,26 @@
   </div>
 
   <div class="layui-row">
-    <div
-      class="layui-col-xs-offset2 layui-col-xs6 layui-col-md-offset4 layui-col-md4 layui-col-sm-offset3 layui-col-sm6"
-      style="margin-top:50px;color: #6C757D;">
+    <div class="layui-col-lg12 layui-col-sm12 layui-col-xs11 layui-col-xs-offset1"
+         style="margin-top:50px;color: #6C757D;">
       <div style="font-size: 16px;">
         <a href="/index" class="blue">HOME</a>&nbsp;/&nbsp;<span id="location" style="color: #ee6153"></span>&nbsp;|&nbsp;
         <a id="manager" href="javascript:void(0);" class="blue">管理</a>
       </div>
-
       <div style="font-size: 12px;">
-        <div th:text="${session.student.getClazzName()}"></div>
-        <span>若使用出现问题或您也希望使用本网站,<br/>
-                请点击<a target="_blank"
-                         href="https://sighttp.qq.com/authd?IDKEY=b9e3f80ea31424e2fe18632e185e0b694e2a88566c299274"
-                         style="color: #01AAED;">
-                联系我</a><br/>Copyright © 2020-2021 qndxx.pcdd.work</span>
+        <p th:text="${session.student.getClazzName()}"></p>
+        <p>若使用出现问题或您也希望使用本网站</p>
+        <p>
+          请在
+          <a href="https://gitee.com/pcdd-group" target="_blank" style="color: #01AAED;">作者 Gitee 主页</a>
+          QQ 联系作者
+        </p>
+        <p>Copyright © pcdd</p>
       </div>
     </div>
   </div>
 
-
 </div>
-
 
 <script type="text/javascript" src="/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="/lib/layui-v2.5.6/layui.js"></script>
@@ -387,7 +378,7 @@
         if (pwd === "1433") {
           window.location.href = "/console/login-1";
         } else {
-          layer.msg('口令错误', {anim: '6', icon: 2, offset: 't'});
+          layer.msg('口令错误', {anim: '6', icon: 2});
         }
         layer.close(index);
       });
