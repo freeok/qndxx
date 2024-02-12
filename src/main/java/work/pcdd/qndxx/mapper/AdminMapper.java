@@ -8,10 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author AD
+ * @author pcdd
  */
 @Repository
 public interface AdminMapper {
+
     /**
      * 管理员登录
      *

@@ -6,10 +6,11 @@ import work.pcdd.qndxx.common.vo.Result;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author AD
+ * @author pcdd
  */
 @Repository
 public interface AdminService {
+
     /**
      * 管理员登录
      *
@@ -76,4 +77,5 @@ public interface AdminService {
      * @return 执行结果
      */
     Result updPwd(String oldPwd, String newPwd, HttpSession session);
+
 }

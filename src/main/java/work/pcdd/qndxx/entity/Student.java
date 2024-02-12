@@ -10,12 +10,13 @@ import java.io.Serializable;
 /**
  * 学生表
  *
- * @author AD
+ * @author pcdd
  */
 @Data
 @NoArgsConstructor
 @ApiModel(description = "学生表")
 public class Student implements Serializable {
+
     @ApiModelProperty("学号")
     private String stuId;
 
@@ -30,4 +31,5 @@ public class Student implements Serializable {
 
     @ApiModelProperty("班级名")
     private String clazzName;
+
 }

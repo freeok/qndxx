@@ -8,12 +8,14 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * @author AD
+ * @author pcdd
  */
 @Data
 @NoArgsConstructor
 @ApiModel(description = "系统参数表")
 public class Param implements Serializable {
+
     @ApiModelProperty("公告信息")
     private String notice;
+
 }

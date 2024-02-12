@@ -28,12 +28,13 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author AD
+ * @author pcdd
  */
 @Slf4j
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class ImageServiceImpl implements ImageService {
+
     @Autowired
     private ImageMapper imageMapper;
     @Autowired

@@ -11,12 +11,13 @@ import java.util.Date;
 /**
  * 班级表
  *
- * @author AD
+ * @author pcdd
  */
 @Data
 @NoArgsConstructor
 @ApiModel(description = "班级表")
 public class Clazz implements Serializable {
+
     @ApiModelProperty("班级名")
     private String clazzName;
 
@@ -31,4 +32,5 @@ public class Clazz implements Serializable {
 
     @ApiModelProperty("创建日期")
     private Date createdAt;
+
 }

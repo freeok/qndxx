@@ -6,9 +6,10 @@ import work.pcdd.qndxx.entity.Student;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author AD
+ * @author pcdd
  */
 public interface StudentService {
+
     /**
      * 用户无密码登录
      *
@@ -49,4 +50,5 @@ public interface StudentService {
      * @return 执行结果
      */
     Result updStudentById(Student student);
+
 }

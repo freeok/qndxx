@@ -6,9 +6,10 @@ import work.pcdd.qndxx.entity.Clazz;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author AD
+ * @author pcdd
  */
 public interface ClazzService {
+
     /**
      * 根据班级查询clazz表
      *
@@ -32,4 +33,5 @@ public interface ClazzService {
      * @return 执行结果
      */
     Result updateIsEnable(Clazz clazz, HttpSession session);
+
 }

@@ -17,12 +17,12 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * @author AD
- * @date
+ * @author pcdd
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class AdminServiceImpl implements AdminService {
+    
     @Autowired
     private AdminMapper adminMapper;
 
@@ -93,6 +93,5 @@ public class AdminServiceImpl implements AdminService {
 
         return Result.failure(ResultCode.ADMIN_UPDATE_PASSWORD_FAIL);
     }
-
-
+    
 }

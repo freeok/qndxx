@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author 1907263405@qq.com
- * @date 2021/2/18 4:05
+ * @author pcdd
+ * created by 2021/2/18 4:05
  */
 @Api(tags = "验证码相关API")
 @Controller
@@ -42,4 +42,5 @@ public class CaptchaController {
         }
         return Result.failure(ResultCode.CAPTCHA_ERROR);
     }
+    
 }
