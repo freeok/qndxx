@@ -30,7 +30,7 @@ public interface ImageService {
      * @param resp response对象
      * @return 执行结果
      */
-    Result download(HttpServletRequest req, HttpServletResponse resp, String clazzName);
+    void download(HttpServletRequest req, HttpServletResponse resp, String clazzName);
 
     /**
      * 根据班级删除upload表记录

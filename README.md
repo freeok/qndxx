@@ -22,7 +22,7 @@
 4. Mybatis、分页助手 pagehelper
 5. API 文档使用 Swagger3 (http://127.0.0.1:8080/swagger-ui/index.html)
 
-前端：thymeleaf、jQuery、Layui
+前端：thymeleaf、jQuery、Layui、LAYUI MINI
 
 ## 安装教程
 
