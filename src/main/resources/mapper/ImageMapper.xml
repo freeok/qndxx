@@ -32,5 +32,4 @@
         WHERE stu_id IN (SELECT stu_id FROM student WHERE clazz_name = #{clazzName})
     </delete>
 
-
 </mapper>

@@ -55,5 +55,4 @@
         WHERE clazz_name = #{clazzName}
     </delete>
 
-
 </mapper>
