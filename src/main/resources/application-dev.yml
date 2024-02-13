@@ -1,8 +1,8 @@
 server:
   servlet:
     session:
-      # session超时时间
-      timeout: 10m
+      # session 超时时间
+      timeout: 3600
 
 spring:
   thymeleaf:

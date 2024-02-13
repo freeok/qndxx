@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
-  <title>首页二</title>
+  <title>数据一览</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -175,7 +175,6 @@
                               <i
                                 class="layui-icon layui-icon-loading-1 layui-anim layui-anim-rotate layui-anim-loop"></i>
                             </h5>
-                            <small>当前分类总记录数</small>
                           </div>
                         </div>
                       </div>
@@ -194,7 +193,6 @@
                               第<span id="period"><i
                               class="layui-icon layui-icon-loading-1 layui-anim layui-anim-rotate layui-anim-loop"></i></span>期
                             </h3>
-                            <small>当前分类总记录数</small>
                           </div>
                         </div>
                       </div>
@@ -212,7 +210,6 @@
                               <i
                                 class="layui-icon layui-icon-loading-1 layui-anim layui-anim-rotate layui-anim-loop"></i>
                             </h1>
-                            <small>当前分类总记录数</small>
                           </div>
                         </div>
                       </div>
@@ -230,7 +227,7 @@
                               <i
                                 class="layui-icon layui-icon-loading-1 layui-anim layui-anim-rotate layui-anim-loop"></i>
                             </h1>
-                            <small>当前分类总记录数</small>
+
                           </div>
                         </div>
                       </div>
@@ -249,7 +246,7 @@
                   <div class="layui-row layui-col-space10 layuimini-qiuck">
                     <div class="layui-col-xs3 layuimini-qiuck-module">
                       <a href="javascript:void(0)"
-                         layuimini-content-href="/console/admin/table-upload"
+                         layuimini-content-href="/menu/upload-details"
                          data-title="上交情况" data-icon="fa fa-calendar">
                         <i class="fa fa-file-text"></i>
                         <cite>上交情况</cite>
@@ -257,7 +254,7 @@
                     </div>
                     <div class="layui-col-xs3 layuimini-qiuck-module">
                       <a href="javascript:void(0)"
-                         layuimini-content-href="/console/admin/download-image"
+                         layuimini-content-href="/menu/download"
                          data-title="截图下载" data-icon="fa fa-hourglass-end">
                         <i class="fa fa-cloud-download"></i>
                         <cite>截图下载</cite>
@@ -265,7 +262,7 @@
                     </div>
                     <div class="layui-col-xs3 layuimini-qiuck-module">
                       <a href="javascript:void(0)"
-                         layuimini-content-href="/console/admin/setting-system"
+                         layuimini-content-href="/menu/settings"
                          data-title="开启系统" data-icon="fa fa-dot-circle-o">
                         <i class="fa fa-dot-circle-o"></i>
                         <cite>系统设置</cite>
@@ -273,13 +270,18 @@
                     </div>
                     <div class="layui-col-xs3 layuimini-qiuck-module">
                       <a href="javascript:void(0)"
-                         layuimini-content-href="/console/admin/table-class"
+                         layuimini-content-href="/menu/class-mgmt"
                          data-title="班级管理" data-icon="fa fa-file-text">
                         <i class="fa fa-user"></i>
                         <cite>班级管理</cite>
                       </a>
                     </div>
-
+                    <div class="layui-col-xs3 layuimini-qiuck-module">
+                      <a href="/" target="_blank">
+                        <i class="fa fa-home"></i>
+                        <cite>返回前台</cite>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -302,20 +304,12 @@
           <div class="layui-card-header"><i class="fa fa-bullhorn icon icon-tip"></i>系统公告</div>
           <div class="layui-card-body layui-text">
             <div class="layuimini-notice">
-              <div class="layuimini-notice-title">普通管理员后台初步完成</div>
-              <div class="layuimini-notice-extra">2021-02-1 23:06</div>
+              <div class="layuimini-notice-title">管理员后台初步完成</div>
+              <div class="layuimini-notice-extra">2021-02-01 23:06</div>
               <div class="layuimini-notice-content layui-hide">
-                界面足够简洁清爽。<br>
-                一个接口几行代码而已直接初始化整个框架，无需复杂操作。<br>
-                支持多tab，可以打开多窗口。<br>
-                支持无限级菜单和对font-awesome图标库的完美支持。<br>
-                失效以及报错菜单无法直接打开，并给出弹出层提示完美的线上用户体验。<br>
-                url地址hash定位，可以清楚看到当前tab的地址信息。<br>
-                刷新页面会保留当前的窗口，并且会定位当前窗口对应左侧菜单栏。<br>
-                移动端的友好支持。<br>
+                管理员后台初步完成
               </div>
             </div>
-
           </div>
         </div>
 
@@ -340,12 +334,10 @@
               </tr>
               <tr>
                 <td>主要功能</td>
-                <td style="text-indent:2em">
-                  简化了每周青年大学习截图上交的流程，班级成员仅需上传截图即可，无需手动调整大小、添加学号姓名，收齐后负责人仅需一键下载即可，无需繁琐的手动接收、整理、打包截图
+                <td>
+                  简化了每周青年大学习截图上交的流程，班级成员仅需上传截图即可，无需手动调整大小、添加学号姓名，收齐后负责人仅需一键下载即可，无需繁琐的手动接收、整理、打包截图。
                 </td>
               </tr>
-
-
               </tbody>
             </table>
           </div>
