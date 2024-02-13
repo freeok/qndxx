@@ -2,7 +2,7 @@ package work.pcdd.qndxx.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import work.pcdd.qndxx.common.vo.Result;
@@ -20,11 +20,11 @@ import java.util.Objects;
  * @author pcdd
  */
 @Service
+@RequiredArgsConstructor
 @Transactional(rollbackFor = Exception.class)
 public class AdminServiceImpl implements AdminService {
-    
-    @Autowired
-    private AdminMapper adminMapper;
+
+    private final AdminMapper adminMapper;
 
     @Override
     public Result login(String stuId, String pwd, HttpSession session) {
@@ -93,5 +93,5 @@ public class AdminServiceImpl implements AdminService {
 
         return Result.failure(ResultCode.ADMIN_UPDATE_PASSWORD_FAIL);
     }
-    
+
 }

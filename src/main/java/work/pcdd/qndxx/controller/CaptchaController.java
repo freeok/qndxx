@@ -5,7 +5,6 @@ import com.ramostear.captcha.support.CaptchaStyle;
 import com.ramostear.captcha.support.CaptchaType;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import work.pcdd.qndxx.common.vo.Result;
 import work.pcdd.qndxx.common.vo.ResultCode;
@@ -18,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * created by 2021/2/18 4:05
  */
 @Api(tags = "验证码相关API")
-@Controller
+@RestController
 @RequestMapping("/captcha")
 public class CaptchaController {
 
@@ -34,7 +33,6 @@ public class CaptchaController {
 
     @ApiOperation("验证码校验")
     @PostMapping("/verify/{yzm}")
-    @ResponseBody
     public Result verify(@PathVariable("yzm") String yzm, HttpServletRequest request) {
         if (HappyCaptcha.verification(request, yzm, true)) {
             HappyCaptcha.remove(request);
@@ -42,5 +40,5 @@ public class CaptchaController {
         }
         return Result.failure(ResultCode.CAPTCHA_ERROR);
     }
-    
+
 }

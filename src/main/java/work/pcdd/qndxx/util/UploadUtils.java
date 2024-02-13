@@ -48,6 +48,9 @@ public class UploadUtils {
         IMG_REAL_PATH = new File(ROOT_IMG_PATH).getAbsolutePath() + File.separator;
     }
 
+    private UploadUtils() {
+    }
+
     /**
      * 根据传入的目录名，文件名 创建目录或文件
      * 然后返回指定文件在当前项目的绝对路径
@@ -57,11 +60,11 @@ public class UploadUtils {
      */
     public static String getRealPath(String... args) {
         // 设置上传文件的路径，为上传目录绝对路径+自定义的路径
-        StringBuffer dirPath = new StringBuffer(ROOT_PATH);
+        StringBuilder dirPath = new StringBuilder(ROOT_PATH);
 
         // 拼接路径，最后一个参数是文件名，无需拼接
         for (int i = 0; i < args.length - 1; i++) {
-            dirPath.append(args[i] + File.separator);
+            dirPath.append(args[i]).append(File.separator);
         }
 
         // 创建多级目录的File对象
@@ -75,5 +78,5 @@ public class UploadUtils {
         // 关键：返回文件绝对路径，这里的绝对路径是相当于当前项目的路径而不是"容器"路径
         return file.getAbsolutePath() + File.separator + args[args.length - 1];
     }
-    
+
 }

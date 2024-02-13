@@ -3,8 +3,8 @@ package work.pcdd.qndxx.service.impl;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ZipUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,13 +32,12 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 @Transactional(rollbackFor = Exception.class)
 public class ImageServiceImpl implements ImageService {
 
-    @Autowired
-    private ImageMapper imageMapper;
-    @Autowired
-    private AdminMapper adminMapper;
+    private final ImageMapper imageMapper;
+    private final AdminMapper adminMapper;
 
     /**
      * 截图上传
@@ -73,7 +72,7 @@ public class ImageServiceImpl implements ImageService {
         // 相对路径
         String relativePath = filePath.substring(filePath.indexOf("uploads"));
         // 这里将\替换成了/ 目的在于便于springmvc访问路径，
-        relativePath = "/" + relativePath.replaceAll("\\\\", "/");
+        relativePath = "/" + relativePath.replace("\\", "/");
         log.info("相对路径：" + relativePath);
 
         try {
@@ -81,7 +80,7 @@ public class ImageServiceImpl implements ImageService {
             // 上传文件
             mf.transferTo(file);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
 
         Upload upload = new Upload();

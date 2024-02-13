@@ -1,6 +1,6 @@
 package work.pcdd.qndxx.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import work.pcdd.qndxx.common.vo.Result;
 import work.pcdd.qndxx.entity.Clazz;
@@ -13,10 +13,10 @@ import javax.servlet.http.HttpSession;
  * @author pcdd
  */
 @Service
+@RequiredArgsConstructor
 public class ClazzServiceImpl implements ClazzService {
 
-    @Autowired
-    private ClazzMapper clazzMapper;
+    private final ClazzMapper clazzMapper;
 
     @Override
     public Result getClazz(String clazzName, HttpSession session) {

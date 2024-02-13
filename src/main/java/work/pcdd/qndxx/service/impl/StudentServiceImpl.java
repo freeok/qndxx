@@ -1,6 +1,6 @@
 package work.pcdd.qndxx.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import work.pcdd.qndxx.common.vo.Result;
 import work.pcdd.qndxx.common.vo.ResultCode;
@@ -16,10 +16,10 @@ import java.util.Objects;
  * @author pcdd
  */
 @Service
+@RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
 
-    @Autowired
-    private StudentMapper studentMapper;
+    private final StudentMapper studentMapper;
 
     @Override
     public Result unSafeLogin(String stuId, HttpSession session) {

@@ -3,7 +3,7 @@ package work.pcdd.qndxx.controller;
 import cn.hutool.core.codec.Base64;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import work.pcdd.qndxx.common.vo.Result;
@@ -20,10 +20,10 @@ import java.io.File;
 @Api(tags = "图片相关API")
 @RestController
 @RequestMapping("/image")
+@RequiredArgsConstructor
 public class ImageController {
 
-    @Autowired
-    private ImageService imageService;
+    private final ImageService imageService;
 
     @ApiOperation("图片上传")
     @PostMapping("/upload/{id}/{name}/{par}/{clazzName}")
@@ -49,13 +49,12 @@ public class ImageController {
 
     @ApiOperation("根据图片路径返回图片的base64编码")
     @PostMapping("/base64")
-    public Result getImageBase64(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        req.setCharacterEncoding("utf-8");
+    public Result getImageBase64(HttpServletRequest req, HttpServletResponse resp)  {
         resp.setContentType("application/json;charset=utf-8");
 
         String parentPath = System.getProperty("user.dir") + "/src/main/resources/static";
         String path = parentPath + req.getParameter("path");
-        // hutool工具
+        // use hutool
         String base64 = "data:image/jpg;base64," + Base64.encode(new File(path));
 
         return Result.success(base64);

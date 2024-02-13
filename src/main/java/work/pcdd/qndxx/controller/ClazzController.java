@@ -2,7 +2,7 @@ package work.pcdd.qndxx.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import work.pcdd.qndxx.common.vo.Result;
 import work.pcdd.qndxx.entity.Clazz;
@@ -10,13 +10,16 @@ import work.pcdd.qndxx.service.ClazzService;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author pcdd
+ */
 @Api(tags = "班级相关API")
 @RestController
 @RequestMapping("/clazz")
+@RequiredArgsConstructor
 public class ClazzController {
 
-    @Autowired
-    private ClazzService clazzService;
+    private final ClazzService clazzService;
 
     @ApiOperation("获取clazz表字段")
     @GetMapping("/{clazzName}")
