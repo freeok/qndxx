@@ -18,56 +18,45 @@ public class MvcConfig implements WebMvcConfigurer {
     /**
      * 设置html访问路径
      * addViewController设置映射路径（任意）
-     * setViewName设置真实路径（必须正确）
+     * setViewName设置真实路径（必须正确，templates为根目录）
      */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         // 用户首页
         registry.addViewController("/").setViewName("user/index");
         registry.addViewController("/index").setViewName("user/index");
-        // 用户上传界面
+        // 用户上传
         registry.addViewController("/upload/moments").setViewName("user/upload");
         registry.addViewController("/upload/home").setViewName("user/upload");
-        // 用户登录界面
+        // 用户登录
         registry.addViewController("/login").setViewName("user/login");
 
-        // 管理员登录页面
-        registry.addViewController("/console/login-1").setViewName("admin/login-1");
-        registry.addViewController("/console/login-2").setViewName("admin/login-2");
-        registry.addViewController("/console/login-3").setViewName("admin/login-3");
+        // 管理员登录
+        registry.addViewController("/console/login").setViewName("admin/login");
         // 后台首页
-        registry.addViewController("/console").setViewName("public-admin/manager");
+        registry.addViewController("/console").setViewName("admin/index");
+        // 数据一览
+        registry.addViewController("/menu/home").setViewName("admin/menu/home");
+        // 上交情况
+        registry.addViewController("/menu/upload-details").setViewName("admin/menu/upload-details");
+        // 截图下载
+        registry.addViewController("/menu/download").setViewName("admin/menu/download");
+        // 班级管理
+        registry.addViewController("/menu/class-mgmt").setViewName("admin/menu/class-mgmt");
+        // 系统管理
+        registry.addViewController("/menu/settings").setViewName("admin/menu/settings");
 
-        // 普通管理员首页
-        registry.addViewController("/console/admin/welcome").setViewName("admin/welcome-1");
-        // 截图上交情况页面
-        registry.addViewController("/console/admin/table-upload").setViewName("admin/table-upload");
-        // 截图下载页面
-        registry.addViewController("/console/admin/download-image").setViewName("admin/download-image");
-        // 班级管理页面
-        registry.addViewController("/console/admin/table-class").setViewName("admin/table-class");
-        registry.addViewController("/console/admin/table/add").setViewName("admin/table/add");
-        registry.addViewController("/console/admin/table/edit").setViewName("admin/table/edit");
-        // 系统管理页面
-        registry.addViewController("/console/admin/setting-system").setViewName("admin/setting-system");
+        registry.addViewController("/common/add").setViewName("admin/common/add");
+        registry.addViewController("/common/edit").setViewName("admin/common/edit");
 
-        // 管理员基本资料页面
-        registry.addViewController("/console/admin-info").setViewName("public-admin/admin-info");
-        // 管理员修改密码页面
-        registry.addViewController("/console/admin-password").setViewName("public-admin/admin-password");
+        // 管理员基本资料
+        registry.addViewController("/admin-info").setViewName("admin/admin-info");
+        // 管理员修改密码
+        registry.addViewController("/admin-password").setViewName("admin/admin-password");
 
         // 404 505页面
         registry.addViewController("/404").setViewName("error/404");
         registry.addViewController("/500").setViewName("error/500");
-
-        // 菜单管理
-        /*registry.addViewController("/menu").setViewName("page/menu");
-        // 网站设置
-        registry.addViewController("/setting").setViewName("page/setting");
-        // 普通表单
-        registry.addViewController("/form").setViewName("page/form");
-        // 分布表单
-        registry.addViewController("/form-step").setViewName("page/form-step");*/
     }
 
     /**
@@ -115,7 +104,7 @@ public class MvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/clazz/**")
                 .excludePathPatterns("/captcha/**");
 
-        // 普通管理员拦截器
+        // 管理员拦截器
         registry.addInterceptor(adminInterceptor())
                 // api
                 .addPathPatterns("/admin/**")
@@ -134,9 +123,10 @@ public class MvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("image/**")
 
                 // 页面
-                .addPathPatterns("/console/admin/**")
-                .addPathPatterns("/console/*")
-                .excludePathPatterns("/console/login-1");
+                .addPathPatterns("/menu/*")
+                .addPathPatterns("/common/add")
+                .addPathPatterns("/common/edit")
+                .excludePathPatterns("/console/login");
 
 
         // 静态资源拦截器

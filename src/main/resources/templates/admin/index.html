@@ -62,15 +62,14 @@
           <a href="javascript:void(0)" data-check-screen="full"><i class="fa fa-arrows-alt"></i></a>
         </li>
         <li class="layui-nav-item layuimini-setting">
-          <!--                    <a href="javascript:void(0)" th:text="${session.admin.getStuName()}"></a>-->
           <a href="javascript:void(0)" id="adminName"></a>
           <dl class="layui-nav-child">
             <dd>
-              <a href="javascript:void(0)" layuimini-content-href="/console/admin-info" data-title="基本资料"
+              <a href="javascript:void(0)" layuimini-content-href="/admin-info" data-title="基本资料"
                  data-icon="fa fa-gears">基本资料<span class="layui-badge-dot"></span></a>
             </dd>
             <dd>
-              <a href="javascript:void(0)" layuimini-content-href="/console/admin-password"
+              <a href="javascript:void(0)" layuimini-content-href="/admin-password"
                  data-title="修改密码"
                  data-icon="fa fa-gears">修改密码</a>
             </dd>
@@ -157,7 +156,7 @@
     $(function () {
       let session = [[${session.admin}]]
       if (!session) {
-        window.location = "/console/login-1";
+        window.location = "/console/login";
       }
       $("#adminName").text(session.stuName)
     })
@@ -165,7 +164,7 @@
     $('.login-out').on("click", function () {
       $.get('/admin/logout', (res) => {
         if (res.code === 200) {
-          window.location = '/console/login-1';
+          window.location = '/console/login';
         }
       });
 

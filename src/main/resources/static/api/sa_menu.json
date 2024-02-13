@@ -1,7 +1,7 @@
 {
   "homeInfo": {
     "title": "首页",
-    "href": "/welcome-1"
+    "href": "/index"
   },
   "logoInfo": {
     "title": "控制台",
@@ -10,7 +10,7 @@
   },
   "menuInfo": [
     {
-      "title": "常规管理",
+      "title": "常规管理 7",
       "icon": "fa fa-address-book",
       "href": "",
       "target": "_self",
@@ -22,8 +22,8 @@
           "target": "_self",
           "child": [
             {
-              "title": "主页一",
-              "href": "/welcome-1",
+              "title": "主页",
+              "href": "/index",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }

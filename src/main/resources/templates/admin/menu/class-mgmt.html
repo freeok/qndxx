@@ -141,7 +141,7 @@
           maxmin: true,
           shadeClose: true,
           area: ['100%', '100%'],
-          content: '/console/admin/table/add',
+          content: '/common/add',
           end: () => {
             //tableStu.reload();
             table.reload('currentTableId');
@@ -185,7 +185,7 @@
           maxmin: true,
           shadeClose: true,
           area: ['100%', '100%'],
-          content: '/console/admin/table/edit?stuId=' + stuId + '&stuName=' + stuName + '&clazzName=' + clazzName,
+          content: '/common/edit?stuId=' + stuId + '&stuName=' + stuName + '&clazzName=' + clazzName,
           end: () => {
             //tableStu.reload();
             table.reload('currentTableId');

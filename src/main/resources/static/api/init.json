@@ -1,7 +1,7 @@
 {
   "homeInfo": {
     "title": "首页",
-    "href": "/welcome-1"
+    "href": "/index"
   },
   "logoInfo": {
     "title": "控制台",
@@ -22,20 +22,8 @@
           "target": "_self",
           "child": [
             {
-              "title": "主页一",
-              "href": "page/welcome-1.html",
-              "icon": "fa fa-tachometer",
-              "target": "_self"
-            },
-            {
-              "title": "主页二",
-              "href": "page/welcome-2.html",
-              "icon": "fa fa-tachometer",
-              "target": "_self"
-            },
-            {
-              "title": "主页三",
-              "href": "page/welcome-3.html",
+              "title": "主页",
+              "href": "page/home.html",
               "icon": "fa fa-tachometer",
               "target": "_self"
             }
@@ -87,20 +75,8 @@
           "child": [
             {
               "title": "登录-1",
-              "href": "page/login-1.html",
+              "href": "page/login.html",
               "icon": "fa fa-stumbleupon-circle",
-              "target": "_blank"
-            },
-            {
-              "title": "登录-2",
-              "href": "page/login-2.html",
-              "icon": "fa fa-viacoin",
-              "target": "_blank"
-            },
-            {
-              "title": "登录-3",
-              "href": "page/login-3.html",
-              "icon": "fa fa-tags",
               "target": "_blank"
             }
           ]

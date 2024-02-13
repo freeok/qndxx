@@ -18,11 +18,11 @@ import java.util.Objects;
 public class AdminInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         HttpSession session = request.getSession();
         Student student = (Student) session.getAttribute("admin");
         boolean flag = student != null && (Objects.equals(student.getRole(), "admin") || Objects.equals(student.getRole(), "sa"));
-        log.info("普通管理员拦截器执行，是否放行？" + flag);
+        log.info("{} 管理员拦截器执行，{}", request.getRequestURL(), flag ? "允许访问" : "拒绝访问");
         return flag;
     }
 

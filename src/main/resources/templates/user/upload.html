@@ -363,7 +363,7 @@
     //管理入口
     $("#manager").on("click", function () {
       if (role === "admin" || role === "sa") {
-        window.location.href = "/console/login-1";
+        window.location.href = "/console/login";
         return;
       }
 
@@ -376,7 +376,7 @@
       }, function (value, index, elem) {
         let pwd = value.trim();
         if (pwd === "1433") {
-          window.location.href = "/console/login-1";
+          window.location.href = "/console/login";
         } else {
           layer.msg('口令错误', {anim: '6', icon: 2});
         }
