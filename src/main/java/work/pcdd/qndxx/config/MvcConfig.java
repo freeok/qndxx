@@ -87,7 +87,7 @@ public class MvcConfig implements WebMvcConfigurer {
                 // 拦截所有
                 .addPathPatterns("/**")
                 // 排除静态资源
-                .excludePathPatterns("/images/**")
+                .excludePathPatterns("/img/**")
                 .excludePathPatterns("/css/**")
                 .excludePathPatterns("/js/**")
                 .excludePathPatterns("/lib/**")
