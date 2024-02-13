@@ -28,7 +28,6 @@ public enum ResultCode {
 
     /*文件错误*/
     FILE_NOT_FOUND(3001, "文件不存在"),
-    DOWNLOAD_REFUSE(3002, "暂无人上交截图，无法下载"),
 
     /* 管理员错误 */
     ADMIN_OLD_PASSWORD_ERROR(4001, "旧密码错误"),

@@ -4,6 +4,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ZipUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +13,6 @@ import work.pcdd.qndxx.common.vo.Result;
 import work.pcdd.qndxx.common.vo.ResultCode;
 import work.pcdd.qndxx.entity.Image;
 import work.pcdd.qndxx.entity.Upload;
-import work.pcdd.qndxx.mapper.AdminMapper;
 import work.pcdd.qndxx.mapper.ImageMapper;
 import work.pcdd.qndxx.service.ImageService;
 import work.pcdd.qndxx.util.UploadUtils;
@@ -20,9 +20,12 @@ import work.pcdd.qndxx.util.UploadUtils;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
+import java.net.URLEncoder;
+import java.nio.file.Files;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -37,27 +40,25 @@ import java.util.Objects;
 public class ImageServiceImpl implements ImageService {
 
     private final ImageMapper imageMapper;
-    private final AdminMapper adminMapper;
 
     /**
      * 截图上传
      *
      * @param id        学号
      * @param name      学生姓名
-     * @param par       图片类型：upload1、upload2分别表示朋友圈截图，首页截图
+     * @param type      图片类型：upload1、upload2分别表示朋友圈截图，首页截图
      * @param clazzName 班级名
      * @param mf        MultipartFile对象
      */
     @Override
-    public Result upload(String id, String name, String par, String clazzName, MultipartFile mf) {
-        log.info("========================upload start========================");
+    public Result upload(String id, String name, String type, String clazzName, MultipartFile mf) {
         // 若文件不存在，则拒绝上传
         if (mf.isEmpty()) {
             return Result.failure(ResultCode.FILE_NOT_FOUND);
         }
 
         // 判断上传到哪个目录
-        String dirName = "upload1".equals(par) ? "朋友圈截图" : "首页截图";
+        String dirName = "upload1".equals(type) ? "朋友圈截图" : "首页截图";
         // 获取文件大小(B => KB)，保留两位小数
         BigDecimal size = NumberUtil.round(mf.getSize() / 1024.0, 2);
         log.info("fileSize:" + size.doubleValue() + "KB");
@@ -76,19 +77,11 @@ public class ImageServiceImpl implements ImageService {
         log.info("相对路径：" + relativePath);
 
         try {
-            File file = new File(filePath);
             // 上传文件
-            mf.transferTo(file);
+            mf.transferTo(new File(filePath));
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }
-
-        Upload upload = new Upload();
-        upload.setStuId(id);
-        upload.setImgKey(relativePath);
-        upload.setUploadTime(new Date());
-        // 将上传者的学号、文件路径、上传时间保存到upload表
-        imageMapper.addUpload(upload);
 
         Image image = new Image();
         image.setImgKey(relativePath);
@@ -97,7 +90,13 @@ public class ImageServiceImpl implements ImageService {
         // 将上传图片的路径、图片大小、图片扩展名保存到image表
         imageMapper.addImage(image);
 
-        log.info("========================upload end========================");
+        Upload upload = new Upload();
+        upload.setStuId(id);
+        upload.setImgKey(relativePath);
+        upload.setUploadTime(new Date());
+        // 将上传者的学号、文件路径、上传时间保存到upload表
+        imageMapper.addUpload(upload);
+
         return Result.success();
     }
 
@@ -108,52 +107,27 @@ public class ImageServiceImpl implements ImageService {
      * @param resp      response对象
      * @param clazzName 班级名
      */
+    @SneakyThrows
     @Override
-    public Result download(HttpServletRequest req, HttpServletResponse resp, String clazzName) {
-        log.info("========================download start========================");
-        // 若该班级无人上交，拒绝下载
-        if (adminMapper.findSubmitted(clazzName).isEmpty()) {
-            return Result.failure(ResultCode.DOWNLOAD_REFUSE);
-        }
-
+    public void download(HttpServletRequest req, HttpServletResponse resp, String clazzName) {
         // 指定压缩哪一个目录（目录名即为班级名）
-        String zipPath = UploadUtils.IMG_REAL_PATH + clazzName;
-        log.info("zipPath:" + zipPath);
-        ZipUtil.zip(zipPath);
+        String filePath = UploadUtils.IMG_REAL_PATH + clazzName;
+        log.info("filePath:" + filePath);
+        ZipUtil.zip(filePath);
 
-        // 指定压缩文件名
-        String zipName = clazzName + ".zip";
+        // 设置下载响应头
+        resp.setContentType("application/octet-stream;charset=utf-8");
+        resp.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(clazzName + ".zip", "UTF-8"));
 
-        // 实现文件下载 设置响应头,zipName设置要下载的zip的名称
-        resp.setContentType("application/force-download");
-        try {
-            // 防止文件名中文乱码
-            resp.setHeader("Content-Disposition", "attachment;filename=" + new String(zipName.getBytes(StandardCharsets.UTF_8), "ISO8859-1"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        try (InputStream in = Files.newInputStream(new File(filePath + ".zip").toPath());
+             ServletOutputStream out = resp.getOutputStream()) {
+            int len;
+            // 缓冲区大小 4 KB
+            byte[] buffer = new byte[4096];
+            while ((len = in.read(buffer)) != -1) {
+                out.write(buffer, 0, len);
+            }
         }
-
-        // 先使用文件输入流 将文件读到内存中 再使用输出流 将文件输出给用户
-        File file = new File(zipPath + ".zip");
-        if (!file.exists()) {
-            return Result.failure(ResultCode.FILE_NOT_FOUND);
-        }
-
-        try (InputStream fis = new FileInputStream(file)) {
-            // 准备一个缓冲区
-            byte[] bytes = new byte[(int) file.length()];
-            // 将文件读入缓冲区中
-            fis.read(bytes);
-            // 获得响应的输出流
-            ServletOutputStream sos = resp.getOutputStream();
-            sos.write(bytes);
-            sos.close();
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
-
-        log.info("========================download end========================");
-        return Result.success();
     }
 
     @Override

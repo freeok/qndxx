@@ -37,8 +37,8 @@ public class ImageController {
 
     @ApiOperation("图片下载")
     @GetMapping("/download/{clazzName}")
-    public Result download(HttpServletRequest req, HttpServletResponse resp, @PathVariable String clazzName) {
-        return imageService.download(req, resp, clazzName);
+    public void download(HttpServletRequest req, HttpServletResponse resp, @PathVariable String clazzName) {
+        imageService.download(req, resp, clazzName);
     }
 
     @ApiOperation("判断用户是否上传")
@@ -49,7 +49,7 @@ public class ImageController {
 
     @ApiOperation("根据图片路径返回图片的base64编码")
     @PostMapping("/base64")
-    public Result getImageBase64(HttpServletRequest req, HttpServletResponse resp)  {
+    public Result getImageBase64(HttpServletRequest req, HttpServletResponse resp) {
         resp.setContentType("application/json;charset=utf-8");
 
         String parentPath = System.getProperty("user.dir") + "/src/main/resources/static";
