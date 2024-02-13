@@ -13,9 +13,9 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 @MapperScan("work.pcdd.qndxx.mapper")
 @EnableOpenApi
 public class QndxxApplication {
-    
+
     public static void main(String[] args) {
         SpringApplication.run(QndxxApplication.class, args);
     }
-    
+
 }

@@ -1,7 +1,6 @@
 package work.pcdd.qndxx.mapper;
 
 import org.apache.ibatis.annotations.MapKey;
-import org.springframework.stereotype.Repository;
 import work.pcdd.qndxx.entity.Student;
 
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.Map;
 /**
  * @author pcdd
  */
-@Repository
 public interface AdminMapper {
 
     /**

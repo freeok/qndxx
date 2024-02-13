@@ -11,6 +11,7 @@ import java.io.Serializable;
 @Data
 @Component
 public class Result implements Serializable {
+
     private Integer code;
     private String message;
     private Object data;

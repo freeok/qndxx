@@ -1,9 +1,13 @@
 package work.pcdd.qndxx.common.vo;
 
+import lombok.Getter;
+
 /**
  * @author pcdd
  */
+@Getter
 public enum ResultCode {
+
     /* 成功状态码 */
     SUCCESS(200, "成功"),
     SUCCESS_LAYUI(0, "成功"),
@@ -17,7 +21,7 @@ public enum ResultCode {
 
     /* 用户错误 */
     USER_NOT_LOGGED_IN(2001, "用户未登录，访问的路径需要验证，请登录"),
-    USER_LOGIN_ERROR(2002, "账号不存在或密码错误"),
+    USER_LOGIN_ERROR(2002, "学号不存在或密码错误"),
     USER_ACCOUNT_FORBIDDEN(2003, "账号已被禁用"),
     USER_NOT_EXIST(2004, "用户不存在"),
     USER_HAS_EXISTED(2005, "用户已存在"),
@@ -31,21 +35,12 @@ public enum ResultCode {
     ADMIN_UPDATE_PASSWORD_FAIL(4002, "修改密码失败");
 
 
-    private Integer code;
-    private String message;
+    private final Integer code;
+    private final String message;
 
     ResultCode(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
-
-    public Integer getCode() {
-        return this.code;
-    }
-
-    public String getMessage() {
-        return this.message;
-    }
-
 
 }

@@ -2,7 +2,7 @@ package work.pcdd.qndxx.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import work.pcdd.qndxx.common.vo.Result;
 import work.pcdd.qndxx.common.vo.ResultCode;
@@ -19,10 +19,10 @@ import javax.servlet.http.HttpSession;
 @Api(tags = "学生相关API")
 @RestController
 @RequestMapping("/student")
+@RequiredArgsConstructor
 public class StudentController {
 
-    @Autowired
-    private StudentService studentService;
+    private final StudentService studentService;
 
     @ApiOperation("用户无密码登录")
     @PostMapping("/login/{stuId}")

@@ -3,7 +3,7 @@ package work.pcdd.qndxx.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import work.pcdd.qndxx.common.vo.Result;
 import work.pcdd.qndxx.entity.Student;
@@ -18,12 +18,11 @@ import javax.servlet.http.HttpSession;
 @Api(tags = "管理员相关API")
 @RestController
 @RequestMapping("/admin")
+@RequiredArgsConstructor
 public class AdminController {
 
-    @Autowired
-    private AdminService adminService;
-    @Autowired
-    private ImageService imageService;
+    private final AdminService adminService;
+    private final ImageService imageService;
 
     @ApiOperation("管理员登录")
     @PostMapping("/login/{stuId}/{pwd}")

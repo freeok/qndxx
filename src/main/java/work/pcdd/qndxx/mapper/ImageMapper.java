@@ -1,6 +1,5 @@
 package work.pcdd.qndxx.mapper;
 
-import org.springframework.stereotype.Repository;
 import work.pcdd.qndxx.entity.Image;
 import work.pcdd.qndxx.entity.Upload;
 
@@ -9,7 +8,6 @@ import java.util.List;
 /**
  * @author pcdd
  */
-@Repository
 public interface ImageMapper {
 
     /**

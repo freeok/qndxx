@@ -1,12 +1,10 @@
 package work.pcdd.qndxx.mapper;
 
-import org.springframework.stereotype.Repository;
 import work.pcdd.qndxx.entity.Clazz;
 
 /**
  * @author pcdd
  */
-@Repository
 public interface ClazzMapper {
 
     /**

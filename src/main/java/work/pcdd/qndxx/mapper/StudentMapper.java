@@ -1,6 +1,5 @@
 package work.pcdd.qndxx.mapper;
 
-import org.springframework.stereotype.Repository;
 import work.pcdd.qndxx.entity.Student;
 
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
  *
  * @author pcdd
  */
-@Repository
 public interface StudentMapper {
 
     /**

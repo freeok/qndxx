@@ -1,6 +1,5 @@
 package work.pcdd.qndxx.service;
 
-import org.springframework.stereotype.Repository;
 import work.pcdd.qndxx.common.vo.Result;
 
 import javax.servlet.http.HttpSession;
@@ -8,7 +7,6 @@ import javax.servlet.http.HttpSession;
 /**
  * @author pcdd
  */
-@Repository
 public interface AdminService {
 
     /**
