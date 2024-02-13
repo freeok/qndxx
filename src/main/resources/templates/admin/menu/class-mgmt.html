@@ -73,7 +73,6 @@
     function showTable(start, limit) {
       table.render({
         elem: '#currentTableId',
-        //url: '../api/table.json',
         url: '/admin/findAllByClazzName/' + start + '/' + limit,
         toolbar: '#toolbarDemo',
         defaultToolbar: ['filter', 'exports', 'print', {
