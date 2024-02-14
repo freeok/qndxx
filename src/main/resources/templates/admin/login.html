@@ -205,7 +205,7 @@
 
       $.post('/captcha/verify/' + captcha, (res) => {
         if (res.code === 1005) {
-          layer.msg(res.message, {icon: 5, anim: 6});
+          layer.msg(res.msg, {icon: 5, anim: 6});
           $("#password").val("").focus();
           $("#captcha").val("");
           refCaptcha();
@@ -215,7 +215,7 @@
             if (res.code === 200) {
               window.location = '/console';
             } else {
-              layer.msg(res.message, {icon: 2, time: 2000, anim: 6});
+              layer.msg(res.msg, {icon: 2, time: 2000, anim: 6});
               $("#password").val("").focus();
               $("#captcha").val("");
             }
@@ -232,7 +232,7 @@
 
     //回车事件
     $(document).keydown(function (event) {
-      if (event.keyCode == 13) { //判断为Enter键
+      if (event.keyCode === 13) { //判断为Enter键
         login();
       }
     });

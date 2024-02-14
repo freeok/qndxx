@@ -97,7 +97,7 @@ public class ImageServiceImpl implements ImageService {
         // 将上传者的学号、文件路径、上传时间保存到upload表
         imageMapper.addUpload(upload);
 
-        return R.ok();
+        return R.ok("上传成功");
     }
 
     /**
