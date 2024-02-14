@@ -74,6 +74,15 @@
     </div>
   </div>
 
+  <div class="layui-upload-drag" style="display: block;" id="ID-upload-demo-drag">
+    <i class="layui-icon layui-icon-upload"></i>
+    <div>点击上传，或将文件拖拽到此处</div>
+    <div class="layui-hide" id="ID-upload-demo-preview">
+      <hr>
+      <img src="" alt="上传成功后渲染" style="max-width: 100%">
+    </div>
+  </div>
+
   <!-- 上传界面 -->
   <div class="layui-row">
     <div class="layui-col-xs11 center layui-anim layui-anim-fadein" style="margin-top: 20px;">
@@ -118,25 +127,37 @@
 <script src="/js/cookie.js"></script>
 <script th:inline="javascript">
   layui.use(['element', 'layer', 'upload', 'form'], function () {
-    let form = layui.form
-      , element = layui.element
-      , layer = layui.layer
-      , upload = layui.upload;
+    let layer = layui.layer, upload = layui.upload;
 
     let lastPath, par, clazzName, index;
     let stuId = $("#stuId").text();
     let stuName = $("#stuName").text();
     let role = [[${session.student.getRole()}]];
 
-
     $(function () {
       // 显示加载效果
       index = layer.msg('加载中...', {
-        icon: 16
-        , shade: 0.5
+        icon: 16,
+        shade: 0.5
       });
 
       clazzName = [[${session.student.getClazzName()}]];
+
+      // 渲染
+      upload.render({
+        elem: '#ID-upload-demo-drag',
+        url: `/image/upload/${stuId}/${stuName}/${par}/${clazzName}`, // 实际使用时改成您自己的上传接口即可。
+        done: function (res) {
+          layer.msg('上传成功');
+          $('#ID-upload-demo-preview')
+            .removeClass('layui-hide')
+            .find('img')
+            .attr('src', res.files.file);
+          console.log(res)
+        }
+      });
+
+
       // 获取clazz表字段
       $.get('/clazz/' + clazzName, (res) => {
         $("#issue").text("青年大学习第 " + res.data.season + " 季第 " + res.data.period + " 期");
@@ -172,7 +193,6 @@
 
         // 判断用户是否已交朋友圈/首页截图，若已交，则显示对应的截图
         $.get('/image/isUploaded/' + stuId, (res) => {
-          console.log(res);
           // 有上交记录
           if (res.data.length !== 0) {
             let data = [];
@@ -180,17 +200,14 @@
               let imgKey = res.data[i].imgKey;
               let temp = imgKey.substring(0, imgKey.lastIndexOf('/'))
               let pageName = temp.substring(temp.lastIndexOf('/') + 1)
-              console.log(pageName)
               let obj = {}
               obj[pageName] = res.data[i].uploadTime;
               data[i] = obj;
             }
-            console.log(data)
 
             let uploadTime;
             for (let i = 0; i < data.length; i++) {
               let key = Object.keys(data[i]).toString();
-              console.log(key)
               if (key === '朋友圈截图' && par === 'upload1') {
                 uploadTime = data[i][key];
               }
@@ -198,7 +215,6 @@
                 uploadTime = data[i][key];
               }
             }
-            console.log(uploadTime)
 
             for (let i = 0; i < data.length; i++) {
               let temp = res.data[i].imgKey;
@@ -209,7 +225,7 @@
                 break;
               }
             }
-            console.log("locationImgUrl:" + locationImgUrl)
+            console.log("locationImgUrl: " + locationImgUrl)
 
             if (uploadTime != null) {
               $.post("/image/base64", {path: locationImgUrl}, function (res) {
@@ -242,8 +258,9 @@
       , accept: 'images' // 指定允许上传时校验的文件类型，可选值有：images（图片）、file（所有文件）、video（视频）、audio（音频）
       , size: 5120 // 5M。不支持ie8/9
       , multiple: false // 是否允许多文件上传 不支持ie8/9
-      , number: 1 // 设置同时可上传的文件数量，一般配合 multiple 参数出现。
-      , choose: function () {
+      , number: 1, // 设置同时可上传的文件数量，一般配合 multiple 参数出现。
+      choose: function () {
+        console.log('upload choose')
         // 等待效果
         index = layer.msg('开始处理图片', {
           icon: 16
@@ -255,14 +272,15 @@
           end: () => {
             if (new Date().getTime() - start > 14500) {
               layer.open({
-                content: '上传时间超时，请检查图片是否损坏(上传时间主要取决于您网络环境和浏览器的性能)',
+                content: '上传时间超时，请检查图片是否损坏(上传时间主要取决于您网络环境和硬件的性能)',
                 icon: 7
               });
             }
           }
         });
-      }
-      , before: function (obj) {
+      },
+      before: function (obj) {
+        console.log('upload before')
         //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
         obj.preview(function (index, file, result) {// index得到文件索引 file得到文件对象 result 得到文件base64编码，比如图片
           let size1 = (file.size / 1024).toFixed(2);
@@ -300,7 +318,7 @@
               layerMsg.html(anim + '图片上传中');
 
               $.ajax({
-                url: '/image/upload/' + stuId + '/' + stuName + '/' + par + '/' + clazzName
+                url: `/image/upload/${stuId}/${stuName}/${par}/${clazzName}`
                 , type: 'post'
                 , data: rst.formData
                 , processData: false
@@ -336,12 +354,13 @@
           });
 
         });
-      }
-      , done: function (res) {
+      },
+      done: function (res) {
+        console.log('upload done')
         console.log(res)
       },
-      error: function () {
-
+      error: function (err) {
+        console.error(err)
       }
     });
 
