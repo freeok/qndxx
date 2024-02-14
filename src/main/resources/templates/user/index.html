@@ -21,7 +21,7 @@
   <meta name="robots" content="index,follow"/>
   <link rel="stylesheet" href="/lib/layui-v2.5.6/css/layui.css">
   <style>
-    body{
+    body {
       min-width: 375px;
     }
 
@@ -66,10 +66,11 @@
 <div class="layui-container" style="text-align: center;">
   <div class="layui-row">
 
-    <div class="layui-col-lg8 layui-col-sm10 layui-col-xs11" style="margin-top: 80px;">
+    <div class="layui-col-lg8 layui-col-sm10 layui-col-xs11" style="margin-top: 50px;">
       <div class="layui-col-lg-offset6 layui-col-sm-offset2 layui-col-xs-offset1">
         <i class="layui-icon layui-icon-upload-drag" style="font-size: 40px;"></i>
-        <div style="font-family: 'Microsoft YaHei UI';font-size: 16px;" class="layui-card-body">青年大学习截图上交系统 <i>1.1</i></div>
+        <div style="font-family: 'Microsoft YaHei UI';font-size: 16px;" class="layui-card-body">青年大学习截图上交系统
+          <i>1.1</i></div>
       </div>
     </div>
 
@@ -95,6 +96,7 @@
       <div class="layui-col-lg-offset6 layui-col-sm-offset2 layui-col-xs-offset1">
         <div style="text-align: left;">
           <div style="font-size: 16px;">
+            <!-- gitee 挂件 -->
             <a href='https://gitee.com/pcdd-group/qndxx/stargazers'>
               <img src='https://gitee.com/pcdd-group/qndxx/badge/star.svg?theme=dark' alt='star'>
             </a>
@@ -136,14 +138,7 @@
 <script src="/js/cookie.js"></script>
 <script th:inline="javascript">
   layui.use(['element', 'layer', 'upload'], function () {
-    let form = layui.form;
-    let table = layui.table;
-    let laydate = layui.laydate;
-    let element = layui.element;
     let layer = layui.layer;
-    let upload = layui.upload;
-
-    let pageName;
 
     $(function () {
       $("body").css("background", "#F9F9F9");
@@ -168,11 +163,10 @@
       layer.open({
         type: 2
         , title: '身份验证'
-        , maxmin: false//最大最小化
+        , maxmin: false //最大最小化
         , anim: 0
-        , shadeClose: true//点击遮罩是否关闭层
-        , area: ['400px', '280px']
-        , content: '/login?par=' + pageName//弹框显示的url,对应的页面
+        , shadeClose: false //点击遮罩是否关闭层
+        , content: '/login?par=' + pageName //弹框显示的url,对应的页面
         , closeBtn: 1
         , move: true
         , id: "id"

@@ -22,9 +22,9 @@ async function imgToCanvas(url) {
  * @param {canvas对象} canvas
  * @param {水印文字} text
  */
-function addWatermark(canvas, text, fontAndSize, color) {
+function addWatermark(canvas, text, font, color) {
     const ctx = canvas.getContext("2d");
-    ctx.font = fontAndSize;
+    ctx.font = font;
     ctx.fillStyle = color;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
@@ -47,12 +47,12 @@ function convasToImg(canvas) {
 }
 
 // 运行示例
-async function addTextToImg(url, text, fontAndSize, color) {
+async function addTextToImg(url, text, font, color) {
     const imgUrl = url;
     // 1.图片路径转成canvas
     const tempCanvas = await imgToCanvas(imgUrl);
     // 2.canvas添加水印
-    const canvas = addWatermark(tempCanvas, text, fontAndSize, color);
+    const canvas = addWatermark(tempCanvas, text, font, color);
     // 3.canvas转成img
     const img = convasToImg(canvas);
     // 查看效果
@@ -62,17 +62,15 @@ async function addTextToImg(url, text, fontAndSize, color) {
 }
 
 // 将base64转换为blob类型，目的为了兼容IE
-function dataURLtoFile(dataUrl, fileName) {
+function base642Blob(dataUrl, fileName) {
     let arr = dataUrl.split(','), mime = arr[0].match(/:(.*?);/)[1],
         bStr = atob(arr[1]), n = bStr.length, u8arr = new Uint8Array(n);
     while (n--) {
         u8arr[n] = bStr.charCodeAt(n);
     }
-
     let blob = new Blob([u8arr], {type: mime});
     blob.lastModifiedDate = new Date();
     blob.name = fileName;
-
     return blob
 }
 
