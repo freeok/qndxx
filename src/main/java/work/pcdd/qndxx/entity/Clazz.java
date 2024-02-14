@@ -1,7 +1,6 @@
 package work.pcdd.qndxx.entity;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,22 +14,22 @@ import java.util.Date;
  */
 @Data
 @NoArgsConstructor
-@ApiModel(description = "班级表")
+@Schema(name = "班级表")
 public class Clazz implements Serializable {
 
-    @ApiModelProperty("班级名")
+    @Schema(name = "班级名")
     private String clazzName;
 
-    @ApiModelProperty("季数")
+    @Schema(name = "季数")
     private String season;
 
-    @ApiModelProperty("期数")
+    @Schema(name = "期数")
     private String period;
 
-    @ApiModelProperty("系统启动状态")
+    @Schema(name = "系统启动状态")
     private Boolean isEnable;
 
-    @ApiModelProperty("创建日期")
+    @Schema(name = "创建日期")
     private Date createdAt;
 
 }

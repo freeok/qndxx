@@ -1,8 +1,8 @@
 package work.pcdd.qndxx.controller;
 
 import cn.hutool.core.codec.Base64;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * @author pcdd
  */
-@Api(tags = "图片相关API")
+@Tag(name = "图片相关API")
 @RestController
 @RequestMapping("/image")
 @RequiredArgsConstructor
@@ -27,7 +27,7 @@ public class ImageController {
 
     private final ImageService imageService;
 
-    @ApiOperation("图片上传")
+    @Operation(summary = "图片上传")
     @PostMapping("/upload/{id}/{name}/{par}/{clazzName}")
     public R upload(@RequestParam("file") MultipartFile mf
             , @PathVariable("id") String id
@@ -37,19 +37,19 @@ public class ImageController {
         return imageService.upload(id, name, par, clazzName, mf);
     }
 
-    @ApiOperation("图片下载")
+    @Operation(summary = "图片下载")
     @GetMapping("/download/{clazzName}")
     public void download(HttpServletRequest req, HttpServletResponse resp, @PathVariable String clazzName) {
         imageService.download(req, resp, clazzName);
     }
 
-    @ApiOperation("判断用户是否上传")
+    @Operation(summary = "判断用户是否上传")
     @GetMapping("/isUploaded/{stuId}")
     public R<List<Upload>> isUploaded(@PathVariable String stuId) {
         return R.ok(imageService.isUploaded(stuId));
     }
 
-    @ApiOperation("根据图片路径返回图片的base64编码")
+    @Operation(summary = "根据图片路径返回图片的base64编码")
     @PostMapping("/base64")
     public R<String> getImageBase64(HttpServletRequest req, HttpServletResponse resp) {
         resp.setContentType("application/json;charset=utf-8");
