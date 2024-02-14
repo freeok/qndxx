@@ -1,6 +1,6 @@
 package work.pcdd.qndxx.service;
 
-import work.pcdd.qndxx.common.R;
+import work.pcdd.qndxx.common.util.R;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +17,7 @@ public interface AdminService {
      * @param session session
      * @return 执行结果
      */
-    R login(String stuId, String pwd, HttpSession session);
+    R<String> login(String stuId, String pwd, HttpSession session);
 
     /**
      * 根据班级名查询所有学生的学号，姓名，班级
@@ -56,7 +56,7 @@ public interface AdminService {
      * @param clazzName 班级名
      * @return 已交人数
      */
-    R findSubmittedCount(String clazzName);
+    Integer findSubmittedCount(String clazzName);
 
     /**
      * 查询不同班级的截图未交人数
@@ -64,7 +64,7 @@ public interface AdminService {
      * @param clazzName 班级名
      * @return 未交人数
      */
-    R findUnpaidCount(String clazzName);
+    Integer findUnpaidCount(String clazzName);
 
     /**
      * 管理员修改密码

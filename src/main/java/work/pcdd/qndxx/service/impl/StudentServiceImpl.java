@@ -2,8 +2,8 @@ package work.pcdd.qndxx.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import work.pcdd.qndxx.common.R;
 import work.pcdd.qndxx.common.RCode;
+import work.pcdd.qndxx.common.util.R;
 import work.pcdd.qndxx.entity.Student;
 import work.pcdd.qndxx.mapper.StudentMapper;
 import work.pcdd.qndxx.service.StudentService;
@@ -26,34 +26,34 @@ public class StudentServiceImpl implements StudentService {
         Student student = studentMapper.findById(stuId);
         if (student != null && Objects.equals(student.getStuId(), stuId)) {
             session.setAttribute("student", student);
-            return R.success();
+            return R.ok();
         }
-        return R.failure(RCode.USER_LOGIN_ERROR);
+        return R.fail(RCode.USER_LOGIN_ERROR);
     }
 
     @Override
     public R addStudent(Student student) {
         // 添加学生前判断学号是否存在，若存在，则拒绝添加
         if (studentMapper.findById(student.getStuId()) != null) {
-            return R.failure(RCode.USER_HAS_EXISTED);
+            return R.fail(RCode.USER_HAS_EXISTED);
         }
-        return R.success(studentMapper.addStudent(student));
+        return R.ok(studentMapper.addStudent(student));
     }
 
     @Override
-    public R delStudentById(String stuId) {
-        return R.success(studentMapper.delStudentById(stuId));
+    public Integer delStudentById(String stuId) {
+        return studentMapper.delStudentById(stuId);
     }
 
     @Override
     public R findByName(Student student) {
         List<Student> list = studentMapper.findByName(student);
-        return R.success0(list, (long) list.size());
+        return R.ok0(list, (long) list.size());
     }
 
     @Override
-    public R updStudentById(Student student) {
-        return R.success(studentMapper.updStudentById(student));
+    public Integer updStudentById(Student student) {
+        return studentMapper.updStudentById(student);
     }
 
 }

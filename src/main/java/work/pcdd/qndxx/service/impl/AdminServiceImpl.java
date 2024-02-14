@@ -5,8 +5,8 @@ import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import work.pcdd.qndxx.common.R;
 import work.pcdd.qndxx.common.RCode;
+import work.pcdd.qndxx.common.util.R;
 import work.pcdd.qndxx.entity.Student;
 import work.pcdd.qndxx.mapper.AdminMapper;
 import work.pcdd.qndxx.service.AdminService;
@@ -27,7 +27,7 @@ public class AdminServiceImpl implements AdminService {
     private final AdminMapper adminMapper;
 
     @Override
-    public R login(String stuId, String pwd, HttpSession session) {
+    public R<String> login(String stuId, String pwd, HttpSession session) {
         Student student = new Student();
         student.setStuId(stuId);
         student.setPwd(pwd);
@@ -35,9 +35,9 @@ public class AdminServiceImpl implements AdminService {
         if (list.size() == 1 && Objects.equals(list.get(0).getStuId(), stuId)
                 && Objects.equals(list.get(0).getPwd(), pwd)) {
             session.setAttribute("admin", list.get(0));
-            return R.success();
+            return R.ok("管理员登录成功");
         }
-        return R.failure(RCode.USER_LOGIN_ERROR);
+        return R.fail(RCode.USER_LOGIN_ERROR);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class AdminServiceImpl implements AdminService {
         PageHelper.startPage(start, limit);
         List<Student> list = adminMapper.findAllByClazzName(clazzName);
         PageInfo<Student> pageInfo = new PageInfo<>(list);
-        return R.success0(list, pageInfo.getTotal());
+        return R.ok0(list, pageInfo.getTotal());
     }
 
     @Override
@@ -54,7 +54,7 @@ public class AdminServiceImpl implements AdminService {
         PageHelper.startPage(start, limit);
         List<Map<String, Object>> list = adminMapper.findSubmitted(clazzName);
         PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(list);
-        return R.success0(list, pageInfo.getTotal());
+        return R.ok0(list, pageInfo.getTotal());
     }
 
     @Override
@@ -62,17 +62,17 @@ public class AdminServiceImpl implements AdminService {
         PageHelper.startPage(start, limit);
         List<Student> list = adminMapper.findUnpaid(clazzName);
         PageInfo<Student> pageInfo = new PageInfo<>(list);
-        return R.success0(list, pageInfo.getTotal());
+        return R.ok0(list, pageInfo.getTotal());
     }
 
     @Override
-    public R findSubmittedCount(String clazzName) {
-        return R.success(adminMapper.findSubmittedCount(clazzName));
+    public Integer findSubmittedCount(String clazzName) {
+        return adminMapper.findSubmittedCount(clazzName);
     }
 
     @Override
-    public R findUnpaidCount(String clazzName) {
-        return R.success(adminMapper.findUnpaidCount(clazzName));
+    public Integer findUnpaidCount(String clazzName) {
+        return adminMapper.findUnpaidCount(clazzName);
     }
 
     @Override
@@ -84,14 +84,14 @@ public class AdminServiceImpl implements AdminService {
         student.setPwd(oldPwd);
         // 旧密码错误，拒绝修改
         if (adminMapper.login(student).isEmpty()) {
-            return R.failure(RCode.ADMIN_OLD_PASSWORD_ERROR);
+            return R.fail(RCode.ADMIN_OLD_PASSWORD_ERROR);
         }
         student.setPwd(newPwd);
         if (adminMapper.updPwd(student) == 1) {
-            return R.success();
+            return R.ok();
         }
 
-        return R.failure(RCode.ADMIN_UPDATE_PASSWORD_FAIL);
+        return R.fail(RCode.ADMIN_UPDATE_PASSWORD_FAIL);
     }
 
 }
