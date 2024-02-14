@@ -1,10 +1,12 @@
 package work.pcdd.qndxx.service;
 
 import org.springframework.web.multipart.MultipartFile;
-import work.pcdd.qndxx.common.R;
+import work.pcdd.qndxx.common.util.R;
+import work.pcdd.qndxx.entity.Upload;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author pcdd
@@ -37,7 +39,7 @@ public interface ImageService {
      *
      * @return 执行结果
      */
-    R deleteUpload(String clazzName);
+    void deleteUpload(String clazzName);
 
     /**
      * 根据学号查询upload表字段
@@ -45,6 +47,6 @@ public interface ImageService {
      * @param stuId
      * @return 执行结果
      */
-    R isUploaded(String stuId);
+    List<Upload> isUploaded(String stuId);
 
 }

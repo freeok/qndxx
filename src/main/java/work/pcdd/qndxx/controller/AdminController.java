@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import work.pcdd.qndxx.common.R;
+import work.pcdd.qndxx.common.util.R;
 import work.pcdd.qndxx.entity.Student;
 import work.pcdd.qndxx.service.AdminService;
 import work.pcdd.qndxx.service.ImageService;
@@ -26,16 +26,15 @@ public class AdminController {
 
     @ApiOperation("管理员登录")
     @PostMapping("/login/{stuId}/{pwd}")
-    public R login(@ApiParam("学号") @PathVariable String stuId, @ApiParam("密码") @PathVariable String pwd, HttpSession session) {
+    public R<String> login(@ApiParam("学号") @PathVariable String stuId, @ApiParam("密码") @PathVariable String pwd, HttpSession session) {
         return adminService.login(stuId, pwd, session);
     }
 
     @ApiOperation("管理员注销")
     @GetMapping("/logout")
-    public R logout(HttpSession session) {
+    public void logout(HttpSession session) {
         session.removeAttribute("admin");
         session.removeAttribute("clazz");
-        return R.success();
     }
 
     @ApiOperation("根据班级名查询所有学生的学号，姓名，班级")
@@ -62,20 +61,21 @@ public class AdminController {
 
     @ApiOperation("根据班级查询不同班级的截图已交人数")
     @GetMapping("/findSubmittedCount/{clazzName}")
-    public R findSubmittedCount(@PathVariable("clazzName") String clazzName) {
-        return adminService.findSubmittedCount(clazzName);
+    public R<Integer> findSubmittedCount(@PathVariable("clazzName") String clazzName) {
+        return R.ok(adminService.findSubmittedCount(clazzName));
     }
 
     @ApiOperation("查询不同班级的截图未交人数")
     @GetMapping("/findUnpaidCount/{clazzName}")
-    public R findUnpaidCount(@PathVariable("clazzName") String clazzName) {
-        return adminService.findUnpaidCount(clazzName);
+    public R<Integer> findUnpaidCount(@PathVariable("clazzName") String clazzName) {
+        return R.ok(adminService.findUnpaidCount(clazzName));
     }
 
     @ApiOperation("结束某一班级本轮提交")
     @DeleteMapping("/reset/{clazzName}")
     public R deleteUpload(@PathVariable String clazzName) {
-        return imageService.deleteUpload(clazzName);
+        imageService.deleteUpload(clazzName);
+        return R.ok();
     }
 
     @ApiOperation("管理员修改密码")

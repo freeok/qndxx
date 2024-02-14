@@ -4,8 +4,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import work.pcdd.qndxx.common.R;
 import work.pcdd.qndxx.common.RCode;
+import work.pcdd.qndxx.common.util.R;
 import work.pcdd.qndxx.entity.Student;
 import work.pcdd.qndxx.service.StudentService;
 
@@ -26,7 +26,7 @@ public class StudentController {
 
     @ApiOperation("用户无密码登录")
     @PostMapping("/login/{stuId}")
-    public R login(@PathVariable String stuId, HttpSession session) {
+    public R unSafeLogin(@PathVariable String stuId, HttpSession session) {
         return studentService.unSafeLogin(stuId, session);
     }
 
@@ -34,16 +34,16 @@ public class StudentController {
     @PostMapping("/isLogin")
     public R isLogin(HttpSession session) {
         if (session.getAttribute("student") == null) {
-            return R.failure(RCode.USER_NOT_LOGGED_IN);
+            return R.fail(RCode.USER_NOT_LOGGED_IN);
         }
-        return R.success();
+        return R.ok();
     }
 
     @ApiOperation("用户注销")
     @GetMapping("/logout")
-    public R logout(HttpSession session) {
+    public R<String> logout(HttpSession session) {
         session.removeAttribute("student");
-        return R.success();
+        return R.ok("退出登录成功");
     }
 
     @ApiOperation("添加用户")
@@ -58,8 +58,8 @@ public class StudentController {
 
     @ApiOperation("根据学号删除用户")
     @DeleteMapping("/delById/{stuId}")
-    public R delStudentById(@PathVariable String stuId) {
-        return studentService.delStudentById(stuId);
+    public R<Integer> delStudentById(@PathVariable String stuId) {
+        return R.ok(studentService.delStudentById(stuId));
     }
 
     @ApiOperation("在指定的班级中根据姓名模糊查询学生")
@@ -73,7 +73,7 @@ public class StudentController {
 
     @ApiOperation("更新学生信息")
     @PutMapping("/updStudentById/{stuId}/{stuName}/{clazzName}/{pwd}/{role}")
-    public R updStudentById(@PathVariable String stuId
+    public R<Integer> updStudentById(@PathVariable String stuId
             , @PathVariable String stuName
             , @PathVariable String clazzName
             , @PathVariable String pwd
@@ -84,7 +84,7 @@ public class StudentController {
         student.setClazzName(clazzName);
         student.setPwd(pwd);
         student.setRole(role);
-        return studentService.updStudentById(student);
+        return R.ok(studentService.updStudentById(student));
     }
 
 }

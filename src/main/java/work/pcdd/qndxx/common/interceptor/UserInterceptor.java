@@ -19,7 +19,7 @@ public class UserInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession(true);
         boolean isLogin = session.getAttribute("student") != null;
-        log.info("{} 用户拦截器执行，{}", request.getRequestURI(), isLogin?"允许访问":"拒绝访问");
+        log.info("{} 用户拦截器执行，{}", request.getRequestURI(), isLogin ? "允许访问" : "拒绝访问");
         // 若未登录，则跳转到首页（index.html）
         if (!isLogin) {
             response.sendRedirect("/");

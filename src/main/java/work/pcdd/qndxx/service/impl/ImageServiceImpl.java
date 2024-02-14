@@ -9,8 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import work.pcdd.qndxx.common.R;
 import work.pcdd.qndxx.common.RCode;
+import work.pcdd.qndxx.common.util.R;
 import work.pcdd.qndxx.entity.Image;
 import work.pcdd.qndxx.entity.Upload;
 import work.pcdd.qndxx.mapper.ImageMapper;
@@ -54,7 +54,7 @@ public class ImageServiceImpl implements ImageService {
     public R upload(String id, String name, String type, String clazzName, MultipartFile mf) {
         // 若文件不存在，则拒绝上传
         if (mf.isEmpty()) {
-            return R.failure(RCode.FILE_NOT_FOUND);
+            return R.fail(RCode.FILE_NOT_FOUND);
         }
 
         // 判断上传到哪个目录
@@ -97,7 +97,7 @@ public class ImageServiceImpl implements ImageService {
         // 将上传者的学号、文件路径、上传时间保存到upload表
         imageMapper.addUpload(upload);
 
-        return R.success();
+        return R.ok();
     }
 
     /**
@@ -131,7 +131,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public R deleteUpload(String clazzName) {
+    public void deleteUpload(String clazzName) {
         imageMapper.deleteUpload(clazzName);
         String path = UploadUtils.IMG_REAL_PATH + clazzName;
         log.info("deleteUpload:" + path);
@@ -139,13 +139,11 @@ public class ImageServiceImpl implements ImageService {
         FileUtil.del(path);
         // 删除指定班级的压缩包
         FileUtil.del(path + ".zip");
-        return R.success();
     }
 
     @Override
-    public R isUploaded(String stuId) {
-        List<Upload> list = imageMapper.isUploaded(stuId);
-        return R.success(list);
+    public List<Upload> isUploaded(String stuId) {
+        return imageMapper.isUploaded(stuId);
     }
 
 }
