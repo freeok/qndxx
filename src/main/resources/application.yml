@@ -26,7 +26,7 @@ spring:
 mybatis:
   # 映射文件路径
   mapper-locations: classpath:mapper/*Mapper.xml
-  # 扫描pojo类的位置,在此处指明扫描实体类的包，在mapper中就可以不用写pojo类的全路径名了
+  # 扫描实体类的位置，在此处指明扫描实体类的包，在mapper中就可以不用写实体类的全路径名了
   type-aliases-package: work.pcdd.qndxx.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -34,9 +34,14 @@ mybatis:
     map-underscore-to-camel-case: true
     cache-enabled: true
 
-# mybatis分页助手
+# 分页助手
 pagehelper:
   helper-dialect: mysql
   params: count=countSql
   reasonable: true
   support-methods-arguments: true
+
+springdoc:
+  swagger-ui:
+    enabled: true
+

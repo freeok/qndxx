@@ -16,20 +16,20 @@
 
 后端：
 
-1. JDK8
-2. SpringBoot2.4.1
-3. MySQL8
-4. Mybatis、分页助手 pagehelper
+1. JDK 1.8
+2. Spring Boot 2.7.18
+3. MySQL 8
+4. MyBatis、PageHelper
 5. API 文档使用 Swagger3 (http://127.0.0.1:8080/swagger-ui/index.html)
 
-前端：thymeleaf、jQuery、Layui、LAYUI MINI
+前端：Thymeleaf、jQuery、Layui、LAYUI MINI
 
 ## 安装教程
 
-1. jdk8（必须，否则无法使用后台）
-2. maven3+
-3. mysql8+ & mysql 图形管理工具（建议）
-4. 执行 sql 脚本
+1. JDK 1.8（必须，否则无法使用后台）
+2. Maven 3.x.x
+3. MySQL 8+ & MySQL 图形管理工具（建议）
+4. 执行 SQL 脚本
 5. 分别在 student 和 clazz 表中导入班级成员信息和班级信息（仅启动可省略这一步）
 6. 修改 application-dev.yml 中数据库配置
 7. 修改 my.cnf，去掉 ONLY_FULL_GROUP_BY，详见 https://blog.csdn.net/h123hlll/article/details/130386184
@@ -54,6 +54,6 @@
 ## 参与贡献
 
 1. Fork 本仓库
-2. 新建 Feat_xxx 分支
+2. 新建 feat_xxx 分支
 3. 提交代码
 4. 新建 Pull Request

@@ -138,11 +138,8 @@
         <input type="text" id="captcha" name="captcha" placeholder="图形验证码"
                autocomplete="off" class="layui-input verification captcha">
         <div class="captcha-img">
-          <img id="captchaPic" src="/captcha/getYzm">
+          <img id="captchaPic" src="/captcha/generate">
         </div>
-      </div>
-      <div class="layui-form-item">
-        <input type="checkbox" name="rememberMe" value="true" lay-skin="primary" title="记住密码">
       </div>
 
       <div class="layui-form-item">
@@ -172,8 +169,8 @@
     });
 
     function refCaptcha() {
-      $.get('/captcha/getYzm', function () {
-        $("#captchaPic").attr('src', '/captcha/getYzm');
+      $.get('/captcha/generate', function () {
+        $("#captchaPic").attr('src', '/captcha/generate');
       });
     }
 

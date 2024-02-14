@@ -1,8 +1,8 @@
 package work.pcdd.qndxx.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import work.pcdd.qndxx.common.util.R;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 /**
  * @author pcdd
  */
-@Api(tags = "管理员相关API")
+@Tag(name = "管理员相关API")
 @RestController
 @RequestMapping("/admin")
 @RequiredArgsConstructor
@@ -24,20 +24,20 @@ public class AdminController {
     private final AdminService adminService;
     private final ImageService imageService;
 
-    @ApiOperation("管理员登录")
+    @Operation(summary = "管理员登录")
     @PostMapping("/login/{stuId}/{pwd}")
-    public R<String> login(@ApiParam("学号") @PathVariable String stuId, @ApiParam("密码") @PathVariable String pwd, HttpSession session) {
+    public R<String> login(@Parameter(name = "学号") @PathVariable String stuId, @Parameter(name = "密码") @PathVariable String pwd, HttpSession session) {
         return adminService.login(stuId, pwd, session);
     }
 
-    @ApiOperation("管理员注销")
+    @Operation(summary = "管理员注销")
     @GetMapping("/logout")
     public void logout(HttpSession session) {
         session.removeAttribute("admin");
         session.removeAttribute("clazz");
     }
 
-    @ApiOperation("根据班级名查询所有学生的学号，姓名，班级")
+    @Operation(summary = "管理员注销")
     @GetMapping("/findAllByClazzName/{start}/{limit}")
     public R findAllByClazzName(@PathVariable int start, @PathVariable int limit, HttpSession session) {
         // 从session中取出当前管理员所在的班级作为参数传递
@@ -45,40 +45,40 @@ public class AdminController {
         return adminService.findAllByClazzName(admin.getClazzName(), start, limit);
     }
 
-    @ApiOperation("查询截图已交人员的学号、姓名、首次上传时间")
+    @Operation(summary = "管理员注销")
     @GetMapping("/findSubmitted/{start}/{limit}")
     public R findSubmitted(@PathVariable int start, @PathVariable int limit, HttpSession session) {
         Student admin = (Student) session.getAttribute("admin");
         return adminService.findSubmitted(admin.getClazzName(), start, limit);
     }
 
-    @ApiOperation("根据班级查询截图未交人员的学号、姓名")
+    @Operation(summary = "管理员注销")
     @GetMapping("/findUnpaid/{start}/{limit}")
     public R findUnpaid(@PathVariable int start, @PathVariable int limit, HttpSession session) {
         Student admin = (Student) session.getAttribute("admin");
         return adminService.findUnpaid(admin.getClazzName(), start, limit);
     }
 
-    @ApiOperation("根据班级查询不同班级的截图已交人数")
+    @Operation(summary = "根据班级查询不同班级的截图已交人数")
     @GetMapping("/findSubmittedCount/{clazzName}")
     public R<Integer> findSubmittedCount(@PathVariable("clazzName") String clazzName) {
         return R.ok(adminService.findSubmittedCount(clazzName));
     }
 
-    @ApiOperation("查询不同班级的截图未交人数")
+    @Operation(summary = "查询不同班级的截图未交人数")
     @GetMapping("/findUnpaidCount/{clazzName}")
     public R<Integer> findUnpaidCount(@PathVariable("clazzName") String clazzName) {
         return R.ok(adminService.findUnpaidCount(clazzName));
     }
 
-    @ApiOperation("结束某一班级本轮提交")
+    @Operation(summary = "结束某一班级本轮提交")
     @DeleteMapping("/reset/{clazzName}")
     public R deleteUpload(@PathVariable String clazzName) {
         imageService.deleteUpload(clazzName);
         return R.ok();
     }
 
-    @ApiOperation("管理员修改密码")
+    @Operation(summary = "管理员修改密码")
     @PutMapping("/password/{oldPwd}/{newPwd}")
     public R updPwd(@PathVariable String oldPwd, @PathVariable String newPwd, HttpSession session) {
         return adminService.updPwd(oldPwd, newPwd, session);
