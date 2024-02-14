@@ -4,8 +4,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import work.pcdd.qndxx.common.vo.Result;
-import work.pcdd.qndxx.common.vo.ResultCode;
+import work.pcdd.qndxx.common.R;
+import work.pcdd.qndxx.common.RCode;
 import work.pcdd.qndxx.entity.Student;
 import work.pcdd.qndxx.service.StudentService;
 
@@ -26,29 +26,29 @@ public class StudentController {
 
     @ApiOperation("用户无密码登录")
     @PostMapping("/login/{stuId}")
-    public Result login(@PathVariable String stuId, HttpSession session) {
+    public R login(@PathVariable String stuId, HttpSession session) {
         return studentService.unSafeLogin(stuId, session);
     }
 
     @ApiOperation("判断用户是否登录")
     @PostMapping("/isLogin")
-    public Result isLogin(HttpSession session) {
+    public R isLogin(HttpSession session) {
         if (session.getAttribute("student") == null) {
-            return Result.failure(ResultCode.USER_NOT_LOGGED_IN);
+            return R.failure(RCode.USER_NOT_LOGGED_IN);
         }
-        return Result.success();
+        return R.success();
     }
 
     @ApiOperation("用户注销")
     @GetMapping("/logout")
-    public Result logout(HttpSession session) {
+    public R logout(HttpSession session) {
         session.removeAttribute("student");
-        return Result.success();
+        return R.success();
     }
 
     @ApiOperation("添加用户")
     @PostMapping("/add/{stuId}/{stuName}/{clazzName}")
-    public Result addStudent(@PathVariable String stuId, @PathVariable String stuName, @PathVariable String clazzName) {
+    public R addStudent(@PathVariable String stuId, @PathVariable String stuName, @PathVariable String clazzName) {
         Student student = new Student();
         student.setStuId(stuId);
         student.setStuName(stuName);
@@ -58,13 +58,13 @@ public class StudentController {
 
     @ApiOperation("根据学号删除用户")
     @DeleteMapping("/delById/{stuId}")
-    public Result delStudentById(@PathVariable String stuId) {
+    public R delStudentById(@PathVariable String stuId) {
         return studentService.delStudentById(stuId);
     }
 
     @ApiOperation("在指定的班级中根据姓名模糊查询学生")
     @GetMapping("/findByIdOrName/{stuName}/{clazzName}")
-    public Result findByIdOrName(@PathVariable String stuName, @PathVariable String clazzName) {
+    public R findByIdOrName(@PathVariable String stuName, @PathVariable String clazzName) {
         Student student = new Student();
         student.setStuName(stuName);
         student.setClazzName(clazzName);
@@ -73,7 +73,7 @@ public class StudentController {
 
     @ApiOperation("更新学生信息")
     @PutMapping("/updStudentById/{stuId}/{stuName}/{clazzName}/{pwd}/{role}")
-    public Result updStudentById(@PathVariable String stuId
+    public R updStudentById(@PathVariable String stuId
             , @PathVariable String stuName
             , @PathVariable String clazzName
             , @PathVariable String pwd

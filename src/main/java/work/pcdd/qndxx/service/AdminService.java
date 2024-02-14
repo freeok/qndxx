@@ -1,6 +1,6 @@
 package work.pcdd.qndxx.service;
 
-import work.pcdd.qndxx.common.vo.Result;
+import work.pcdd.qndxx.common.R;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +17,7 @@ public interface AdminService {
      * @param session session
      * @return 执行结果
      */
-    Result login(String stuId, String pwd, HttpSession session);
+    R login(String stuId, String pwd, HttpSession session);
 
     /**
      * 根据班级名查询所有学生的学号，姓名，班级
@@ -27,7 +27,7 @@ public interface AdminService {
      * @param limit     每页显示的条数
      * @return 执行结果
      */
-    Result findAllByClazzName(String clazzName, int start, int limit);
+    R findAllByClazzName(String clazzName, int start, int limit);
 
     /**
      * 查询不同班级的截图已交人员
@@ -37,7 +37,7 @@ public interface AdminService {
      * @param limit     每页显示的条数
      * @return 执行结果
      */
-    Result findSubmitted(String clazzName, int start, int limit);
+    R findSubmitted(String clazzName, int start, int limit);
 
     /**
      * 查询不同班级的截图未交人员
@@ -47,7 +47,7 @@ public interface AdminService {
      * @param limit     每页显示的条数
      * @return 学生信息
      */
-    Result findUnpaid(String clazzName, int start, int limit);
+    R findUnpaid(String clazzName, int start, int limit);
 
 
     /**
@@ -56,7 +56,7 @@ public interface AdminService {
      * @param clazzName 班级名
      * @return 已交人数
      */
-    Result findSubmittedCount(String clazzName);
+    R findSubmittedCount(String clazzName);
 
     /**
      * 查询不同班级的截图未交人数
@@ -64,7 +64,7 @@ public interface AdminService {
      * @param clazzName 班级名
      * @return 未交人数
      */
-    Result findUnpaidCount(String clazzName);
+    R findUnpaidCount(String clazzName);
 
     /**
      * 管理员修改密码
@@ -74,6 +74,6 @@ public interface AdminService {
      * @param session session对象
      * @return 执行结果
      */
-    Result updPwd(String oldPwd, String newPwd, HttpSession session);
+    R updPwd(String oldPwd, String newPwd, HttpSession session);
 
 }

@@ -1,6 +1,6 @@
 package work.pcdd.qndxx.service;
 
-import work.pcdd.qndxx.common.vo.Result;
+import work.pcdd.qndxx.common.R;
 import work.pcdd.qndxx.entity.Student;
 
 import javax.servlet.http.HttpSession;
@@ -17,7 +17,7 @@ public interface StudentService {
      * @param session session
      * @return 执行结果
      */
-    Result unSafeLogin(String stuId, HttpSession session);
+    R unSafeLogin(String stuId, HttpSession session);
 
     /**
      * 增加学生
@@ -25,7 +25,7 @@ public interface StudentService {
      * @param student student
      * @return 执行结果
      */
-    Result addStudent(Student student);
+    R addStudent(Student student);
 
     /**
      * 根据学号删除学生
@@ -33,7 +33,7 @@ public interface StudentService {
      * @param stuId 学号
      * @return 执行结果
      */
-    Result delStudentById(String stuId);
+    R delStudentById(String stuId);
 
     /**
      * 在指定的班级中根据学号或姓名模糊查询学生
@@ -41,7 +41,7 @@ public interface StudentService {
      * @param student student bean
      * @return 执行结果
      */
-    Result findByName(Student student);
+    R findByName(Student student);
 
     /**
      * 更新学生信息
@@ -49,6 +49,6 @@ public interface StudentService {
      * @param student student bean
      * @return 执行结果
      */
-    Result updStudentById(Student student);
+    R updStudentById(Student student);
 
 }
