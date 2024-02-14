@@ -6,8 +6,8 @@ import com.ramostear.captcha.support.CaptchaType;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
-import work.pcdd.qndxx.common.vo.Result;
-import work.pcdd.qndxx.common.vo.ResultCode;
+import work.pcdd.qndxx.common.R;
+import work.pcdd.qndxx.common.RCode;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,12 +33,12 @@ public class CaptchaController {
 
     @ApiOperation("验证码校验")
     @PostMapping("/verify/{yzm}")
-    public Result verify(@PathVariable("yzm") String yzm, HttpServletRequest request) {
+    public R verify(@PathVariable("yzm") String yzm, HttpServletRequest request) {
         if (HappyCaptcha.verification(request, yzm, true)) {
             HappyCaptcha.remove(request);
-            return Result.success();
+            return R.success();
         }
-        return Result.failure(ResultCode.CAPTCHA_ERROR);
+        return R.failure(RCode.CAPTCHA_ERROR);
     }
 
 }

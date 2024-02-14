@@ -1,4 +1,4 @@
-package work.pcdd.qndxx.common.vo;
+package work.pcdd.qndxx.common;
 
 import lombok.Getter;
 
@@ -6,7 +6,7 @@ import lombok.Getter;
  * @author pcdd
  */
 @Getter
-public enum ResultCode {
+public enum RCode {
 
     /* 成功状态码 */
     SUCCESS(200, "成功"),
@@ -37,7 +37,7 @@ public enum ResultCode {
     private final Integer code;
     private final String message;
 
-    ResultCode(Integer code, String message) {
+    RCode(Integer code, String message) {
         this.code = code;
         this.message = message;
     }

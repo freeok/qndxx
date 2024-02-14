@@ -1,7 +1,7 @@
 package work.pcdd.qndxx.service;
 
 import org.springframework.web.multipart.MultipartFile;
-import work.pcdd.qndxx.common.vo.Result;
+import work.pcdd.qndxx.common.R;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +21,7 @@ public interface ImageService {
      * @param mf        MultipartFile对象
      * @return 图片的绝对路径，大小
      */
-    Result upload(String id, String name, String par, String clazzName, MultipartFile mf);
+    R upload(String id, String name, String par, String clazzName, MultipartFile mf);
 
     /**
      * 根据班级名下载压缩包
@@ -37,7 +37,7 @@ public interface ImageService {
      *
      * @return 执行结果
      */
-    Result deleteUpload(String clazzName);
+    R deleteUpload(String clazzName);
 
     /**
      * 根据学号查询upload表字段
@@ -45,6 +45,6 @@ public interface ImageService {
      * @param stuId
      * @return 执行结果
      */
-    Result isUploaded(String stuId);
+    R isUploaded(String stuId);
 
 }

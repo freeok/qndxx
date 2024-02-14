@@ -5,8 +5,8 @@ import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import work.pcdd.qndxx.common.vo.Result;
-import work.pcdd.qndxx.common.vo.ResultCode;
+import work.pcdd.qndxx.common.R;
+import work.pcdd.qndxx.common.RCode;
 import work.pcdd.qndxx.entity.Student;
 import work.pcdd.qndxx.mapper.AdminMapper;
 import work.pcdd.qndxx.service.AdminService;
@@ -27,7 +27,7 @@ public class AdminServiceImpl implements AdminService {
     private final AdminMapper adminMapper;
 
     @Override
-    public Result login(String stuId, String pwd, HttpSession session) {
+    public R login(String stuId, String pwd, HttpSession session) {
         Student student = new Student();
         student.setStuId(stuId);
         student.setPwd(pwd);
@@ -35,48 +35,48 @@ public class AdminServiceImpl implements AdminService {
         if (list.size() == 1 && Objects.equals(list.get(0).getStuId(), stuId)
                 && Objects.equals(list.get(0).getPwd(), pwd)) {
             session.setAttribute("admin", list.get(0));
-            return Result.success();
+            return R.success();
         }
-        return Result.failure(ResultCode.USER_LOGIN_ERROR);
+        return R.failure(RCode.USER_LOGIN_ERROR);
     }
 
     @Override
-    public Result findAllByClazzName(String clazzName, int start, int limit) {
+    public R findAllByClazzName(String clazzName, int start, int limit) {
         // 分页助手，设置起始页和每页显示的条数
         PageHelper.startPage(start, limit);
         List<Student> list = adminMapper.findAllByClazzName(clazzName);
         PageInfo<Student> pageInfo = new PageInfo<>(list);
-        return Result.success0(list, pageInfo.getTotal());
+        return R.success0(list, pageInfo.getTotal());
     }
 
     @Override
-    public Result findSubmitted(String clazzName, int start, int limit) {
+    public R findSubmitted(String clazzName, int start, int limit) {
         PageHelper.startPage(start, limit);
         List<Map<String, Object>> list = adminMapper.findSubmitted(clazzName);
         PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(list);
-        return Result.success0(list, pageInfo.getTotal());
+        return R.success0(list, pageInfo.getTotal());
     }
 
     @Override
-    public Result findUnpaid(String clazzName, int start, int limit) {
+    public R findUnpaid(String clazzName, int start, int limit) {
         PageHelper.startPage(start, limit);
         List<Student> list = adminMapper.findUnpaid(clazzName);
         PageInfo<Student> pageInfo = new PageInfo<>(list);
-        return Result.success0(list, pageInfo.getTotal());
+        return R.success0(list, pageInfo.getTotal());
     }
 
     @Override
-    public Result findSubmittedCount(String clazzName) {
-        return Result.success(adminMapper.findSubmittedCount(clazzName));
+    public R findSubmittedCount(String clazzName) {
+        return R.success(adminMapper.findSubmittedCount(clazzName));
     }
 
     @Override
-    public Result findUnpaidCount(String clazzName) {
-        return Result.success(adminMapper.findUnpaidCount(clazzName));
+    public R findUnpaidCount(String clazzName) {
+        return R.success(adminMapper.findUnpaidCount(clazzName));
     }
 
     @Override
-    public Result updPwd(String oldPwd, String newPwd, HttpSession session) {
+    public R updPwd(String oldPwd, String newPwd, HttpSession session) {
         Student admin = (Student) session.getAttribute("admin");
         String stuId = admin.getStuId();
         Student student = new Student();
@@ -84,14 +84,14 @@ public class AdminServiceImpl implements AdminService {
         student.setPwd(oldPwd);
         // 旧密码错误，拒绝修改
         if (adminMapper.login(student).isEmpty()) {
-            return Result.failure(ResultCode.ADMIN_OLD_PASSWORD_ERROR);
+            return R.failure(RCode.ADMIN_OLD_PASSWORD_ERROR);
         }
         student.setPwd(newPwd);
         if (adminMapper.updPwd(student) == 1) {
-            return Result.success();
+            return R.success();
         }
 
-        return Result.failure(ResultCode.ADMIN_UPDATE_PASSWORD_FAIL);
+        return R.failure(RCode.ADMIN_UPDATE_PASSWORD_FAIL);
     }
 
 }

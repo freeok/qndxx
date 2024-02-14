@@ -1,6 +1,6 @@
 package work.pcdd.qndxx.service;
 
-import work.pcdd.qndxx.common.vo.Result;
+import work.pcdd.qndxx.common.R;
 import work.pcdd.qndxx.entity.Clazz;
 
 import javax.servlet.http.HttpSession;
@@ -16,7 +16,7 @@ public interface ClazzService {
      * @param clazzName 班级名
      * @return 执行结果
      */
-    Result getClazz(String clazzName, HttpSession session);
+    R getClazz(String clazzName, HttpSession session);
 
     /**
      * 根据班级修改期数
@@ -24,7 +24,7 @@ public interface ClazzService {
      * @param clazz 班级bean
      * @return 执行结果
      */
-    Result updateIssue(Clazz clazz);
+    R updateIssue(Clazz clazz);
 
     /**
      * 根据班级修改系统状态
@@ -32,6 +32,6 @@ public interface ClazzService {
      * @param clazz 班级bean
      * @return 执行结果
      */
-    Result updateIsEnable(Clazz clazz, HttpSession session);
+    R updateIsEnable(Clazz clazz, HttpSession session);
 
 }

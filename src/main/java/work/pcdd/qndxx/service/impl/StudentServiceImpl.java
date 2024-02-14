@@ -2,8 +2,8 @@ package work.pcdd.qndxx.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import work.pcdd.qndxx.common.vo.Result;
-import work.pcdd.qndxx.common.vo.ResultCode;
+import work.pcdd.qndxx.common.R;
+import work.pcdd.qndxx.common.RCode;
 import work.pcdd.qndxx.entity.Student;
 import work.pcdd.qndxx.mapper.StudentMapper;
 import work.pcdd.qndxx.service.StudentService;
@@ -22,38 +22,38 @@ public class StudentServiceImpl implements StudentService {
     private final StudentMapper studentMapper;
 
     @Override
-    public Result unSafeLogin(String stuId, HttpSession session) {
+    public R unSafeLogin(String stuId, HttpSession session) {
         Student student = studentMapper.findById(stuId);
         if (student != null && Objects.equals(student.getStuId(), stuId)) {
             session.setAttribute("student", student);
-            return Result.success();
+            return R.success();
         }
-        return Result.failure(ResultCode.USER_LOGIN_ERROR);
+        return R.failure(RCode.USER_LOGIN_ERROR);
     }
 
     @Override
-    public Result addStudent(Student student) {
+    public R addStudent(Student student) {
         // 添加学生前判断学号是否存在，若存在，则拒绝添加
         if (studentMapper.findById(student.getStuId()) != null) {
-            return Result.failure(ResultCode.USER_HAS_EXISTED);
+            return R.failure(RCode.USER_HAS_EXISTED);
         }
-        return Result.success(studentMapper.addStudent(student));
+        return R.success(studentMapper.addStudent(student));
     }
 
     @Override
-    public Result delStudentById(String stuId) {
-        return Result.success(studentMapper.delStudentById(stuId));
+    public R delStudentById(String stuId) {
+        return R.success(studentMapper.delStudentById(stuId));
     }
 
     @Override
-    public Result findByName(Student student) {
+    public R findByName(Student student) {
         List<Student> list = studentMapper.findByName(student);
-        return Result.success0(list, (long) list.size());
+        return R.success0(list, (long) list.size());
     }
 
     @Override
-    public Result updStudentById(Student student) {
-        return Result.success(studentMapper.updStudentById(student));
+    public R updStudentById(Student student) {
+        return R.success(studentMapper.updStudentById(student));
     }
 
 }
