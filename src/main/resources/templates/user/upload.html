@@ -112,7 +112,7 @@
 <script src="/lib/jquery-3.7.1.min.js"></script>
 <script src="/lib/layui-v2.5.6/layui.js"></script>
 <script src="/lib/lrz.bundle.js"></script>
-<script src="/lib/addTextToImg.js"></script>
+<script src="/lib/img-add-text.js"></script>
 
 <script th:inline="javascript">
   layui.use(['element', 'layer', 'upload', 'form'], function () {
@@ -266,7 +266,7 @@
 
           console.log('file', file)
           /* 图片加文字 */
-          addTextToImg(result, clazzName + "_" + stuId + "_" + stuName, "80px 微软雅黑", "red").then(res => {
+          imgAddText(result, clazzName + "_" + stuId + "_" + stuName, "80px 微软雅黑", "red").then(res => {
             // res：加了文字后图片的base64
             // 将base64转换为blob类型 并指定文件名
             file = base642Blob(res, stuId + "_" + stuName + ".jpg")
