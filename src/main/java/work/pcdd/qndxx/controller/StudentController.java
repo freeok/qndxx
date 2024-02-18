@@ -4,12 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import work.pcdd.qndxx.common.RCode;
 import work.pcdd.qndxx.common.util.R;
 import work.pcdd.qndxx.entity.Student;
 import work.pcdd.qndxx.service.StudentService;
-
-import javax.servlet.http.HttpSession;
 
 
 /**
@@ -23,28 +20,6 @@ import javax.servlet.http.HttpSession;
 public class StudentController {
 
     private final StudentService studentService;
-
-    @Operation(summary = "用户无密码登录")
-    @PostMapping("/login/{stuId}")
-    public R unSafeLogin(@PathVariable String stuId, HttpSession session) {
-        return studentService.unSafeLogin(stuId, session);
-    }
-
-    @Operation(summary = "判断用户是否登录")
-    @PostMapping("/isLogin")
-    public R isLogin(HttpSession session) {
-        if (session.getAttribute("student") == null) {
-            return R.fail(RCode.USER_NOT_LOGGED_IN);
-        }
-        return R.ok();
-    }
-
-    @Operation(summary = "用户注销")
-    @GetMapping("/logout")
-    public R<String> logout(HttpSession session) {
-        session.removeAttribute("student");
-        return R.ok("退出登录成功");
-    }
 
     @Operation(summary = "添加用户")
     @PostMapping("/add/{stuId}/{stuName}/{clazzName}")

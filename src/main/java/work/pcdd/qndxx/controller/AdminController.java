@@ -1,7 +1,6 @@
 package work.pcdd.qndxx.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -23,19 +22,6 @@ public class AdminController {
 
     private final AdminService adminService;
     private final ImageService imageService;
-
-    @Operation(summary = "管理员登录")
-    @PostMapping("/login/{stuId}/{pwd}")
-    public R<String> login(@Parameter(name = "学号") @PathVariable String stuId, @Parameter(name = "密码") @PathVariable String pwd, HttpSession session) {
-        return adminService.login(stuId, pwd, session);
-    }
-
-    @Operation(summary = "管理员注销")
-    @GetMapping("/logout")
-    public void logout(HttpSession session) {
-        session.removeAttribute("admin");
-        session.removeAttribute("clazz");
-    }
 
     @Operation(summary = "管理员注销")
     @GetMapping("/findAllByClazzName/{start}/{limit}")

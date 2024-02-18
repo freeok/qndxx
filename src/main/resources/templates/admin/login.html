@@ -207,7 +207,7 @@
           $("#captcha").val("");
           refCaptcha();
         } else {
-          $.post('/admin/login/' + username + '/' + password, (res) => {
+          $.post('/auth/admin/login/' + username + '/' + password, (res) => {
             console.log(res)
             if (res.code === 200) {
               window.location = '/console';

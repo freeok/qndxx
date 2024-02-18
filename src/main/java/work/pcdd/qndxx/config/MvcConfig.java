@@ -98,8 +98,8 @@ public class MvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/login")
                 // 防止用户注销时，刷新管理员页面被拦截
                 .excludePathPatterns("/console/**")
-                // 排除api
-                .excludePathPatterns("/student/login/**")
+                // 排除 api
+                .excludePathPatterns("/auth/**")
                 .excludePathPatterns("/admin/**")
                 .excludePathPatterns("/clazz/**")
                 .excludePathPatterns("/captcha/**");
@@ -108,18 +108,10 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(adminInterceptor())
                 // api
                 .addPathPatterns("/admin/**")
-                .excludePathPatterns("/admin/login/**")
-                .excludePathPatterns("/admin/logout")
-
                 .addPathPatterns("/student/**")
-                .excludePathPatterns("/student/login/*")
-                .excludePathPatterns("/student/isLogin")
-                .excludePathPatterns("/student/logout")
-
                 .addPathPatterns("/clazz/**")
                 // 用户进入上传界面时会调用，故排除
                 .excludePathPatterns("/clazz/*")
-
                 .addPathPatterns("image/**")
 
                 // 页面
@@ -128,7 +120,6 @@ public class MvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/common/edit")
                 .excludePathPatterns("/console/login");
 
-
         // 静态资源拦截器
         registry.addInterceptor(staticResourcesInterceptor())
                 .addPathPatterns("/uploads/**");
@@ -136,8 +127,6 @@ public class MvcConfig implements WebMvcConfigurer {
 
     /**
      * 配置静态访问资源
-     *
-     * @param registry
      */
     /*@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
