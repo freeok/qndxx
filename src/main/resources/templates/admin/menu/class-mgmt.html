@@ -194,7 +194,7 @@
             type: 'delete',
             url: '/student/delById/' + stuId,
             success: (res) => {
-              if (res.code == 200) {
+              if (res.code === 200) {
                 layer.msg('删除成功', {icon: 1, offset: 't'});
               }
             }

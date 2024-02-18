@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no"/>
-  <!--iphone-->
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
   <meta name="format-detection" content="telephone=no">
-  <title>login</title>
+  <title>User Login</title>
   <link rel="stylesheet" href="/lib/layui-v2.5.6/css/layui.css">
 </head>
+
 <body>
 <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
 <!--[if lt IE 9]>
@@ -23,7 +23,7 @@
     <input type="text" id="txt_id" name="id" placeholder="请输入你的学号"
            autocomplete="off"
            class="layui-input"
-           oninput="value=value.replace(/[^\d]/g,'')" style="margin-top: 20px;width: 80%;display: inline-block">
+           oninput="value=value.replace(/\D/g,'')" style="margin-top: 20px;width: 80%;display: inline-block">
   </div>
   <div style="margin-top: 20px;">
     <input type="button" id="btnLogin" class="layui-btn" value="确定">
@@ -34,15 +34,17 @@
 <script src="/lib/jquery-3.7.1.min.js"></script>
 <script src="/lib/layui-v2.5.6/layui.js"></script>
 <script src="/lib/js.cookie.min.js"></script>
+
 <script type="text/javascript">
   layui.use(['element', 'layer', 'form'], function () {
     const layer = layui.layer;
     const $ = layui.$;
+    const $txtId = $("#txt_id")
 
     $(function () {
       let id = Cookies.get('id')
       // 获取名为id的cookie的值，并将此值保存在文本框中
-      $("#txt_id").val(id ? id : '');
+      $txtId.val(id ? id : '');
     });
 
     $(document).keydown(function (event) {
@@ -53,33 +55,29 @@
     });
 
     // 登录
-    $("#btnLogin").click(login);
+    $("#btnLogin").on('click', login);
 
     function login() {
-      let id = $("#txt_id").val().trim();
+      let id = $txtId.val().trim();
       if (/^\s*$/.test(id)) {
         layer.msg('学号不能为空！', {icon: 0, time: 1500, anim: 6, type: 0});
-        $("#txt_id").val("").focus();
-        //很奇怪，写成return;就会乱码
-        return false;
+        $txtId.val("").focus();
+        return;
       }
-
-      // 点击确认按钮后禁用，防多次校验请求
-      $(this).attr('disabled', true).addClass("layui-btn-disabled");
-
       // 实现登录中等待的效果
       let index = layer.msg('校验中', {
         icon: 16,
         shade: 0.5
       }); //校验loading
+
       $.ajax({
         url: "/student/login/" + id,
         type: "post",
         dataType: "json",
-        success: function (result, status, xhr) {
-          console.log(result);
+        success: function (res) {
+          console.log(res);
           // 学号校验成功后，显示上传界面
-          if (result.code == 200) {
+          if (res.code === 200) {
             // id 保存到 cookie
             Cookies.set('id', id, {expires: 30})
             // 先得到当前iframe层的索引
@@ -89,8 +87,8 @@
             // 变量传参
             parent.location.href = "upload/" + decodeURI(window.location.href.split("?")[1].split("=")[1].trim());
           } else {
-            layer.msg(result.msg, {icon: 2, time: 2000, anim: 6});
-            $("#txt_id").val("").focus();
+            layer.msg(res.msg, {icon: 2, time: 2000, anim: 6});
+            $txtId.val("").focus();
           }
         },
         error: function () {
@@ -98,8 +96,6 @@
         }
       });
       layer.close(index);
-      // 解除登录按钮禁用状态
-      $(this).removeClass("layui-btn-disabled").attr('disabled', false);
     }
 
   });

@@ -13,11 +13,9 @@
   -->
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no"/>
-  <!--iphone-->
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
   <meta name="format-detection" content="telephone=no">
-
   <meta name="description" content="青年大学习截图上交系统"/>
   <meta name="keywords" content="青年大学习"/>
   <meta name="author" content="pc"/>
@@ -33,6 +31,7 @@
       color: #01AAED;
     }
   </style>
+
 </head>
 <body>
 <!-- 让 IE8/9 支持媒体查询，从而兼容栅格 -->
@@ -114,13 +113,16 @@
 <script src="/lib/layui-v2.5.6/layui.js"></script>
 <script src="/lib/lrz.bundle.js"></script>
 <script src="/lib/addTextToImg.js"></script>
+
 <script th:inline="javascript">
   layui.use(['element', 'layer', 'upload', 'form'], function () {
-    let layer = layui.layer, upload = layui.upload;
+    const layer = layui.layer, upload = layui.upload;
+    const $ = layui.$
 
-    let lastPath, par, clazzName, index;
+    let lastPath, par, index;
     let stuId = $("#stuId").text();
     let stuName = $("#stuName").text();
+    let clazzName = [[${session.student.getClazzName()}]];
     let role = [[${session.student.getRole()}]];
 
     $(function () {
@@ -130,11 +132,9 @@
         shade: 0.5
       });
 
-      clazzName = [[${session.student.getClazzName()}]];
-
       // 获取clazz表字段
       $.get('/clazz/' + clazzName, (res) => {
-        $("#issue").text("青年大学习第 " + res.data.season + " 季第 " + res.data.period + " 期");
+        $("#issue").text(`青年大学习第 ${res.data.season} 季第 ${res.data.period} 期`);
         if (!res.data.isEnable) {
           let className = [[${session.student.getClazzName()}]];
           layer.close(index);
@@ -339,9 +339,9 @@
       });
     }
 
-    //管理入口
+    // 管理入口 TODO：进入管理页面再触发输入口令
     $("#manager").on("click", function () {
-      if (role === "admin" || role === "sa") {
+      if (role.includes('admin', 'sa')) {
         window.location.href = "/console/login";
         return;
       }
@@ -362,7 +362,6 @@
         layer.close(index);
       });
     });
-
 
   });
 </script>
