@@ -60,7 +60,7 @@
       $.post('/student/add/' + stuId + '/' + stuName + '/' + clazzName, (res) => {
         console.log(res)
         let iframeIndex = parent.layer.getFrameIndex(window.name);
-        if (res.code == 200) {
+        if (res.code === 200) {
           layer.msg('添加成功', {icon: 1, offset: 't', time: 1000}, function () {
               parent.layer.close(iframeIndex);
             }

@@ -3,26 +3,27 @@
 <head>
   <title>截图上交 | 主页</title>
   <meta charset="UTF-8">
-  <!--强制让文档的宽度与设备的宽度保持1:1，并且文档最大的宽度比例是1.0，且不允许用户点击屏幕放大浏览；-->
+  <!-- 强制让文档的宽度与设备的宽度保持1:1，并且文档最大的宽度比例是1.0，且不允许用户点击屏幕放大浏览 -->
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no"/>
-  <!--iphone-->
-  <!-- 网站开启对web app程序的支持，其实意思就是删除默认的苹果工具栏和菜单栏，开启全屏显示-->
+  <!-- 删除默认的苹果工具栏和菜单栏，开启全屏显示-->
   <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <!--制定iphone中safari顶端的状态条的样式（default:白色，black:黑色，black-translucent：半透明）-->
+  <!-- 制定iphone中safari顶端的状态条的样式（default:白色，black:黑色，black-translucent：半透明） -->
   <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-  <!--告诉设备忽略将页面中的数字识别为电话号码。-->
+  <!-- 告诉设备忽略将页面中的数字识别为电话号码。 -->
   <meta name="format-detection" content="telephone=no">
-  <!-- 添加到IOS主屏后的标题。-->
-  <!--<meta name="apple-mobile-web-app-title" content="标题名称">-->
+  <!-- 添加到 IOS 主屏后的标题。-->
+  <meta name="apple-mobile-web-app-title" content="大学习截图上交">
   <meta name="description" content="截图上交系统"/>
   <meta name="keywords" content="青年大学习"/>
   <meta name="author" content="pc"/>
   <meta name="robots" content="index,follow"/>
   <link rel="stylesheet" href="/lib/layui-v2.5.6/css/layui.css">
+
   <style>
     body {
       min-width: 375px;
+      background: #F9F9F9;
     }
 
     /* 顶部阴影效果 */
@@ -55,7 +56,9 @@
       box-shadow: 0 0 5px black;
     }
   </style>
+
 </head>
+
 <body>
 <!-- 让 IE8/9 支持媒体查询，从而兼容栅格 -->
 <!--[if lt IE 9]>
@@ -117,47 +120,28 @@
       </div>
     </div>
 
-    <!-- <div class="layui-col-md12">
-      <div class="layui-col-md-offset3 layui-col-md6" style="margin-top:100px;">
-        <div class="layui-collapse" lay-filter="test">
-          <div class="layui-colla-item">
-            <h2 class="layui-colla-title">为什么登录不需要密码？</h2>
-            <div class="layui-colla-content">
-              <p>因为相信大家都是有素质的人</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
   </div>
 </div>
 
 <script src="/lib/jquery-3.7.1.min.js"></script>
 <script src="/lib/layui-v2.5.6/layui.js"></script>
+
 <script th:inline="javascript">
   layui.use(['element', 'layer', 'upload'], function () {
-    let layer = layui.layer;
+    const layer = layui.layer
+    // 防 IDE 警告：未解析的函数或方法 $()
+    const $ = layui.$
 
+    // 作用：在 DOM 加载完成时运行的代码，$(document).ready() 的简写
+    // 若 script 在 body 后，可不用 $(function() {})，否则必须加，因为此时 DOM 未加载完毕
     $(function () {
-      $("body").css("background", "#F9F9F9");
-    });
+      console.log('JQuery version', $.fn.jquery)
+    })
 
-    // 朋友圈截图上交按钮
-    $("#a1").click(() => {
-      login("moments");
-    });
-
-    // 首页截图上交按钮
-    $("#a2").click(() => {
-      login("home");
-    });
-
-    // 登录请求
-    let login = (pageName) => {
+    const login = (pageName) => {
       if ([[${session.student}]] != null) {
-        window.location.href = "upload/" + pageName;
-        return;
+        window.location.href = "upload/" + pageName
+        return
       }
       layer.open({
         type: 2
@@ -169,37 +153,20 @@
         , closeBtn: 1
         , move: true
         , id: "id"
-      });
+      })
+    }
 
-    };
+    // 朋友圈截图上交按钮
+    $("#a1").on('click', function () {
+      login("moments")
+    })
 
+    // 首页截图上交按钮
+    $("#a2").on('click', () => {
+      login("home")
+    })
 
-    /*$("#gate").dblclick(function () {
-        layer.prompt({
-            formType: 1,
-            value: '',
-            title: '口令',
-            area: ['800px', '350px'] //自定义文本域宽高
-        }, function (value, index, elem) {
-            let pwd = value.trim();
-            if (pwd.length > 18) {
-                return;
-            }
-
-            $.post("${pageContext.request.contextPath}/admin/login", {pwd: pwd}, function (data) {
-                console.log(data);
-                if (data == "true") {
-                    window.location.href = "manager.jsp"
-                } else {
-                    layer.msg('口令错误！', {icon: 2, time: 1000, anim: 6});
-                }
-            })
-            layer.close(index);
-        });
-    });*/
-
-
-  });
+  })
 </script>
 </body>
 </html>

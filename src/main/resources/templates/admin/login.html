@@ -223,7 +223,7 @@
 
     }
 
-    $("#captchaPic").click(() => {
+    $("#captchaPic").on('click',() => {
       refCaptcha();
     });
 
@@ -235,7 +235,7 @@
     });
 
     // 进行登录操作
-    $("#btnLogin").click(() => {
+    $("#btnLogin").on('click',() => {
       login();
     });
 
