@@ -21,14 +21,15 @@
     </a>
   </div>
 </div>
+
 <script src="/lib/layui-v2.5.6/layui.js" charset="utf-8"></script>
 <script src="/lib/jquery-3.7.1.min.js"></script>
-<script src="/js/cookie.js"></script>
+<script src="/lib/js.cookie.min.js"></script>
+
 <script th:inline="javascript">
   let clazz;
   $(function () {
-    clazz = getCookie('clazz')
-    console.log(clazz)
+    clazz = Cookies.get('clazz')
     $.get('/admin/findSubmittedCount/' + clazz, (res) => {
       $('#submittedCount').text('已交' + res.data + '人');
       if (res.data > 0) {

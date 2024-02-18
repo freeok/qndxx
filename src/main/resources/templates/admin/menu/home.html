@@ -350,8 +350,8 @@
 </div>
 
 <script src="/lib/layui-v2.5.6/layui.js" charset="utf-8"></script>
+<script src="/lib/js.cookie.min.js"></script>
 <script src="/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
-<script src="/js/cookie.js"></script>
 <script src="/js/lay-module/echarts/echarts.js"></script>
 <script th:inline="javascript">
   layui.use(['layer', 'miniTab'], function () {
@@ -368,7 +368,7 @@
       // 根据班级名获取clazz表字段
       $.get('/clazz/' + clazzName, (res) => {
         console.log(res)
-        setCookie('clazz', res.data.clazzName, 365);
+        Cookies.set('clazz', res.data.clazzName, {expires: 30})
         $('#season').text(res.data.season)
         $('#period').text(res.data.period)
       });
