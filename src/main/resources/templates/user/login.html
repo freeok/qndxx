@@ -33,15 +33,16 @@
 
 <script src="/lib/jquery-3.7.1.min.js"></script>
 <script src="/lib/layui-v2.5.6/layui.js"></script>
-<!--cookie操作-->
-<script src="/js/cookie.js"></script>
+<script src="/lib/js.cookie.min.js"></script>
 <script type="text/javascript">
   layui.use(['element', 'layer', 'form'], function () {
-    let layer = layui.layer;
+    const layer = layui.layer;
+    const $ = layui.$;
 
     $(function () {
+      let id = Cookies.get('id')
       // 获取名为id的cookie的值，并将此值保存在文本框中
-      $("#txt_id").val(getCookie('id'));
+      $("#txt_id").val(id ? id : '');
     });
 
     $(document).keydown(function (event) {
@@ -79,8 +80,8 @@
           console.log(result);
           // 学号校验成功后，显示上传界面
           if (result.code == 200) {
-            // id保存进cookie(若重复则覆盖，若不存在则创建)
-            setCookie('id', id, 365);
+            // id 保存到 cookie
+            Cookies.set('id', id, {expires: 30})
             // 先得到当前iframe层的索引
             let index = parent.layer.getFrameIndex(window.name);
             //再执行关闭
