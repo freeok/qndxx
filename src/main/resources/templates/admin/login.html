@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
   <meta charset="UTF-8">
   <title>后台管理 | 登录</title>
@@ -108,7 +108,6 @@
     }
 
     .captcha-img img {
-      height: 34px;
       border: 1px solid #e6e6e6;
       height: 36px;
       width: 100%;
@@ -154,42 +153,45 @@
 <script src="/lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
 <script>
   layui.use(['form'], function () {
-    var form = layui.form,
-      layer = layui.layer;
+    const layer = layui.layer,
+      $ = layui.$
+    const $username = $('#username')
+    const $password = $('#password')
+    const $captcha = $('#captcha')
 
-    // 登录过期的时候，跳出ifram框架
-    if (top.location != self.location) top.location = self.location;
+    // 登录过期的时候，跳出 iframe 框架
+    if (top.location !== self.location) top.location = self.location;
 
     // 粒子线条背景
-    $(document).ready(function () {
+    $(function () {
       $('.layui-container').particleground({
         dotColor: '#7ec7fd',
         lineColor: '#7ec7fd'
       });
     });
 
-    function refCaptcha() {
+    function refreshCaptcha() {
       $.get('/captcha/generate', function () {
         $("#captchaPic").attr('src', '/captcha/generate');
       });
     }
 
     function login() {
-      let username = $("#username").val();
-      let password = $("#password").val();
-      let captcha = $("#captcha").val();
+      let username = $username.val();
+      let password = $password.val();
+      let captcha = $captcha.val();
 
-      if (username.length == 0) {
+      if (username.length === 0) {
         layer.msg('用户名不能为空');
         $("#username").focus();
         return;
       }
-      if (password.length == 0) {
+      if (password.length === 0) {
         layer.msg('密码不能为空');
         $("#password").focus();
         return;
       }
-      if (captcha.length == 0) {
+      if (captcha.length === 0) {
         layer.msg('验证码不能为空');
         $("#captcha").focus();
         return;
@@ -199,13 +201,12 @@
         shade: 0.5
       }); //校验loading
 
-
       $.post('/captcha/verify/' + captcha, (res) => {
         if (res.code === 1005) {
           layer.msg(res.msg, {icon: 5, anim: 6});
-          $("#password").val("").focus();
-          $("#captcha").val("");
-          refCaptcha();
+          $password.val("").focus();
+          $captcha.val("");
+          refreshCaptcha();
         } else {
           $.post('/auth/admin/login/' + username + '/' + password, (res) => {
             console.log(res)
@@ -213,29 +214,27 @@
               window.location = '/console';
             } else {
               layer.msg(res.msg, {icon: 2, time: 2000, anim: 6});
-              $("#password").val("").focus();
-              $("#captcha").val("");
+              $password.val("").focus();
+              $captcha.val("");
             }
           });
         }
         layer.close(index);
       });
-
     }
 
-    $("#captchaPic").on('click',() => {
-      refCaptcha();
+    $("#captchaPic").on('click', () => {
+      refreshCaptcha();
     });
 
-    //回车事件
-    $(document).keydown(function (event) {
-      if (event.keyCode === 13) { //判断为Enter键
+    // 监听 Enter 键
+    $(document).on('keydown', function (event) {
+      if (event.keyCode === 13) {
         login();
       }
     });
 
-    // 进行登录操作
-    $("#btnLogin").on('click',() => {
+    $("#btnLogin").on('click', () => {
       login();
     });
 
