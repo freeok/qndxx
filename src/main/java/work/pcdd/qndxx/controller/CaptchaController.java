@@ -1,6 +1,7 @@
 package work.pcdd.qndxx.controller;
 
 import com.ramostear.captcha.HappyCaptcha;
+import com.ramostear.captcha.common.Fonts;
 import com.ramostear.captcha.support.CaptchaStyle;
 import com.ramostear.captcha.support.CaptchaType;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author pcdd
  * created by 2021/2/18 4:05
  */
-@Tag(name = "验证码相关API")
+@Tag(name = "验证码相关 API")
 @RestController
 @RequestMapping("/captcha")
 public class CaptchaController {
@@ -25,16 +26,15 @@ public class CaptchaController {
     @GetMapping("/generate")
     public void generate(HttpServletRequest request, HttpServletResponse response) {
         HappyCaptcha.require(request, response)
-                //.font(Fonts.getInstance().enFont1())
                 .style(CaptchaStyle.ANIM)
                 .type(CaptchaType.DEFAULT)
                 .build().finish();
     }
 
     @Operation(summary = "验证码校验")
-    @PostMapping("/verify/{yzm}")
-    public R verify(@PathVariable("yzm") String captcha, HttpServletRequest request) {
-        if (HappyCaptcha.verification(request, captcha, true)) {
+    @PostMapping("/verify/{code}")
+    public R verify(@PathVariable("code") String code, HttpServletRequest request) {
+        if (HappyCaptcha.verification(request, code, true)) {
             HappyCaptcha.remove(request);
             return R.ok();
         }

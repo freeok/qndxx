@@ -47,7 +47,7 @@
       $txtId.val(id ? id : '');
     });
 
-    $(document).keydown(function (event) {
+    $(document).on('keydown', function (event) {
       if (event.keyCode === 13) { //判断为Enter键
         console.log("回车事件执行！");
         login();
