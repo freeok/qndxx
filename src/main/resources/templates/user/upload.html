@@ -331,11 +331,8 @@
     });
 
     function logout() {
-      $.get('/student/logout', (result) => {
-        console.log(result)
-        if (result.code === 200) {
-          window.location.href = "/index";
-        }
+      $.get('/auth/user/logout', () => {
+        window.location.href = "/index";
       });
     }
 

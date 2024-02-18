@@ -71,7 +71,7 @@
       }); //校验loading
 
       $.ajax({
-        url: "/student/login/" + id,
+        url: "/auth/user/login/" + id,
         type: "post",
         dataType: "json",
         success: function (res) {
@@ -92,7 +92,7 @@
           }
         },
         error: function () {
-          alert("login请求失败！");
+          layer.msg('login 请求失败！', {icon: 2});
         }
       });
       layer.close(index);

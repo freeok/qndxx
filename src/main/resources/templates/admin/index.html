@@ -162,12 +162,9 @@
     })
 
     $('.login-out').on("click", function () {
-      $.get('/admin/logout', (res) => {
-        if (res.code === 200) {
+      $.get('/auth/admin/logout', () => {
           window.location = '/console/login';
-        }
       });
-
     });
   });
 </script>
