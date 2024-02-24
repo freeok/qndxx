@@ -110,7 +110,7 @@
       }
       $.ajax({
         type: 'put',
-        url: '/admin/issue/' + season + '/' + period + '/' + clazzName,
+        url: '/clazz/issue/' + season + '/' + period + '/' + clazzName,
         dataType: 'json',
         success: (res) => {
           if (res.code === 200) {
@@ -132,7 +132,7 @@
       console.log(isEnable); //开关是否开启，true或者false
       $.ajax({
         type: 'put',
-        url: '/admin/isEnable/' + data.elem.checked + '/' + clazzName,
+        url: '/clazz/isEnable/' + data.elem.checked + '/' + clazzName,
         dataType: 'json',
         success: (res) => {
           if (res.code === 200) {
@@ -150,7 +150,7 @@
       layer.confirm("确定开启吗？", {title: '警告'}, () => {
         $.ajax({
           type: 'delete',
-          url: '/admin/reset/' + clazzName,
+          url: '/image/reset/' + clazzName,
           dataType: 'json',
           success: (res) => {
             if (res.code === 200) {

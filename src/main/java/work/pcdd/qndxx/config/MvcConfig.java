@@ -92,11 +92,15 @@ public class MvcConfig implements WebMvcConfigurer {
                 // api
                 .addPathPatterns("/admin/**")
                 .addPathPatterns("/student/**")
-                .addPathPatterns("image/**")
+                .addPathPatterns("/image/download/**")
+                .addPathPatterns("/image/reset/**")
+                .addPathPatterns("/clazz/issue/**")
+                .addPathPatterns("/clazz/isEnable/**")
                 // 页面
                 .addPathPatterns("/menu/*")
-                .addPathPatterns("/common/add")
-                .addPathPatterns("/common/edit")
+                .addPathPatterns("/common/**")
+                .addPathPatterns("/admin-info")
+                .addPathPatterns("/admin-password")
                 // 静态资源
                 .addPathPatterns("/api/**");
 
