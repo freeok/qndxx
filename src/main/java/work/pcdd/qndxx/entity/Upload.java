@@ -13,8 +13,8 @@ import java.util.Date;
 @Schema(description = "上传记录表")
 public class Upload implements Serializable {
 
-    @Schema(name = "学号")
-    private String stuId;
+    @Schema(name = "用户id")
+    private String userId;
 
     @Schema(name = "图片路径")
     private String imgKey;

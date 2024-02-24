@@ -64,11 +64,11 @@
   <!-- 学号、姓名 -->
   <div class="layui-row" style="margin-top: 20px;">
     <div class="layui-col-xs5 layui-col-xs-offset1" style="text-align: left;">
-      学号：<span id="stuId" style="font-weight: bolder;" th:text="${session.student.getStuId()}"></span>
+      学号：<span id="userId" style="font-weight: bolder;" th:text="${session.user.getUserId()}"></span>
     </div>
     <div class="layui-col-xs5" style="text-align: right;">
-      姓名：<span id="stuName" style="font-weight: bolder;"
-                 th:text="${session.student.getStuName()}"></span>
+      姓名：<span id="username" style="font-weight: bolder;"
+                 th:text="${session.user.getUsername()}"></span>
     </div>
   </div>
 
@@ -95,7 +95,7 @@
         <a id="manager" href="javascript:void(0);" class="blue">管理</a>
       </div>
       <div style="font-size: 12px;">
-        <p th:text="${session.student.getClazzName()}"></p>
+        <p th:text="${session.user.getClazzName()}"></p>
         <p>若使用出现问题或您也希望使用本网站</p>
         <p>
           请在
@@ -120,10 +120,10 @@
     const $ = layui.$
 
     let lastPath, par, index;
-    let stuId = $("#stuId").text();
-    let stuName = $("#stuName").text();
-    let clazzName = [[${session.student.getClazzName()}]];
-    let role = [[${session.student.getRole()}]];
+    let userId = $("#userId").text();
+    let username = $("#username").text();
+    let clazzName = [[${session.user.getClazzName()}]];
+    let role = [[${session.user.getRole()}]];
 
     $(function () {
       // 显示加载效果
@@ -136,7 +136,7 @@
       $.get('/clazz/' + clazzName, (res) => {
         $("#issue").text(`青年大学习第 ${res.data.season} 季第 ${res.data.period} 期`);
         if (!res.data.isEnable) {
-          let className = [[${session.student.getClazzName()}]];
+          let className = [[${session.user.getClazzName()}]];
           layer.close(index);
           layer.open({
             content: '<span style="color: orangered">' + className + '</span>截图上交系统暂未开启，如有需要，请联系该班负责人开启！'
@@ -166,7 +166,7 @@
         $('#location').text(location);
 
         // 判断用户是否已交朋友圈/首页截图，若已交，则显示对应的截图
-        $.get('/image/isUploaded/' + stuId, (res) => {
+        $.get('/image/isUploaded/' + userId, (res) => {
           // 有上交记录
           if (res.data.length !== 0) {
             let data = [];
@@ -266,10 +266,10 @@
 
           console.log('file', file)
           /* 图片加文字 */
-          imgAddText(result, clazzName + "_" + stuId + "_" + stuName, "80px 微软雅黑", "red").then(res => {
+          imgAddText(result, clazzName + "_" + userId + "_" + username, "80px 微软雅黑", "red").then(res => {
             // res：加了文字后图片的base64
             // 将base64转换为blob类型 并指定文件名
-            file = base642Blob(res, stuId + "_" + stuName + ".jpg")
+            file = base642Blob(res, userId + "_" + username + ".jpg")
             console.log('blob', file)
             layerMsg.html(anim + '压缩图片中...');
 
@@ -285,7 +285,7 @@
               layerMsg.html(anim + '图片上传中');
 
               $.ajax({
-                url: `/image/upload/${stuId}/${stuName}/${par}/${clazzName}`,
+                url: `/image/upload/${userId}/${username}/${par}/${clazzName}`,
                 type: 'post',
                 data: rst.formData,
                 processData: false,

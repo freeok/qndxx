@@ -44,9 +44,9 @@ public class ImageController {
     }
 
     @Operation(summary = "判断用户是否上传")
-    @GetMapping("/isUploaded/{stuId}")
-    public R<List<Upload>> isUploaded(@PathVariable String stuId) {
-        return R.ok(imageService.isUploaded(stuId));
+    @GetMapping("/isUploaded/{userId}")
+    public R<List<Upload>> isUploaded(@PathVariable String userId) {
+        return R.ok(imageService.isUploaded(userId));
     }
 
     @Operation(summary = "根据图片路径返回图片的base64编码")

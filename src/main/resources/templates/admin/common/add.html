@@ -20,7 +20,7 @@
   <div class="layui-form-item">
     <label class="layui-form-label">学号</label>
     <div class="layui-input-block">
-      <input type="number" name="stuId" placeholder="请输入学号" value="" class="layui-input" lay-verify="required">
+      <input type="number" name="userId" placeholder="请输入学号" value="" class="layui-input" lay-verify="required">
       <tip>待添加学生的学号</tip>
     </div>
   </div>
@@ -28,7 +28,7 @@
   <div class="layui-form-item">
     <label class="layui-form-label">姓名</label>
     <div class="layui-input-block">
-      <input type="text" name="stuName" placeholder="请输入姓名" value="" class="layui-input" lay-verify="required">
+      <input type="text" name="username" placeholder="请输入姓名" value="" class="layui-input" lay-verify="required">
       <tip>待添加学生的姓名</tip>
     </div>
   </div>
@@ -53,11 +53,11 @@
 
     //监听提交
     form.on('submit(saveBtn)', function (data) {
-      let stuId = data.field.stuId;
-      let stuName = data.field.stuName;
+      let userId = data.field.userId;
+      let username = data.field.username;
       let clazzName = Cookies.get('clazz');
       // TODO fix bug: clazzName is null
-      $.post('/student/add/' + stuId + '/' + stuName + '/' + clazzName, (res) => {
+      $.post('/user/add/' + userId + '/' + username + '/' + clazzName, (res) => {
         console.log(res)
         let iframeIndex = parent.layer.getFrameIndex(window.name);
         if (res.code === 200) {

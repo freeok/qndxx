@@ -34,6 +34,6 @@ public interface ImageMapper {
      */
     int deleteUpload(String clazzName);
 
-    List<Upload> isUploaded(String stuId);
+    List<Upload> isUploaded(String userId);
 
 }

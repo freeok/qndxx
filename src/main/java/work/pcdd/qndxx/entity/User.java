@@ -13,14 +13,14 @@ import java.io.Serializable;
  */
 @Data
 @NoArgsConstructor
-@Schema(name = "学生表")
-public class Student implements Serializable {
+@Schema(name = "用户表")
+public class User implements Serializable {
 
-    @Schema(name = "学号")
-    private String stuId;
+    @Schema(name = "用户 ID")
+    private String userId;
 
-    @Schema(name = "学生姓名")
-    private String stuName;
+    @Schema(name = "用户名")
+    private String username;
 
     @Schema(name = "密码")
     private String pwd;

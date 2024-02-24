@@ -5,78 +5,78 @@
 
 <mapper namespace="work.pcdd.qndxx.mapper.AdminMapper">
     <!--管理员登录-->
-    <select id="login" parameterType="student" resultType="student">
-        SELECT stu_id, stu_name, pwd, role, clazz_name
-        FROM student
-        WHERE stu_id = #{stuId}
+    <select id="login" parameterType="user" resultType="user">
+        SELECT user_id, username, pwd, role, clazz_name
+        FROM user
+        WHERE user_id = #{userId}
           AND pwd = #{pwd}
           AND role IN ('admin', 'sa')
     </select>
 
     <!--根据班级名查询所有学生的学号，姓名，班级-->
-    <select id="findAllByClazzName" parameterType="string" resultType="student">
-        SELECT stu_id, stu_name, clazz_name
-        FROM student
+    <select id="findAllByClazzName" parameterType="string" resultType="user">
+        SELECT user_id, username, clazz_name
+        FROM user
         WHERE clazz_name = #{clazzName}
     </select>
 
     <!--查询所有学生-->
-    <select id="findAll" resultType="student">
-        SELECT stu_id, stu_name, pwd, role, clazz_name
-        FROM student
+    <select id="findAll" resultType="user">
+        SELECT user_id, username, pwd, role, clazz_name
+        FROM user
     </select>
 
     <!--查询不同班级的截图已交人员-->
     <select id="findSubmitted" parameterType="string" resultType="map">
-        SELECT student.stu_id,
-               stu_name,
+        SELECT user.user_id,
+               username,
                upload_time
-        FROM student,
+        FROM user,
              upload
         WHERE clazz_name = #{clazzName}
-          AND student.stu_id = upload.stu_id
-        GROUP BY stu_id
+          AND user.user_id = upload.user_id
+        GROUP BY user_id
         ORDER BY upload_time DESC
     </select>
 
     <!--查询不同班级的截图未交人员-->
-    <select id="findUnpaid" parameterType="string" resultType="student">
-        SELECT stu_id,
-               stu_name
-        FROM student
-        WHERE stu_id NOT IN (SELECT student.stu_id
-                             FROM student,
+    <select id="findUnpaid" parameterType="string" resultType="user">
+        SELECT user_id,
+               username
+        FROM user
+        WHERE user_id NOT IN (SELECT user.user_id
+                             FROM user,
                                   upload
                              WHERE clazz_name = #{clazzName}
-                               AND student.stu_id = upload.stu_id)
+                               AND user.user_id = upload.user_id)
           AND clazz_name = #{clazzName}
     </select>
 
     <!--查询不同班级的截图已交人数-->
     <select id="findSubmittedCount" parameterType="string" resultType="int">
-        SELECT count(distinct student.stu_id)
-        FROM student,
+        SELECT count(distinct user.user_id)
+        FROM user,
              upload
         WHERE clazz_name = #{clazzName}
-          AND student.stu_id = upload.stu_id
+          AND user.user_id = upload.user_id
     </select>
 
     <!--查询不同班级的截图未交人员-->
     <select id="findUnpaidCount" parameterType="string" resultType="int">
         SELECT COUNT(*)
-        FROM student
-        WHERE stu_id NOT IN (SELECT student.stu_id
-                             FROM student,
+        FROM user
+        WHERE user_id NOT IN (SELECT user.user_id
+                             FROM user,
                                   upload
                              WHERE clazz_name = #{clazzName}
-                               AND student.stu_id = upload.stu_id)
+                               AND user.user_id = upload.user_id)
           AND clazz_name = #{clazzName}
     </select>
 
     <!--管理员修改密码-->
-    <update id="updPwd" parameterType="student">
-        UPDATE student
+    <update id="updPwd" parameterType="user">
+        UPDATE user
         SET pwd = #{pwd}
-        WHERE stu_id = #{stuId}
+        WHERE user_id = #{userId}
     </update>
 </mapper>

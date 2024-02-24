@@ -91,7 +91,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(adminInterceptor())
                 // api
                 .addPathPatterns("/admin/**")
-                .addPathPatterns("/student/**")
+                .addPathPatterns("/user/**")
                 .addPathPatterns("/image/download/**")
                 .addPathPatterns("/image/reset/**")
                 .addPathPatterns("/clazz/issue/**")

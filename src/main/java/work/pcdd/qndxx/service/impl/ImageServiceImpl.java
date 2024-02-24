@@ -91,7 +91,7 @@ public class ImageServiceImpl implements ImageService {
         imageMapper.addImage(image);
 
         Upload upload = new Upload();
-        upload.setStuId(id);
+        upload.setUserId(id);
         upload.setImgKey(relativePath);
         upload.setUploadTime(new Date());
         // 将上传者的学号、文件路径、上传时间保存到upload表
@@ -142,8 +142,8 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<Upload> isUploaded(String stuId) {
-        return imageMapper.isUploaded(stuId);
+    public List<Upload> isUploaded(String userId) {
+        return imageMapper.isUploaded(userId);
     }
 
 }

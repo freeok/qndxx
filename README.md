@@ -30,13 +30,13 @@
 2. Maven 3.x.x
 3. MySQL 8+ & MySQL 图形管理工具（建议）
 4. 执行 SQL 脚本
-5. 分别在 student 和 clazz 表中导入班级成员信息和班级信息（仅启动可省略这一步）
+5. 分别在 user 和 clazz 表中导入班级成员信息和班级信息（仅启动可省略这一步）
 6. 修改 application-dev.yml 中数据库配置
 7. 修改 my.cnf，去掉 ONLY_FULL_GROUP_BY，详见 https://blog.csdn.net/h123hlll/article/details/130386184
 
 ## 使用说明
 
-1. 导入班级相关数据，根据 student 表的 role 字段设置管理员和密码
+1. 导入班级相关数据，根据 user 表的 role 字段设置管理员和密码
 2. 管理员登录后台，设置青年大学习的季数、期数
 3. 收齐后下载即可，然后关闭系统（关闭系统后所有成员无法上传）
 4. 使用前重置提交（删除往期截图）并开启系统
