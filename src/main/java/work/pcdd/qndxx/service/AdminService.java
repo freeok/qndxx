@@ -23,31 +23,31 @@ public interface AdminService {
      * 根据班级名查询所有学生的学号，姓名，班级
      *
      * @param clazzName 班级名
-     * @param start     起始页
-     * @param limit     每页显示的条数
+     * @param pageNum   起始页
+     * @param pageSize  每页显示的条数
      * @return 执行结果
      */
-    R findAllByClazzName(String clazzName, int start, int limit);
+    R findAllByClazzName(String clazzName, int pageNum, int pageSize);
 
     /**
      * 查询不同班级的截图已交人员
      *
      * @param clazzName 班级名
-     * @param start     起始页
-     * @param limit     每页显示的条数
+     * @param pageNum   起始页
+     * @param pageSize  每页显示的条数
      * @return 执行结果
      */
-    R findSubmitted(String clazzName, int start, int limit);
+    R findSubmitted(String clazzName, int pageNum, int pageSize);
 
     /**
      * 查询不同班级的截图未交人员
      *
      * @param clazzName 班级名
-     * @param start     起始页
-     * @param limit     每页显示的条数
+     * @param pageNum   起始页
+     * @param pageSize  每页显示的条数
      * @return 学生信息
      */
-    R findUnpaid(String clazzName, int start, int limit);
+    R findUnpaid(String clazzName, int pageNum, int pageSize);
 
 
     /**

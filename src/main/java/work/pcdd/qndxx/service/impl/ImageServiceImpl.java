@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import work.pcdd.qndxx.common.RCode;
-import work.pcdd.qndxx.util.R;
 import work.pcdd.qndxx.entity.Image;
 import work.pcdd.qndxx.entity.Upload;
 import work.pcdd.qndxx.mapper.ImageMapper;
 import work.pcdd.qndxx.service.ImageService;
+import work.pcdd.qndxx.util.R;
 import work.pcdd.qndxx.util.UploadUtils;
 
 import javax.servlet.ServletOutputStream;
