@@ -1,5 +1,6 @@
 package work.pcdd.qndxx.controller;
 
+import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +23,12 @@ public class AdminController {
     private final AdminService adminService;
 
     @Operation(summary = "根据班级名查询所有学生")
-    @GetMapping("/findAllByClazzName/{start}/{limit}")
-    public R findAllByClazzName(@PathVariable int start, @PathVariable int limit, HttpSession session) {
+    @GetMapping("/findAllByClazzName")
+    public R findAllByClazzName(@RequestParam int page, @RequestParam int limit, HttpSession session) {
         // 从session中取出当前管理员所在的班级作为参数传递
         Student admin = (Student) session.getAttribute("admin");
-        return adminService.findAllByClazzName(admin.getClazzName(), start, limit);
+        PageInfo<Student> pageInfo = adminService.findAllByClazzName(admin.getClazzName(), page, limit);
+        return R.ok0(pageInfo.getList(), pageInfo.getTotal());
     }
 
     @Operation(summary = "查询截图已交信息")

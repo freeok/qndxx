@@ -1,5 +1,7 @@
 package work.pcdd.qndxx.service;
 
+import com.github.pagehelper.PageInfo;
+import work.pcdd.qndxx.entity.Student;
 import work.pcdd.qndxx.util.R;
 
 import javax.servlet.http.HttpSession;
@@ -27,7 +29,7 @@ public interface AdminService {
      * @param pageSize  每页显示的条数
      * @return 执行结果
      */
-    R findAllByClazzName(String clazzName, int pageNum, int pageSize);
+    PageInfo<Student> findAllByClazzName(String clazzName, int pageNum, int pageSize);
 
     /**
      * 查询不同班级的截图已交人员
