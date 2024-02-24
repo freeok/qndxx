@@ -13,7 +13,6 @@ import work.pcdd.qndxx.util.R;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -47,19 +46,15 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public R findSubmitted(String clazzName, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<Map<String, Object>> list = adminMapper.findSubmitted(clazzName);
-        PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(list);
-        return R.ok0(list, pageInfo.getTotal());
+    public PageInfo<Student> findSubmitted(String clazzName, int pageNum, int pageSize) {
+        return PageHelper.startPage(pageNum, pageSize)
+                .doSelectPageInfo(() -> adminMapper.findSubmitted(clazzName));
     }
 
     @Override
-    public R findUnpaid(String clazzName, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<Student> list = adminMapper.findUnpaid(clazzName);
-        PageInfo<Student> pageInfo = new PageInfo<>(list);
-        return R.ok0(list, pageInfo.getTotal());
+    public PageInfo<Student> findUnpaid(String clazzName, int pageNum, int pageSize) {
+        return PageHelper.startPage(pageNum, pageSize)
+                .doSelectPageInfo(() -> adminMapper.findUnpaid(clazzName));
     }
 
     @Override
