@@ -6,10 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import work.pcdd.qndxx.common.RCode;
-import work.pcdd.qndxx.util.R;
 import work.pcdd.qndxx.entity.Student;
 import work.pcdd.qndxx.mapper.AdminMapper;
 import work.pcdd.qndxx.service.AdminService;
+import work.pcdd.qndxx.util.R;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -41,25 +41,25 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public R findAllByClazzName(String clazzName, int start, int limit) {
+    public R findAllByClazzName(String clazzName, int pageNum, int pageSize) {
         // 分页助手，设置起始页和每页显示的条数
-        PageHelper.startPage(start, limit);
+        PageHelper.startPage(pageNum, pageSize);
         List<Student> list = adminMapper.findAllByClazzName(clazzName);
         PageInfo<Student> pageInfo = new PageInfo<>(list);
         return R.ok0(list, pageInfo.getTotal());
     }
 
     @Override
-    public R findSubmitted(String clazzName, int start, int limit) {
-        PageHelper.startPage(start, limit);
+    public R findSubmitted(String clazzName, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<Map<String, Object>> list = adminMapper.findSubmitted(clazzName);
         PageInfo<Map<String, Object>> pageInfo = new PageInfo<>(list);
         return R.ok0(list, pageInfo.getTotal());
     }
 
     @Override
-    public R findUnpaid(String clazzName, int start, int limit) {
-        PageHelper.startPage(start, limit);
+    public R findUnpaid(String clazzName, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<Student> list = adminMapper.findUnpaid(clazzName);
         PageInfo<Student> pageInfo = new PageInfo<>(list);
         return R.ok0(list, pageInfo.getTotal());
