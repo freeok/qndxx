@@ -62,6 +62,13 @@ public class ImageController {
         return R.ok(base64);
     }
 
+    @Operation(summary = "结束指定班级本轮提交")
+    @DeleteMapping("/reset/{clazzName}")
+    public R deleteUpload(@PathVariable String clazzName) {
+        imageService.deleteUpload(clazzName);
+        return R.ok();
+    }
+
     @PostMapping("/empty")
     public String empty() {
         return "空api,防报405，无实际作用";
