@@ -6,17 +6,17 @@
 <mapper namespace="work.pcdd.qndxx.mapper.ImageMapper">
     <!--查询用户是否上传-->
     <select id="isUploaded" parameterType="string" resultType="upload">
-        SELECT stu_id,
+        SELECT user_id,
                img_key,
                upload_time
         FROM upload
-        WHERE stu_id = #{stuId}
+        WHERE user_id = #{userId}
     </select>
 
     <!--向upload表增加一条新记录，若主键已存在，则覆盖-->
     <insert id="addUpload" parameterType="upload">
         REPLACE INTO upload
-        VALUES (#{stuId}, #{imgKey}, #{uploadTime})
+        VALUES (#{userId}, #{imgKey}, #{uploadTime})
     </insert>
 
     <!--向image表增加一条新记录，若主键已存在，则覆盖-->
@@ -29,7 +29,7 @@
     <delete id="deleteUpload" parameterType="string">
         DELETE
         FROM upload
-        WHERE stu_id IN (SELECT stu_id FROM student WHERE clazz_name = #{clazzName})
+        WHERE user_id IN (SELECT user_id FROM user WHERE clazz_name = #{clazzName})
     </delete>
 
 </mapper>

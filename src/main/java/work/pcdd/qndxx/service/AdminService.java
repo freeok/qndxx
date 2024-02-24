@@ -1,7 +1,7 @@
 package work.pcdd.qndxx.service;
 
 import com.github.pagehelper.PageInfo;
-import work.pcdd.qndxx.entity.Student;
+import work.pcdd.qndxx.entity.User;
 import work.pcdd.qndxx.util.R;
 
 import javax.servlet.http.HttpSession;
@@ -14,12 +14,12 @@ public interface AdminService {
     /**
      * 管理员登录
      *
-     * @param stuId   管理员账户（学号）
+     * @param userId  管理员账户（学号）
      * @param pwd     密码
      * @param session session
      * @return 执行结果
      */
-    R<String> login(String stuId, String pwd, HttpSession session);
+    R<String> login(String userId, String pwd, HttpSession session);
 
     /**
      * 根据班级名查询所有学生的学号，姓名，班级
@@ -29,7 +29,7 @@ public interface AdminService {
      * @param pageSize  每页显示的条数
      * @return 执行结果
      */
-    PageInfo<Student> findAllByClazzName(String clazzName, int pageNum, int pageSize);
+    PageInfo<User> findAllByClazzName(String clazzName, int pageNum, int pageSize);
 
     /**
      * 查询不同班级的截图已交人员
@@ -39,7 +39,7 @@ public interface AdminService {
      * @param pageSize  每页显示的条数
      * @return 执行结果
      */
-    PageInfo<Student> findSubmitted(String clazzName, int pageNum, int pageSize);
+    PageInfo<User> findSubmitted(String clazzName, int pageNum, int pageSize);
 
     /**
      * 查询不同班级的截图未交人员
@@ -49,7 +49,7 @@ public interface AdminService {
      * @param pageSize  每页显示的条数
      * @return 学生信息
      */
-    PageInfo<Student> findUnpaid(String clazzName, int pageNum, int pageSize);
+    PageInfo<User> findUnpaid(String clazzName, int pageNum, int pageSize);
 
 
     /**

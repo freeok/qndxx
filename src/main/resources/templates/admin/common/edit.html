@@ -19,14 +19,14 @@
   <div class="layui-form-item">
     <label class="layui-form-label">学号</label>
     <div class="layui-input-block">
-      <input type="number" name="stuId" value="" class="layui-input layui-disabled" disabled>
+      <input type="number" name="userId" value="" class="layui-input layui-disabled" disabled>
     </div>
   </div>
 
   <div class="layui-form-item">
     <label class="layui-form-label">姓名</label>
     <div class="layui-input-block">
-      <input type="text" name="stuName" placeholder="请输入姓名" value="" class="layui-input" lay-verify="required">
+      <input type="text" name="username" placeholder="请输入姓名" value="" class="layui-input" lay-verify="required">
     </div>
   </div>
 
@@ -60,26 +60,26 @@
       $ = layui.$;
 
     let strings = location.search.substring(1).split('&');
-    let student = [];
+    let user = [];
     for (let i = 0; i < strings.length; i++) {
-      student[i] = decodeURI(strings[i].split('=')[1]);
+      user[i] = decodeURI(strings[i].split('=')[1]);
     }
 
     // 表单赋值
     form.val('filter', {
-      stuId: student[0],
-      stuName: student[1],
-      clazzName: student[2],
+      userId: user[0],
+      username: user[1],
+      clazzName: user[2],
     });
 
     // 监听提交
     form.on('submit(saveBtn)', function (data) {
-      let stuId = data.field.stuId;
-      let stuName = data.field.stuName;
+      let userId = data.field.userId;
+      let username = data.field.username;
       let clazzName = data.field.clazzName;
       $.ajax({
         type: 'put',
-        url: '/student/updStudentById/' + stuId + '/' + stuName + '/' + clazzName + '/' + null + '/' + null,
+        url: '/user/update/' + userId + '/' + username + '/' + clazzName + '/' + null + '/' + null,
         success: (res) => {
           if (res.code === 200) {
             layer.msg('保存成功', {icon: 1, offset: 't', time: 1000}, function () {

@@ -44,9 +44,9 @@ public interface ImageService {
     /**
      * 根据学号查询upload表字段
      *
-     * @param stuId
+     * @param userId 用户id
      * @return 执行结果
      */
-    List<Upload> isUploaded(String stuId);
+    List<Upload> isUploaded(String userId);
 
 }

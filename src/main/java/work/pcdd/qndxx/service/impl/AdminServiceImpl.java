@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import work.pcdd.qndxx.common.RCode;
-import work.pcdd.qndxx.entity.Student;
+import work.pcdd.qndxx.entity.User;
 import work.pcdd.qndxx.mapper.AdminMapper;
 import work.pcdd.qndxx.service.AdminService;
 import work.pcdd.qndxx.util.R;
@@ -25,13 +25,13 @@ public class AdminServiceImpl implements AdminService {
     private final AdminMapper adminMapper;
 
     @Override
-    public R<String> login(String stuId, String pwd, HttpSession session) {
-        Student student = new Student();
-        student.setStuId(stuId);
-        student.setPwd(pwd);
-        Student obj = adminMapper.login(student);
+    public R<String> login(String userId, String pwd, HttpSession session) {
+        User user = new User();
+        user.setUserId(userId);
+        user.setPwd(pwd);
+        User obj = adminMapper.login(user);
         if (obj != null
-                && Objects.equals(obj.getStuId(), stuId)
+                && Objects.equals(obj.getUserId(), userId)
                 && Objects.equals(obj.getPwd(), pwd)) {
             session.setAttribute("admin", obj);
             return R.ok("管理员登录成功");
@@ -40,19 +40,19 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public PageInfo<Student> findAllByClazzName(String clazzName, int pageNum, int pageSize) {
+    public PageInfo<User> findAllByClazzName(String clazzName, int pageNum, int pageSize) {
         return PageHelper.startPage(pageNum, pageSize)
                 .doSelectPageInfo(() -> adminMapper.findAllByClazzName(clazzName));
     }
 
     @Override
-    public PageInfo<Student> findSubmitted(String clazzName, int pageNum, int pageSize) {
+    public PageInfo<User> findSubmitted(String clazzName, int pageNum, int pageSize) {
         return PageHelper.startPage(pageNum, pageSize)
                 .doSelectPageInfo(() -> adminMapper.findSubmitted(clazzName));
     }
 
     @Override
-    public PageInfo<Student> findUnpaid(String clazzName, int pageNum, int pageSize) {
+    public PageInfo<User> findUnpaid(String clazzName, int pageNum, int pageSize) {
         return PageHelper.startPage(pageNum, pageSize)
                 .doSelectPageInfo(() -> adminMapper.findUnpaid(clazzName));
     }
@@ -69,17 +69,17 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public R updPwd(String oldPwd, String newPwd, HttpSession session) {
-        Student admin = (Student) session.getAttribute("admin");
-        String stuId = admin.getStuId();
-        Student student = new Student();
-        student.setStuId(stuId);
-        student.setPwd(oldPwd);
+        User admin = (User) session.getAttribute("admin");
+        String userId = admin.getUserId();
+        User user = new User();
+        user.setUserId(userId);
+        user.setPwd(oldPwd);
         // 旧密码错误，拒绝修改
-        if (adminMapper.login(student) == null) {
+        if (adminMapper.login(user) == null) {
             return R.fail(RCode.ADMIN_OLD_PASSWORD_ERROR);
         }
-        student.setPwd(newPwd);
-        if (adminMapper.updPwd(student) == 1) {
+        user.setPwd(newPwd);
+        if (adminMapper.updPwd(user) == 1) {
             return R.ok();
         }
 

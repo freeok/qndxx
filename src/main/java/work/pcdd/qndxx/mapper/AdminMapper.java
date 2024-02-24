@@ -1,7 +1,7 @@
 package work.pcdd.qndxx.mapper;
 
 import org.apache.ibatis.annotations.MapKey;
-import work.pcdd.qndxx.entity.Student;
+import work.pcdd.qndxx.entity.User;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +17,7 @@ public interface AdminMapper {
      * @param stu 管理员（学生）bean
      * @return 管理员（学生）bean
      */
-    Student login(Student stu);
+    User login(User stu);
 
     /**
      * 根据班级名查询所有学生的学号，姓名，班级
@@ -25,14 +25,14 @@ public interface AdminMapper {
      * @param clazzName 班级名
      * @return 学生信息
      */
-    List<Student> findAllByClazzName(String clazzName);
+    List<User> findAllByClazzName(String clazzName);
 
     /**
      * 查询所有学生
      *
      * @return 学生信息
      */
-    List<Student> findAll();
+    List<User> findAll();
 
     /**
      * 根据班级查询截图已交名单
@@ -40,7 +40,7 @@ public interface AdminMapper {
      * @param clazzName 班级名
      * @return 学生信息
      */
-    @MapKey("stu_id")
+    @MapKey("user_id")
     List<Map<String, Object>> findSubmitted(String clazzName);
 
     /**
@@ -49,7 +49,7 @@ public interface AdminMapper {
      * @param clazzName 班级名
      * @return 学生信息
      */
-    List<Student> findUnpaid(String clazzName);
+    List<User> findUnpaid(String clazzName);
 
     /**
      * 根据班级查询截图已交人数
@@ -70,9 +70,9 @@ public interface AdminMapper {
     /**
      * 根据学号修改管理员密码
      *
-     * @param student 管理员（学生）bean
+     * @param user 管理员（学生）bean
      * @return 影响的行数
      */
-    int updPwd(Student student);
+    int updPwd(User user);
 
 }

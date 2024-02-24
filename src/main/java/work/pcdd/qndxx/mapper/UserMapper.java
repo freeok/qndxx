@@ -1,6 +1,6 @@
 package work.pcdd.qndxx.mapper;
 
-import work.pcdd.qndxx.entity.Student;
+import work.pcdd.qndxx.entity.User;
 
 import java.util.List;
 
@@ -12,46 +12,46 @@ import java.util.List;
  *
  * @author pcdd
  */
-public interface StudentMapper {
+public interface UserMapper {
 
     /**
      * 根据学号查询学生
      *
-     * @param stuId 学号
-     * @return student bean
+     * @param userId 用户id
+     * @return User bean
      */
-    Student findById(String stuId);
+    User findById(String userId);
 
     /**
      * 在指定的班级中根据学号或姓名模糊查询学生
      *
-     * @param student student bean
-     * @return student bean
+     * @param user user bean
+     * @return user bean
      */
-    List<Student> findByName(Student student);
+    List<User> findByName(User user);
 
     /**
      * 增加学生
      *
-     * @param student student bean
+     * @param user user bean
      * @return 影响的行数
      */
-    int addStudent(Student student);
+    int add(User user);
 
     /**
      * 更新学生信息
      *
-     * @param student student bean
+     * @param user user bean
      * @return 影响的行数
      */
-    int updStudentById(Student student);
+    int update(User user);
 
     /**
      * 根据学号删除学生
      *
-     * @param stuId 学号
+     * @param userId 用户id
      * @return 影响的行数
      */
-    int delStudentById(String stuId);
+    int delete(String userId);
 
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="work.pcdd.qndxx.mapper.UserMapper">
+    <!--根据学号查询学生-->
+    <select id="findById" parameterType="string" resultType="user">
+        SELECT user_id, username, pwd, role, clazz_name
+        FROM user
+        WHERE user_id = #{userId}
+    </select>
+
+    <!--在指定的班级中根据学号或姓名模糊查询学生-->
+    <select id="findByName" parameterType="user" resultType="user">
+        SELECT user_id, username, clazz_name
+        FROM user
+        WHERE clazz_name = #{clazzName}
+        <if test="username!=null and username!=''">
+            AND username LIKE CONCAT('%',#{username},'%')
+        </if>
+    </select>
+
+    <!--添加学生-->
+    <insert id="add" parameterType="user">
+        INSERT INTO user(user_id, username, clazz_name)
+        VALUES (#{userId}, #{username}, #{clazzName})
+    </insert>
+
+    <!--更新学生信息-->
+    <update id="update" parameterType="user">
+        UPDATE user
+        SET username = #{username} ,clazz_name = #{clazzName}
+        <!--        <if test="pwd!=null and pwd!=''">
+                    ,pwd = #{pwd}
+                </if>
+                <if test="role!=null and role!=''">
+                    ,role = #{role}
+                </if>-->
+        WHERE user_id = #{userId}
+    </update>
+
+
+    <!--根据学号删除学生-->
+    <delete id="delete" parameterType="string">
+        DELETE
+        FROM user
+        WHERE user_id = #{userId}
+    </delete>
+
+</mapper>

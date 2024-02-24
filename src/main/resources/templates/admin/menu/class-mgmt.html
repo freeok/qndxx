@@ -23,7 +23,7 @@
             <div class="layui-inline">
               <label class="layui-form-label">姓名</label>
               <div class="layui-input-inline">
-                <input type="text" name="stu_name" autocomplete="off" class="layui-input"
+                <input type="text" name="username" autocomplete="off" class="layui-input"
                        lay-verify="required">
               </div>
             </div>
@@ -90,8 +90,8 @@
         cols: [
           [
             {type: "checkbox", width: 50},
-            {field: 'stuId', width: 150, title: '学号', sort: true},
-            {field: 'stuName', width: 150, title: '姓名'},
+            {field: 'userId', width: 150, title: '学号', sort: true},
+            {field: 'username', width: 150, title: '姓名'},
             {field: 'clazzName', width: 200, title: '班级'},
             {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: 'right'}
           ]
@@ -108,11 +108,11 @@
 
     // 监听搜索操作
     form.on('submit(data-search-btn)', function (data) {
-      let stuName = data.field.stu_name;
+      let username = data.field.username;
       let clazzName = Cookies.get('clazz');
       //执行搜索重载
       table.reload('currentTableId', {
-        url: '/student/findByIdOrName/' + stuName + '/' + clazzName
+        url: '/user/findByIdOrName/' + username + '/' + clazzName
       });
       return false;
     });
@@ -155,8 +155,8 @@
     table.on('tool(currentTableFilter)', function (obj) {
       let data = obj.data;
       let event = obj.event;
-      let stuId = data.stuId;
-      let stuName = data.stuName;
+      let userId = data.userId;
+      let username = data.username;
       let clazzName = data.clazzName;
       if (event === 'edit') {
         let index = layer.open({
@@ -166,7 +166,7 @@
           maxmin: true,
           shadeClose: true,
           area: ['100%', '100%'],
-          content: '/common/edit?stuId=' + stuId + '&stuName=' + stuName + '&clazzName=' + clazzName,
+          content: '/common/edit?userId=' + userId + '&username=' + username + '&clazzName=' + clazzName,
           end: () => {
             //tableStu.reload();
             table.reload('currentTableId');
@@ -177,11 +177,11 @@
         });
         return false;
       } else if (event === 'delete') {
-        layer.confirm('确定删除' + stuName + '同学吗？', {title: '提示'}, function (index) {
+        layer.confirm('确定删除' + username + '同学吗？', {title: '提示'}, function (index) {
           obj.del();
           $.ajax({
             type: 'delete',
-            url: '/student/delById/' + stuId,
+            url: '/user/delById/' + userId,
             success: (res) => {
               if (res.code === 200) {
                 layer.msg('删除成功', {icon: 1, offset: 't'});
