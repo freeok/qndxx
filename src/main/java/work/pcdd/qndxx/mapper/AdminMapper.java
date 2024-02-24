@@ -17,7 +17,7 @@ public interface AdminMapper {
      * @param stu 管理员（学生）bean
      * @return 管理员（学生）bean
      */
-    List<Student> login(Student stu);
+    Student login(Student stu);
 
     /**
      * 根据班级名查询所有学生的学号，姓名，班级
