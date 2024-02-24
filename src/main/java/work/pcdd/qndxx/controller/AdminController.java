@@ -10,6 +10,7 @@ import work.pcdd.qndxx.service.AdminService;
 import work.pcdd.qndxx.util.R;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author pcdd
@@ -24,7 +25,7 @@ public class AdminController {
 
     @Operation(summary = "根据班级名查询所有学生")
     @GetMapping("/findAllByClazzName")
-    public R findAllByClazzName(@RequestParam int page, @RequestParam int limit, HttpSession session) {
+    public R<List<Student>> findAllByClazzName(@RequestParam int page, @RequestParam int limit, HttpSession session) {
         // 从session中取出当前管理员所在的班级作为参数传递
         Student admin = (Student) session.getAttribute("admin");
         PageInfo<Student> pageInfo = adminService.findAllByClazzName(admin.getClazzName(), page, limit);
@@ -32,17 +33,19 @@ public class AdminController {
     }
 
     @Operation(summary = "查询截图已交信息")
-    @GetMapping("/findSubmitted/{start}/{limit}")
-    public R findSubmitted(@PathVariable int start, @PathVariable int limit, HttpSession session) {
+    @GetMapping("/findSubmitted")
+    public R<List<Student>> findSubmitted(@RequestParam int page, @RequestParam int limit, HttpSession session) {
         Student admin = (Student) session.getAttribute("admin");
-        return adminService.findSubmitted(admin.getClazzName(), start, limit);
+        PageInfo<Student> pageInfo = adminService.findSubmitted(admin.getClazzName(), page, limit);
+        return R.ok0(pageInfo.getList(), pageInfo.getTotal());
     }
 
     @Operation(summary = "查询截图未交信息")
-    @GetMapping("/findUnpaid/{start}/{limit}")
-    public R findUnpaid(@PathVariable int start, @PathVariable int limit, HttpSession session) {
+    @GetMapping("/findUnpaid")
+    public R<List<Student>> findUnpaid(@RequestParam int page, @RequestParam int limit, HttpSession session) {
         Student admin = (Student) session.getAttribute("admin");
-        return adminService.findUnpaid(admin.getClazzName(), start, limit);
+        PageInfo<Student> pageInfo = adminService.findUnpaid(admin.getClazzName(), page, limit);
+        return R.ok0(pageInfo.getList(), pageInfo.getTotal());
     }
 
     @Operation(summary = "查询截图已交人数")

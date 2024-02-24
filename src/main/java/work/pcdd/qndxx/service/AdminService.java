@@ -39,7 +39,7 @@ public interface AdminService {
      * @param pageSize  每页显示的条数
      * @return 执行结果
      */
-    R findSubmitted(String clazzName, int pageNum, int pageSize);
+    PageInfo<Student> findSubmitted(String clazzName, int pageNum, int pageSize);
 
     /**
      * 查询不同班级的截图未交人员
@@ -49,7 +49,7 @@ public interface AdminService {
      * @param pageSize  每页显示的条数
      * @return 学生信息
      */
-    R findUnpaid(String clazzName, int pageNum, int pageSize);
+    PageInfo<Student> findUnpaid(String clazzName, int pageNum, int pageSize);
 
 
     /**
