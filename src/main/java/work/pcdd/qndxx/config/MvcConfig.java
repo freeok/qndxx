@@ -41,7 +41,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/menu/upload-details").setViewName("admin/menu/upload-details");
         // 截图下载
         registry.addViewController("/menu/download").setViewName("admin/menu/download");
-        // 班级管理
+        // 组织管理
         registry.addViewController("/menu/class-mgmt").setViewName("admin/menu/class-mgmt");
         // 系统管理
         registry.addViewController("/menu/settings").setViewName("admin/menu/settings");
@@ -94,8 +94,8 @@ public class MvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/user/**")
                 .addPathPatterns("/image/download/**")
                 .addPathPatterns("/image/reset/**")
-                .addPathPatterns("/clazz/issue/**")
-                .addPathPatterns("/clazz/isEnable/**")
+                .addPathPatterns("/organize/issue/**")
+                .addPathPatterns("/organize/isEnable/**")
                 // 页面
                 .addPathPatterns("/menu/*")
                 .addPathPatterns("/common/**")

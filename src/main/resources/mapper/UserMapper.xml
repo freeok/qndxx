@@ -6,16 +6,16 @@
 <mapper namespace="work.pcdd.qndxx.mapper.UserMapper">
     <!--根据学号查询学生-->
     <select id="findById" parameterType="string" resultType="user">
-        SELECT user_id, username, pwd, role, clazz_name
+        SELECT user_id, username, pwd, role, organize_name
         FROM user
         WHERE user_id = #{userId}
     </select>
 
-    <!--在指定的班级中根据学号或姓名模糊查询学生-->
+    <!--在指定的组织中根据学号或姓名模糊查询学生-->
     <select id="findByName" parameterType="user" resultType="user">
-        SELECT user_id, username, clazz_name
+        SELECT user_id, username, organize_name
         FROM user
-        WHERE clazz_name = #{clazzName}
+        WHERE organize_name = #{organizeName}
         <if test="username!=null and username!=''">
             AND username LIKE CONCAT('%',#{username},'%')
         </if>
@@ -23,14 +23,14 @@
 
     <!--添加学生-->
     <insert id="add" parameterType="user">
-        INSERT INTO user(user_id, username, clazz_name)
-        VALUES (#{userId}, #{username}, #{clazzName})
+        INSERT INTO user(user_id, username, organize_name)
+        VALUES (#{userId}, #{username}, #{organizeName})
     </insert>
 
     <!--更新学生信息-->
     <update id="update" parameterType="user">
         UPDATE user
-        SET username = #{username} ,clazz_name = #{clazzName}
+        SET username = #{username} ,organize_name = #{organizeName}
         <!--        <if test="pwd!=null and pwd!=''">
                     ,pwd = #{pwd}
                 </if>

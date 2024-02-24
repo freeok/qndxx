@@ -28,19 +28,19 @@ public class ImageController {
     private final ImageService imageService;
 
     @Operation(summary = "截图上传")
-    @PostMapping("/upload/{id}/{name}/{par}/{clazzName}")
+    @PostMapping("/upload/{id}/{name}/{par}/{organizeName}")
     public R upload(@RequestParam("file") MultipartFile mf
             , @PathVariable("id") String id
             , @PathVariable("name") String name
             , @PathVariable("par") String par
-            , @PathVariable("clazzName") String clazzName) {
-        return imageService.upload(id, name, par, clazzName, mf);
+            , @PathVariable("organizeName") String organizeName) {
+        return imageService.upload(id, name, par, organizeName, mf);
     }
 
     @Operation(summary = "截图下载")
-    @GetMapping("/download/{clazzName}")
-    public void download(HttpServletRequest req, HttpServletResponse resp, @PathVariable String clazzName) {
-        imageService.download(req, resp, clazzName);
+    @GetMapping("/download/{organizeName}")
+    public void download(HttpServletRequest req, HttpServletResponse resp, @PathVariable String organizeName) {
+        imageService.download(req, resp, organizeName);
     }
 
     @Operation(summary = "判断用户是否上传")
@@ -62,10 +62,10 @@ public class ImageController {
         return R.ok(base64);
     }
 
-    @Operation(summary = "结束指定班级本轮提交")
-    @DeleteMapping("/reset/{clazzName}")
-    public R deleteUpload(@PathVariable String clazzName) {
-        imageService.deleteUpload(clazzName);
+    @Operation(summary = "结束指定组织本轮提交")
+    @DeleteMapping("/reset/{organizeName}")
+    public R deleteUpload(@PathVariable String organizeName) {
+        imageService.deleteUpload(organizeName);
         return R.ok();
     }
 

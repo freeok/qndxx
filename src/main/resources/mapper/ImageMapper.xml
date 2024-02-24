@@ -25,11 +25,11 @@
         VALUES (#{imgKey}, #{imgSize}, #{imgExtension})
     </insert>
 
-    <!--删除班级删除upload表记录-->
+    <!--删除组织删除upload表记录-->
     <delete id="deleteUpload" parameterType="string">
         DELETE
         FROM upload
-        WHERE user_id IN (SELECT user_id FROM user WHERE clazz_name = #{clazzName})
+        WHERE user_id IN (SELECT user_id FROM user WHERE organize_name = #{organizeName})
     </delete>
 
 </mapper>

@@ -47,11 +47,11 @@ public class ImageServiceImpl implements ImageService {
      * @param id        学号
      * @param name      学生姓名
      * @param type      图片类型：upload1、upload2分别表示朋友圈截图，首页截图
-     * @param clazzName 班级名
+     * @param organizeName 组织名
      * @param mf        MultipartFile对象
      */
     @Override
-    public R upload(String id, String name, String type, String clazzName, MultipartFile mf) {
+    public R upload(String id, String name, String type, String organizeName, MultipartFile mf) {
         // 若文件不存在，则拒绝上传
         if (mf.isEmpty()) {
             return R.fail(RCode.FILE_NOT_FOUND);
@@ -68,7 +68,7 @@ public class ImageServiceImpl implements ImageService {
         // 获取文件扩展名
         String extension = Objects.requireNonNull(fileName).substring(fileName.lastIndexOf("."));
         // 获取指定文件在当前项目的绝对路径
-        String filePath = UploadUtils.getRealPath("image", clazzName, dirName, fileName);
+        String filePath = UploadUtils.getRealPath("image", organizeName, dirName, fileName);
         log.info("filePath:" + filePath);
         // 相对路径
         String relativePath = filePath.substring(filePath.indexOf("uploads"));
@@ -105,19 +105,19 @@ public class ImageServiceImpl implements ImageService {
      *
      * @param req       request对象
      * @param resp      response对象
-     * @param clazzName 班级名
+     * @param organizeName 组织名
      */
     @SneakyThrows
     @Override
-    public void download(HttpServletRequest req, HttpServletResponse resp, String clazzName) {
-        // 指定压缩哪一个目录（目录名即为班级名）
-        String filePath = UploadUtils.IMG_REAL_PATH + clazzName;
+    public void download(HttpServletRequest req, HttpServletResponse resp, String organizeName) {
+        // 指定压缩哪一个目录（目录名即为组织名）
+        String filePath = UploadUtils.IMG_REAL_PATH + organizeName;
         log.info("filePath:" + filePath);
         ZipUtil.zip(filePath);
 
         // 设置下载响应头
         resp.setContentType("application/octet-stream;charset=utf-8");
-        resp.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(clazzName + ".zip", "UTF-8"));
+        resp.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(organizeName + ".zip", "UTF-8"));
 
         try (InputStream in = Files.newInputStream(new File(filePath + ".zip").toPath());
              ServletOutputStream out = resp.getOutputStream()) {
@@ -131,13 +131,13 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public void deleteUpload(String clazzName) {
-        imageMapper.deleteUpload(clazzName);
-        String path = UploadUtils.IMG_REAL_PATH + clazzName;
+    public void deleteUpload(String organizeName) {
+        imageMapper.deleteUpload(organizeName);
+        String path = UploadUtils.IMG_REAL_PATH + organizeName;
         log.info("deleteUpload:" + path);
-        // 删除指定班级的图片目录
+        // 删除指定组织的图片目录
         FileUtil.del(path);
-        // 删除指定班级的压缩包
+        // 删除指定组织的压缩包
         FileUtil.del(path + ".zip");
     }
 

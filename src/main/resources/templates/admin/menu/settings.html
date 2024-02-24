@@ -43,7 +43,7 @@
 <div class="layuimini-container" style="margin-top: 30px;">
   <div class="layuimini-main">
     <blockquote class="layui-elem-quote">
-      注：开启或关闭系统，在关闭期间该班级的所有成员无法使用此系统。
+      注：开启或关闭系统，在关闭期间该组织的所有成员无法使用此系统。
     </blockquote>
     <form class="layui-form" action="">
       <div class="layui-form-item">
@@ -78,14 +78,14 @@
     let form = layui.form,
       layer = layui.layer;
 
-    let clazzName;
+    let organizeName;
 
     $(function () {
-      clazzName = [[${session.admin.getClazzName()}]];
-      console.log(clazzName)
-      $("#className2").text(clazzName);
+      organizeName = [[${session.admin.getOrganizeName()}]];
+      console.log(organizeName)
+      $("#className2").text(organizeName);
       // 获取期数
-      $.get('/clazz/' + clazzName, (res) => {
+      $.get('/organize/' + organizeName, (res) => {
         console.log(res)
         $("#season").val(res.data.season);
         $("#period").val(res.data.period);
@@ -100,7 +100,7 @@
     $("#btnSave").on('click', () => {
       let season = $("#season").val();
       let period = $("#period").val();
-      let clazzName = [[${session.admin.getClazzName()}]];
+      let organizeName = [[${session.admin.getOrganizeName()}]];
       // 1-100的整数
       //let reg = /^[1-9]\d?|100$/;
       let reg = /^[1-9]\d?$/;
@@ -110,7 +110,7 @@
       }
       $.ajax({
         type: 'put',
-        url: '/clazz/issue/' + season + '/' + period + '/' + clazzName,
+        url: '/organize/issue/' + season + '/' + period + '/' + organizeName,
         dataType: 'json',
         success: (res) => {
           if (res.code === 200) {
@@ -132,7 +132,7 @@
       console.log(isEnable); //开关是否开启，true或者false
       $.ajax({
         type: 'put',
-        url: '/clazz/isEnable/' + data.elem.checked + '/' + clazzName,
+        url: '/organize/isEnable/' + data.elem.checked + '/' + organizeName,
         dataType: 'json',
         success: (res) => {
           if (res.code === 200) {
@@ -150,7 +150,7 @@
       layer.confirm("确定开启吗？", {title: '警告'}, () => {
         $.ajax({
           type: 'delete',
-          url: '/image/reset/' + clazzName,
+          url: '/image/reset/' + organizeName,
           dataType: 'json',
           success: (res) => {
             if (res.code === 200) {

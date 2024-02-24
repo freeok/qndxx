@@ -95,7 +95,7 @@
         <a id="manager" href="javascript:void(0);" class="blue">管理</a>
       </div>
       <div style="font-size: 12px;">
-        <p th:text="${session.user.getClazzName()}"></p>
+        <p th:text="${session.user.getOrganizeName()}"></p>
         <p>若使用出现问题或您也希望使用本网站</p>
         <p>
           请在
@@ -122,7 +122,7 @@
     let lastPath, par, index;
     let userId = $("#userId").text();
     let username = $("#username").text();
-    let clazzName = [[${session.user.getClazzName()}]];
+    let organizeName = [[${session.user.getOrganizeName()}]];
     let role = [[${session.user.getRole()}]];
 
     $(function () {
@@ -132,11 +132,11 @@
         shade: 0.5
       });
 
-      // 获取clazz表字段
-      $.get('/clazz/' + clazzName, (res) => {
+      // 获取organize表字段
+      $.get('/organize/' + organizeName, (res) => {
         $("#issue").text(`青年大学习第 ${res.data.season} 季第 ${res.data.period} 期`);
         if (!res.data.isEnable) {
-          let className = [[${session.user.getClazzName()}]];
+          let className = [[${session.user.getOrganizeName()}]];
           layer.close(index);
           layer.open({
             content: '<span style="color: orangered">' + className + '</span>截图上交系统暂未开启，如有需要，请联系该班负责人开启！'
@@ -266,7 +266,7 @@
 
           console.log('file', file)
           /* 图片加文字 */
-          imgAddText(result, clazzName + "_" + userId + "_" + username, "80px 微软雅黑", "red").then(res => {
+          imgAddText(result, organizeName + "_" + userId + "_" + username, "80px 微软雅黑", "red").then(res => {
             // res：加了文字后图片的base64
             // 将base64转换为blob类型 并指定文件名
             file = base642Blob(res, userId + "_" + username + ".jpg")
@@ -285,7 +285,7 @@
               layerMsg.html(anim + '图片上传中');
 
               $.ajax({
-                url: `/image/upload/${userId}/${username}/${par}/${clazzName}`,
+                url: `/image/upload/${userId}/${username}/${par}/${organizeName}`,
                 type: 'post',
                 data: rst.formData,
                 processData: false,

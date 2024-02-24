@@ -36,7 +36,7 @@ public interface UserService {
     Integer delete(String userId);
 
     /**
-     * 在指定的班级中根据学号或姓名模糊查询学生
+     * 在指定的组织中根据学号或姓名模糊查询学生
      *
      * @param user user bean
      * @return 执行结果

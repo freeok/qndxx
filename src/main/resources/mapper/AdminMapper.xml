@@ -6,40 +6,40 @@
 <mapper namespace="work.pcdd.qndxx.mapper.AdminMapper">
     <!--管理员登录-->
     <select id="login" parameterType="user" resultType="user">
-        SELECT user_id, username, pwd, role, clazz_name
+        SELECT user_id, username, pwd, role, organize_name
         FROM user
         WHERE user_id = #{userId}
           AND pwd = #{pwd}
           AND role IN ('admin', 'sa')
     </select>
 
-    <!--根据班级名查询所有学生的学号，姓名，班级-->
-    <select id="findAllByClazzName" parameterType="string" resultType="user">
-        SELECT user_id, username, clazz_name
+    <!--根据组织名查询所有学生的学号，姓名，组织-->
+    <select id="findAllByorganizeName" parameterType="string" resultType="user">
+        SELECT user_id, username, organize_name
         FROM user
-        WHERE clazz_name = #{clazzName}
+        WHERE organize_name = #{organizeName}
     </select>
 
     <!--查询所有学生-->
     <select id="findAll" resultType="user">
-        SELECT user_id, username, pwd, role, clazz_name
+        SELECT user_id, username, pwd, role, organize_name
         FROM user
     </select>
 
-    <!--查询不同班级的截图已交人员-->
+    <!--查询不同组织的截图已交人员-->
     <select id="findSubmitted" parameterType="string" resultType="map">
         SELECT user.user_id,
                username,
                upload_time
         FROM user,
              upload
-        WHERE clazz_name = #{clazzName}
+        WHERE organize_name = #{organizeName}
           AND user.user_id = upload.user_id
         GROUP BY user_id
         ORDER BY upload_time DESC
     </select>
 
-    <!--查询不同班级的截图未交人员-->
+    <!--查询不同组织的截图未交人员-->
     <select id="findUnpaid" parameterType="string" resultType="user">
         SELECT user_id,
                username
@@ -47,30 +47,30 @@
         WHERE user_id NOT IN (SELECT user.user_id
                              FROM user,
                                   upload
-                             WHERE clazz_name = #{clazzName}
+                             WHERE organize_name = #{organizeName}
                                AND user.user_id = upload.user_id)
-          AND clazz_name = #{clazzName}
+          AND organize_name = #{organizeName}
     </select>
 
-    <!--查询不同班级的截图已交人数-->
+    <!--查询不同组织的截图已交人数-->
     <select id="findSubmittedCount" parameterType="string" resultType="int">
         SELECT count(distinct user.user_id)
         FROM user,
              upload
-        WHERE clazz_name = #{clazzName}
+        WHERE organize_name = #{organizeName}
           AND user.user_id = upload.user_id
     </select>
 
-    <!--查询不同班级的截图未交人员-->
+    <!--查询不同组织的截图未交人员-->
     <select id="findUnpaidCount" parameterType="string" resultType="int">
         SELECT COUNT(*)
         FROM user
         WHERE user_id NOT IN (SELECT user.user_id
                              FROM user,
                                   upload
-                             WHERE clazz_name = #{clazzName}
+                             WHERE organize_name = #{organizeName}
                                AND user.user_id = upload.user_id)
-          AND clazz_name = #{clazzName}
+          AND organize_name = #{organizeName}
     </select>
 
     <!--管理员修改密码-->
