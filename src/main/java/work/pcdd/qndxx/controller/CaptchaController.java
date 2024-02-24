@@ -1,14 +1,13 @@
 package work.pcdd.qndxx.controller;
 
 import com.ramostear.captcha.HappyCaptcha;
-import com.ramostear.captcha.common.Fonts;
 import com.ramostear.captcha.support.CaptchaStyle;
 import com.ramostear.captcha.support.CaptchaType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import work.pcdd.qndxx.common.RCode;
-import work.pcdd.qndxx.common.util.R;
+import work.pcdd.qndxx.util.R;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

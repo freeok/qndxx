@@ -1,4 +1,4 @@
-package work.pcdd.qndxx.common.util;
+package work.pcdd.qndxx.util;
 
 import lombok.Data;
 import work.pcdd.qndxx.common.RCode;

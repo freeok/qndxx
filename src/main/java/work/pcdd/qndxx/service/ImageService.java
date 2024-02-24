@@ -1,7 +1,7 @@
 package work.pcdd.qndxx.service;
 
 import org.springframework.web.multipart.MultipartFile;
-import work.pcdd.qndxx.common.util.R;
+import work.pcdd.qndxx.util.R;
 import work.pcdd.qndxx.entity.Upload;
 
 import javax.servlet.http.HttpServletRequest;

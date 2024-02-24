@@ -1,6 +1,6 @@
 package work.pcdd.qndxx.service;
 
-import work.pcdd.qndxx.common.util.R;
+import work.pcdd.qndxx.util.R;
 import work.pcdd.qndxx.entity.Student;
 
 import javax.servlet.http.HttpSession;
