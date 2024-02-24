@@ -8,17 +8,17 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 班级表
+ * 组织表
  *
  * @author pcdd
  */
 @Data
 @NoArgsConstructor
-@Schema(name = "班级表")
-public class Clazz implements Serializable {
+@Schema(name = "组织表")
+public class Organize implements Serializable {
 
-    @Schema(name = "班级名")
-    private String clazzName;
+    @Schema(name = "组织名")
+    private String organizeName;
 
     @Schema(name = "季数")
     private String season;

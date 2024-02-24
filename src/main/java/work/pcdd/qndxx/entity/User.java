@@ -28,7 +28,7 @@ public class User implements Serializable {
     @Schema(name = "角色")
     private String role;
 
-    @Schema(name = "班级名")
-    private String clazzName;
+    @Schema(name = "组织名")
+    private String organizeName;
 
 }

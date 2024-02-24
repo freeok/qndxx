@@ -22,51 +22,51 @@ public interface AdminService {
     R<String> login(String userId, String pwd, HttpSession session);
 
     /**
-     * 根据班级名查询所有学生的学号，姓名，班级
+     * 根据组织名查询所有学生的学号，姓名，组织
      *
-     * @param clazzName 班级名
+     * @param organizeName 组织名
      * @param pageNum   起始页
      * @param pageSize  每页显示的条数
      * @return 执行结果
      */
-    PageInfo<User> findAllByClazzName(String clazzName, int pageNum, int pageSize);
+    PageInfo<User> findAllByorganizeName(String organizeName, int pageNum, int pageSize);
 
     /**
-     * 查询不同班级的截图已交人员
+     * 查询不同组织的截图已交人员
      *
-     * @param clazzName 班级名
+     * @param organizeName 组织名
      * @param pageNum   起始页
      * @param pageSize  每页显示的条数
      * @return 执行结果
      */
-    PageInfo<User> findSubmitted(String clazzName, int pageNum, int pageSize);
+    PageInfo<User> findSubmitted(String organizeName, int pageNum, int pageSize);
 
     /**
-     * 查询不同班级的截图未交人员
+     * 查询不同组织的截图未交人员
      *
-     * @param clazzName 班级名
+     * @param organizeName 组织名
      * @param pageNum   起始页
      * @param pageSize  每页显示的条数
      * @return 学生信息
      */
-    PageInfo<User> findUnpaid(String clazzName, int pageNum, int pageSize);
+    PageInfo<User> findUnpaid(String organizeName, int pageNum, int pageSize);
 
 
     /**
-     * 查询不同班级的截图已交人数
+     * 查询不同组织的截图已交人数
      *
-     * @param clazzName 班级名
+     * @param organizeName 组织名
      * @return 已交人数
      */
-    Integer findSubmittedCount(String clazzName);
+    Integer findSubmittedCount(String organizeName);
 
     /**
-     * 查询不同班级的截图未交人数
+     * 查询不同组织的截图未交人数
      *
-     * @param clazzName 班级名
+     * @param organizeName 组织名
      * @return 未交人数
      */
-    Integer findUnpaidCount(String clazzName);
+    Integer findUnpaidCount(String organizeName);
 
     /**
      * 管理员修改密码

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="work.pcdd.qndxx.mapper.OrganizeMapper">
+    <!--根据组织名查询organize表-->
+    <select id="getOne" parameterType="string" resultType="organize">
+        SELECT organize_name, season, period, is_enable, created_at
+        FROM organize
+        WHERE organize_name = #{organizeName}
+    </select>
+
+    <!--根据组织修改季数和期数-->
+    <update id="updateIssue" parameterType="organize">
+        UPDATE organize
+        SET season = #{season},
+            period =#{period}
+        WHERE organize_name = #{organizeName}
+    </update>
+
+    <!--根据组织修改系统状态（开启或关闭）-->
+    <update id="updateIsEnable" parameterType="organize">
+        UPDATE organize
+        SET is_enable = #{isEnable}
+        WHERE organize_name = #{organizeName}
+    </update>
+
+    <!--根据组织查询提交时间分布-->
+    <select id="getUploadTime">
+        SELECT count(*),
+               upload_time
+        FROM upload,
+             user
+        WHERE upload.user_id = user.user_id
+          AND organize_name = #{organizeName}
+          AND upload_time BETWEEN DATE_FORMAT(NOW(), '%Y-%m-%d 00:00:00') AND DATE_FORMAT(NOW(), '%Y-%m-%d 23:59:59')
+        GROUP BY hour(upload_time)
+        ORDER BY upload_time
+    </select>
+
+</mapper>

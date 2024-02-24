@@ -20,12 +20,12 @@ public interface AdminMapper {
     User login(User stu);
 
     /**
-     * 根据班级名查询所有学生的学号，姓名，班级
+     * 根据组织名查询所有学生的学号，姓名，组织
      *
-     * @param clazzName 班级名
+     * @param organizeName 组织名
      * @return 学生信息
      */
-    List<User> findAllByClazzName(String clazzName);
+    List<User> findAllByorganizeName(String organizeName);
 
     /**
      * 查询所有学生
@@ -35,37 +35,37 @@ public interface AdminMapper {
     List<User> findAll();
 
     /**
-     * 根据班级查询截图已交名单
+     * 根据组织查询截图已交名单
      *
-     * @param clazzName 班级名
+     * @param organizeName 组织名
      * @return 学生信息
      */
     @MapKey("user_id")
-    List<Map<String, Object>> findSubmitted(String clazzName);
+    List<Map<String, Object>> findSubmitted(String organizeName);
 
     /**
-     * 根据班级查询截图未交名单
+     * 根据组织查询截图未交名单
      *
-     * @param clazzName 班级名
+     * @param organizeName 组织名
      * @return 学生信息
      */
-    List<User> findUnpaid(String clazzName);
+    List<User> findUnpaid(String organizeName);
 
     /**
-     * 根据班级查询截图已交人数
+     * 根据组织查询截图已交人数
      *
-     * @param clazzName 班级名
+     * @param organizeName 组织名
      * @return 记录数
      */
-    int findSubmittedCount(String clazzName);
+    int findSubmittedCount(String organizeName);
 
     /**
-     * 根据班级查询截图未交交人数
+     * 根据组织查询截图未交交人数
      *
-     * @param clazzName 班级名
+     * @param organizeName 组织名
      * @return 记录数
      */
-    int findUnpaidCount(String clazzName);
+    int findUnpaidCount(String organizeName);
 
     /**
      * 根据学号修改管理员密码

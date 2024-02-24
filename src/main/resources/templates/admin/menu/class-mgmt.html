@@ -68,7 +68,7 @@
       table.render({
         elem: '#currentTableId',
         // 默认会自动传递两个参数：?page=1&limit=10（该参数可通过 request 属性自定义）
-        url: '/admin/findAllByClazzName',
+        url: '/admin/findAllByOrganizeName',
         // 启用分页组件 https://layui.dev/2.7/docs/modules/laypage.html#options
         page: {
           curr: 1,
@@ -92,7 +92,7 @@
             {type: "checkbox", width: 50},
             {field: 'userId', width: 150, title: '学号', sort: true},
             {field: 'username', width: 150, title: '姓名'},
-            {field: 'clazzName', width: 200, title: '班级'},
+            {field: 'organizeName', width: 200, title: '组织'},
             {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: 'right'}
           ]
         ],
@@ -109,10 +109,10 @@
     // 监听搜索操作
     form.on('submit(data-search-btn)', function (data) {
       let username = data.field.username;
-      let clazzName = Cookies.get('clazz');
+      let organizeName = Cookies.get('organize');
       //执行搜索重载
       table.reload('currentTableId', {
-        url: '/user/findByIdOrName/' + username + '/' + clazzName
+        url: '/user/findByIdOrName/' + username + '/' + organizeName
       });
       return false;
     });
@@ -157,7 +157,7 @@
       let event = obj.event;
       let userId = data.userId;
       let username = data.username;
-      let clazzName = data.clazzName;
+      let organizeName = data.organizeName;
       if (event === 'edit') {
         let index = layer.open({
           title: '编辑用户',
@@ -166,7 +166,7 @@
           maxmin: true,
           shadeClose: true,
           area: ['100%', '100%'],
-          content: '/common/edit?userId=' + userId + '&username=' + username + '&clazzName=' + clazzName,
+          content: '/common/edit?userId=' + userId + '&username=' + username + '&organizeName=' + organizeName,
           end: () => {
             //tableStu.reload();
             table.reload('currentTableId');

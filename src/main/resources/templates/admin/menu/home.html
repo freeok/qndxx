@@ -165,13 +165,13 @@
                         <div class="panel-body">
                           <div class="panel-title">
                             <span class="label pull-right layui-bg-blue">实时</span>
-                            <h5>专业班级</h5>
+                            <h5>组织</h5>
                           </div>
                           <div class="panel-content">
                             <h5 class="no-margins"
                                 style="font-weight:bold;overflow: hidden;text-overflow:ellipsis;white-space: nowrap; "
-                                id="clazz"
-                                th:text="${session.admin.getClazzName()}">
+                                id="organize"
+                                th:text="${session.admin.getOrganizeName()}">
                               <i
                                 class="layui-icon layui-icon-loading-1 layui-anim layui-anim-rotate layui-anim-loop"></i>
                             </h5>
@@ -271,9 +271,9 @@
                     <div class="layui-col-xs3 layuimini-qiuck-module">
                       <a href="javascript:void(0)"
                          layuimini-content-href="/menu/class-mgmt"
-                         data-title="班级管理" data-icon="fa fa-file-text">
+                         data-title="组织管理" data-icon="fa fa-file-text">
                         <i class="fa fa-user"></i>
-                        <cite>班级管理</cite>
+                        <cite>组织管理</cite>
                       </a>
                     </div>
                     <div class="layui-col-xs3 layuimini-qiuck-module">
@@ -335,7 +335,7 @@
               <tr>
                 <td>主要功能</td>
                 <td>
-                  简化了每周青年大学习截图上交的流程，班级成员仅需上传截图即可，无需手动调整大小、添加学号姓名，收齐后负责人仅需一键下载即可，无需繁琐的手动接收、整理、打包截图。
+                  简化了青年大学习截图上交的流程，组织成员仅需上传截图即可，无需手动调整大小、添加学号姓名，收齐后负责人仅需一键下载即可，无需繁琐的手动接收、整理、打包截图。
                 </td>
               </tr>
               </tbody>
@@ -361,26 +361,26 @@
       echarts = layui.echarts;
     miniTab.listen();
 
-    let clazzName = [[${session.admin.getClazzName()}]];
-    console.log(clazzName)
+    let organizeName = [[${session.admin.getOrganizeName()}]];
+    console.log(organizeName)
 
     $(function () {
-      // 根据班级名获取clazz表字段
-      $.get('/clazz/' + clazzName, (res) => {
+      // 根据组织名获取organize表字段
+      $.get('/organize/' + organizeName, (res) => {
         console.log(res)
-        Cookies.set('clazz', res.data.clazzName, {expires: 30})
+        Cookies.set('organize', res.data.organizeName, {expires: 30})
         $('#season').text(res.data.season)
         $('#period').text(res.data.period)
       });
 
       // 获取截图已交人数
-      $.get('/admin/findSubmittedCount/' + clazzName, (res) => {
+      $.get('/admin/findSubmittedCount/' + organizeName, (res) => {
         console.log(res)
         $('#submittedCount').text(res.data);
       });
 
       // 获取截图未交人数
-      $.get('/admin/findUnpaidCount/' + clazzName, (res) => {
+      $.get('/admin/findUnpaidCount/' + organizeName, (res) => {
         console.log(res)
         $('#unpaidCount').text(res.data);
       });

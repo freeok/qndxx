@@ -31,9 +31,9 @@
   </div>
 
   <div class="layui-form-item">
-    <label class="layui-form-label">班级</label>
+    <label class="layui-form-label">组织</label>
     <div class="layui-input-block">
-      <input type="text" name="clazzName" placeholder="请输入班级" value="" class="layui-input" lay-verify="required">
+      <input type="text" name="organizeName" placeholder="请输入组织" value="" class="layui-input" lay-verify="required">
     </div>
   </div>
 
@@ -69,17 +69,17 @@
     form.val('filter', {
       userId: user[0],
       username: user[1],
-      clazzName: user[2],
+      organizeName: user[2],
     });
 
     // 监听提交
     form.on('submit(saveBtn)', function (data) {
       let userId = data.field.userId;
       let username = data.field.username;
-      let clazzName = data.field.clazzName;
+      let organizeName = data.field.organizeName;
       $.ajax({
         type: 'put',
-        url: '/user/update/' + userId + '/' + username + '/' + clazzName + '/' + null + '/' + null,
+        url: '/user/update/' + userId + '/' + username + '/' + organizeName + '/' + null + '/' + null,
         success: (res) => {
           if (res.code === 200) {
             layer.msg('保存成功', {icon: 1, offset: 't', time: 1000}, function () {

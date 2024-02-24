@@ -45,7 +45,7 @@ public class AuthController {
     @GetMapping("/admin/logout")
     public void adminLogout(HttpSession session) {
         session.removeAttribute("admin");
-        session.removeAttribute("clazz");
+        session.removeAttribute("organize");
     }
 
 }

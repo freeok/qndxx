@@ -55,9 +55,9 @@
     form.on('submit(saveBtn)', function (data) {
       let userId = data.field.userId;
       let username = data.field.username;
-      let clazzName = Cookies.get('clazz');
-      // TODO fix bug: clazzName is null
-      $.post('/user/add/' + userId + '/' + username + '/' + clazzName, (res) => {
+      let organizeName = Cookies.get('organize');
+      // TODO fix bug: organizeName is null
+      $.post('/user/add/' + userId + '/' + username + '/' + organizeName, (res) => {
         console.log(res)
         let iframeIndex = parent.layer.getFrameIndex(window.name);
         if (res.code === 200) {

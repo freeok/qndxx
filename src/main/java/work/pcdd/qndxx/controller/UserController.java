@@ -22,35 +22,35 @@ public class UserController {
     private final UserService userService;
 
     @Operation(summary = "模糊查询用户")
-    @GetMapping("/findByIdOrName/{username}/{clazzName}")
-    public R findByIdOrName(@PathVariable String username, @PathVariable String clazzName) {
+    @GetMapping("/findByIdOrName/{username}/{organizeName}")
+    public R findByIdOrName(@PathVariable String username, @PathVariable String organizeName) {
         User user = new User();
         user.setUsername(username);
-        user.setClazzName(clazzName);
+        user.setOrganizeName(organizeName);
         return userService.findByName(user);
     }
 
     @Operation(summary = "添加用户")
-    @PostMapping("/add/{userId}/{username}/{clazzName}")
-    public R add(@PathVariable String userId, @PathVariable String username, @PathVariable String clazzName) {
+    @PostMapping("/add/{userId}/{username}/{organizeName}")
+    public R add(@PathVariable String userId, @PathVariable String username, @PathVariable String organizeName) {
         User user = new User();
         user.setUserId(userId);
         user.setUsername(username);
-        user.setClazzName(clazzName);
+        user.setOrganizeName(organizeName);
         return userService.add(user);
     }
 
     @Operation(summary = "更新用户信息")
-    @PutMapping("/update/{userId}/{username}/{clazzName}/{pwd}/{role}")
+    @PutMapping("/update/{userId}/{username}/{organizeName}/{pwd}/{role}")
     public R<Integer> update(@PathVariable String userId
             , @PathVariable String username
-            , @PathVariable String clazzName
+            , @PathVariable String organizeName
             , @PathVariable String pwd
             , @PathVariable String role) {
         User user = new User();
         user.setUserId(userId);
         user.setUsername(username);
-        user.setClazzName(clazzName);
+        user.setOrganizeName(organizeName);
         user.setPwd(pwd);
         user.setRole(role);
         return R.ok(userService.update(user));

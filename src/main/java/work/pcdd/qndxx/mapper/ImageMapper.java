@@ -27,12 +27,12 @@ public interface ImageMapper {
     int addImage(Image image);
 
     /**
-     * 根据班级删除upload表记录
+     * 根据组织删除upload表记录
      *
-     * @param clazzName 班级名
+     * @param organizeName 组织名
      * @return 影响的行数
      */
-    int deleteUpload(String clazzName);
+    int deleteUpload(String organizeName);
 
     List<Upload> isUploaded(String userId);
 

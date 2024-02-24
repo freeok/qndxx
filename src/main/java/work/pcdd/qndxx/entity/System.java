@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @Schema(name = "系统参数表")
-public class Param implements Serializable {
+public class System implements Serializable {
 
     @Schema(name = "公告信息")
     private String notice;
