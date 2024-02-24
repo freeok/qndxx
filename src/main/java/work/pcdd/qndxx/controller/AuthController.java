@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import work.pcdd.qndxx.common.util.R;
+import work.pcdd.qndxx.util.R;
 import work.pcdd.qndxx.service.AdminService;
 import work.pcdd.qndxx.service.StudentService;
 

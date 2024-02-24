@@ -3,7 +3,7 @@ package work.pcdd.qndxx.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import work.pcdd.qndxx.common.RCode;
-import work.pcdd.qndxx.common.util.R;
+import work.pcdd.qndxx.util.R;
 import work.pcdd.qndxx.entity.Student;
 import work.pcdd.qndxx.mapper.StudentMapper;
 import work.pcdd.qndxx.service.StudentService;

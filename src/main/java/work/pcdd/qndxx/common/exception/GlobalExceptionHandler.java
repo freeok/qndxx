@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import work.pcdd.qndxx.common.RCode;
-import work.pcdd.qndxx.common.util.R;
+import work.pcdd.qndxx.util.R;
 
 /**
  * @author pcdd
