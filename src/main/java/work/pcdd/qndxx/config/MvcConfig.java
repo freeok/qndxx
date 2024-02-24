@@ -84,44 +84,25 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // 用户拦截器
         registry.addInterceptor(userInterceptor())
-                // 拦截所有
-                .addPathPatterns("/**")
-                // 排除静态资源
-                .excludePathPatterns("/img/**")
-                .excludePathPatterns("/css/**")
-                .excludePathPatterns("/js/**")
-                .excludePathPatterns("/lib/**")
-                .excludePathPatterns("/favicon.ico")
-                // 排除页面
-                .excludePathPatterns("/")
-                .excludePathPatterns("/index")
-                .excludePathPatterns("/login")
-                // 防止用户注销时，刷新管理员页面被拦截
-                .excludePathPatterns("/console/**")
-                // 排除 api
-                .excludePathPatterns("/auth/**")
-                .excludePathPatterns("/admin/**")
-                .excludePathPatterns("/clazz/**")
-                .excludePathPatterns("/captcha/**");
+                // 页面
+                .addPathPatterns("/upload/**");
 
         // 管理员拦截器
         registry.addInterceptor(adminInterceptor())
                 // api
                 .addPathPatterns("/admin/**")
                 .addPathPatterns("/student/**")
-                .addPathPatterns("/clazz/**")
-                // 用户进入上传界面时会调用，故排除
-                .excludePathPatterns("/clazz/*")
                 .addPathPatterns("image/**")
-
                 // 页面
                 .addPathPatterns("/menu/*")
                 .addPathPatterns("/common/add")
                 .addPathPatterns("/common/edit")
-                .excludePathPatterns("/console/login");
+                // 静态资源
+                .addPathPatterns("/api/**");
 
         // 静态资源拦截器
         registry.addInterceptor(staticResourcesInterceptor())
+                // 不允许通过 url 直接访问的静态资源
                 .addPathPatterns("/uploads/**");
     }
 
