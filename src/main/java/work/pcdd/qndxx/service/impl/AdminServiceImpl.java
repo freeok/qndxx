@@ -40,7 +40,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public PageInfo<User> findAllByorganizeName(String organizeName, int pageNum, int pageSize) {
+    public PageInfo<User> findAllByOrganizeName(String organizeName, int pageNum, int pageSize) {
         return PageHelper.startPage(pageNum, pageSize)
                 .doSelectPageInfo(() -> adminMapper.findAllByorganizeName(organizeName));
     }

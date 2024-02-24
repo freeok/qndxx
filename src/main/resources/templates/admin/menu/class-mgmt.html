@@ -177,7 +177,7 @@
         });
         return false;
       } else if (event === 'delete') {
-        layer.confirm('确定删除' + username + '同学吗？', {title: '提示'}, function (index) {
+        layer.confirm('确定删除【' + username + '】吗？', {title: '提示'}, function (index) {
           obj.del();
           $.ajax({
             type: 'delete',
