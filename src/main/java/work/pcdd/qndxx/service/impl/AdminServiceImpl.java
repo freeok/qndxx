@@ -12,7 +12,6 @@ import work.pcdd.qndxx.service.AdminService;
 import work.pcdd.qndxx.util.R;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -30,10 +29,11 @@ public class AdminServiceImpl implements AdminService {
         Student student = new Student();
         student.setStuId(stuId);
         student.setPwd(pwd);
-        List<Student> list = adminMapper.login(student);
-        if (list.size() == 1 && Objects.equals(list.get(0).getStuId(), stuId)
-                && Objects.equals(list.get(0).getPwd(), pwd)) {
-            session.setAttribute("admin", list.get(0));
+        Student obj = adminMapper.login(student);
+        if (obj != null
+                && Objects.equals(obj.getStuId(), stuId)
+                && Objects.equals(obj.getPwd(), pwd)) {
+            session.setAttribute("admin", obj);
             return R.ok("管理员登录成功");
         }
         return R.fail(RCode.USER_LOGIN_ERROR);
@@ -75,7 +75,7 @@ public class AdminServiceImpl implements AdminService {
         student.setStuId(stuId);
         student.setPwd(oldPwd);
         // 旧密码错误，拒绝修改
-        if (adminMapper.login(student).isEmpty()) {
+        if (adminMapper.login(student) == null) {
             return R.fail(RCode.ADMIN_OLD_PASSWORD_ERROR);
         }
         student.setPwd(newPwd);
