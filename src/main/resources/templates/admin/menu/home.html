@@ -189,9 +189,11 @@
                           <div class="panel-content">
                             <h3 class="no-margins" style="font-weight: bold">
                               第 <span id="season"><i
-                              class="layui-icon layui-icon-loading-1 layui-anim layui-anim-rotate layui-anim-loop"></i></span> 季
+                              class="layui-icon layui-icon-loading-1 layui-anim layui-anim-rotate layui-anim-loop"></i></span>
+                              季
                               第 <span id="period"><i
-                              class="layui-icon layui-icon-loading-1 layui-anim layui-anim-rotate layui-anim-loop"></i></span> 期
+                              class="layui-icon layui-icon-loading-1 layui-anim layui-anim-rotate layui-anim-loop"></i></span>
+                              期
                             </h3>
                           </div>
                         </div>
@@ -352,13 +354,13 @@
 <script src="/lib/layui-v2.5.6/layui.js" charset="utf-8"></script>
 <script src="/lib/js.cookie.min.js"></script>
 <script src="/js/lay-config.js?v=1.0.4" charset="utf-8"></script>
-<script src="/js/lay-module/echarts/echarts.js"></script>
+<script src="https://cdn.staticfile.net/echarts/5.4.3/echarts.min.js"></script>
+<!-- <script src="/js/lay-module/echarts/echarts.js"></script> -->
+
 <script th:inline="javascript">
   layui.use(['layer', 'miniTab'], function () {
-    let $ = layui.jquery,
-      layer = layui.layer,
-      miniTab = layui.miniTab,
-      echarts = layui.echarts;
+    const $ = layui.jquery,
+      miniTab = layui.miniTab
     miniTab.listen();
 
     let organizeName = [[${session.admin.getOrganizeName()}]];
@@ -386,13 +388,12 @@
       });
     });
 
-
     // 查看公告信息
     $('body').on('click', '.layuimini-notice', function () {
-      var title = $(this).children('.layuimini-notice-title').text(),
+      let title = $(this).children('.layuimini-notice-title').text(),
         noticeTime = $(this).children('.layuimini-notice-extra').text(),
         content = $(this).children('.layuimini-notice-content').html();
-      var html = '<div style="padding:15px 20px; text-align:justify; line-height: 22px;border-bottom:1px solid #e2e2e2;background-color: #2f4056;color: #ffffff">\n' +
+      let html = '<div style="padding:15px 20px; text-align:justify; line-height: 22px;border-bottom:1px solid #e2e2e2;background-color: #2f4056;color: #ffffff">\n' +
         '<div style="text-align: center;margin-bottom: 20px;font-weight: bold;border-bottom:1px solid #718fb5;padding-bottom: 5px"><h4 class="text-danger">' + title + '</h4></div>\n' +
         '<div style="font-size: 12px">' + content + '</div>\n' +
         '</div>\n';
@@ -407,7 +408,7 @@
         moveType: 1,
         content: html,
         success: function (layero) {
-          var btn = layero.find('.layui-layer-btn');
+          let btn = layero.find('.layui-layer-btn');
           btn.find('.layui-layer-btn0').attr({
             href: 'https://gitee.com/zhongshaofa/layuimini',
             target: '_blank'
@@ -416,57 +417,48 @@
       });
     });
 
-    // 报表功能
-    var echartsRecords = echarts.init(document.getElementById('echarts-records'), 'walden');
-    var optionRecords = {
-      tooltip: {
-        trigger: 'axis'
-      },
-      legend: {
-        data: ['提交数']
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      toolbox: {
-        feature: {
-          saveAsImage: {}
-        }
-      },
-      xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: [
-          '2021-07-14 02:12:44',
-          '2021-07-14 03:12:54',
-          '2021-07-14 04:13:08',
-          '2021-07-14 05:13:08',
-          '2021-07-14 06:13:08',
+    let myChart = echarts.init(document.getElementById('echarts-records'))
+    $.get('/admin/submit-echarts', res => {
+      let option = {
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['提交数']
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        xAxis: {
+          type: 'category',
+          data: res.data.x
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            data: res.data.y,
+            type: 'line'
+          }
         ]
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [
-        {
-          name: '提交数',
-          type: 'line',
-          data: [8, 12, 30, 20, 5]
-        }
-      ]
-    };
-    echartsRecords.setOption(optionRecords);
+      };
+      myChart.setOption(option)
+    })
 
     // echarts 窗口缩放自适应
     window.onresize = function () {
-      echartsRecords.resize();
+      myChart.resize()
     }
-
-
-  });
+  })
 </script>
 </body>
 </html>

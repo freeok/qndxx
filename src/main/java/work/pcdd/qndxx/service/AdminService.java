@@ -5,6 +5,8 @@ import work.pcdd.qndxx.entity.User;
 import work.pcdd.qndxx.util.R;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author pcdd
@@ -77,5 +79,7 @@ public interface AdminService {
      * @return 执行结果
      */
     R updPwd(String oldPwd, String newPwd, HttpSession session);
+
+    Map<String, List<Object>> getSubmitEcharts();
 
 }

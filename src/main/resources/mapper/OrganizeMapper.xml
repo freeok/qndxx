@@ -26,17 +26,4 @@
         WHERE organize_name = #{organizeName}
     </update>
 
-    <!--根据组织查询提交时间分布-->
-    <select id="getUploadTime">
-        SELECT count(*),
-               upload_time
-        FROM upload,
-             user
-        WHERE upload.user_id = user.user_id
-          AND organize_name = #{organizeName}
-          AND upload_time BETWEEN DATE_FORMAT(NOW(), '%Y-%m-%d 00:00:00') AND DATE_FORMAT(NOW(), '%Y-%m-%d 23:59:59')
-        GROUP BY hour(upload_time)
-        ORDER BY upload_time
-    </select>
-
 </mapper>
