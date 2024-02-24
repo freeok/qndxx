@@ -12,7 +12,7 @@ import work.pcdd.qndxx.service.AdminService;
 import work.pcdd.qndxx.util.R;
 
 import javax.servlet.http.HttpSession;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author pcdd
@@ -84,6 +84,23 @@ public class AdminServiceImpl implements AdminService {
         }
 
         return R.fail(RCode.ADMIN_UPDATE_PASSWORD_FAIL);
+    }
+
+    @Override
+    public Map<String, List<Object>> getSubmitEcharts() {
+        List<Object> xList = new ArrayList<>();
+        List<Object> yList = new ArrayList<>();
+        List<Map<String, String>> list = adminMapper.getSubmitEcharts();
+        list.forEach(e -> {
+            String hourStart = e.get("hour_start");
+            String recordCount = String.valueOf(e.get("record_count"));
+            xList.add(hourStart);
+            yList.add(recordCount);
+        });
+        Map<String, List<Object>> map = new LinkedHashMap<>();
+        map.put("x", xList);
+        map.put("y", yList);
+        return map;
     }
 
 }

@@ -75,4 +75,7 @@ public interface AdminMapper {
      */
     int updPwd(User user);
 
+    @MapKey("hour_start")
+    List<Map<String, String>> getSubmitEcharts();
+
 }

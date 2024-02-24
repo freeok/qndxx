@@ -66,4 +66,10 @@ public class AdminController {
         return adminService.updPwd(oldPwd, newPwd, session);
     }
 
+    @Operation(summary = "获取提交时间折线图数据")
+    @GetMapping("/submit-echarts")
+    public R getSubmitEcharts() {
+        return R.ok(adminService.getSubmitEcharts());
+    }
+
 }
