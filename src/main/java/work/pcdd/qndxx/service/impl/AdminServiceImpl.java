@@ -41,12 +41,9 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public R findAllByClazzName(String clazzName, int pageNum, int pageSize) {
-        // 分页助手，设置起始页和每页显示的条数
-        PageHelper.startPage(pageNum, pageSize);
-        List<Student> list = adminMapper.findAllByClazzName(clazzName);
-        PageInfo<Student> pageInfo = new PageInfo<>(list);
-        return R.ok0(list, pageInfo.getTotal());
+    public PageInfo<Student> findAllByClazzName(String clazzName, int pageNum, int pageSize) {
+        return PageHelper.startPage(pageNum, pageSize)
+                .doSelectPageInfo(() -> adminMapper.findAllByClazzName(clazzName));
     }
 
     @Override
