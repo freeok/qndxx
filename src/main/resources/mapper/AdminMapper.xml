@@ -18,6 +18,7 @@
         SELECT user_id, username, organize_name
         FROM user
         WHERE organize_name = #{organizeName}
+        ORDER BY user_id
     </select>
 
     <!--查询所有学生-->

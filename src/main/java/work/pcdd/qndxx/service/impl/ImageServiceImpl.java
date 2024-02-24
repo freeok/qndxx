@@ -44,11 +44,11 @@ public class ImageServiceImpl implements ImageService {
     /**
      * 截图上传
      *
-     * @param id        学号
-     * @param name      学生姓名
-     * @param type      图片类型：upload1、upload2分别表示朋友圈截图，首页截图
+     * @param id           学号
+     * @param name         学生姓名
+     * @param type         图片类型：upload1、upload2分别表示朋友圈截图，首页截图
      * @param organizeName 组织名
-     * @param mf        MultipartFile对象
+     * @param mf           MultipartFile对象
      */
     @Override
     public R upload(String id, String name, String type, String organizeName, MultipartFile mf) {
@@ -103,8 +103,8 @@ public class ImageServiceImpl implements ImageService {
     /**
      * 截图下载
      *
-     * @param req       request对象
-     * @param resp      response对象
+     * @param req          request对象
+     * @param resp         response对象
      * @param organizeName 组织名
      */
     @SneakyThrows

@@ -16,11 +16,11 @@ public interface ImageService {
     /**
      * 上传图片
      *
-     * @param id        学号
-     * @param name      学生姓名
-     * @param par       图片类型：upload1、upload2分别表示朋友圈截图，首页截图
+     * @param id           学号
+     * @param name         学生姓名
+     * @param par          图片类型：upload1、upload2分别表示朋友圈截图，首页截图
      * @param organizeName 组织名
-     * @param mf        MultipartFile对象
+     * @param mf           MultipartFile对象
      * @return 图片的绝对路径，大小
      */
     R upload(String id, String name, String par, String organizeName, MultipartFile mf);

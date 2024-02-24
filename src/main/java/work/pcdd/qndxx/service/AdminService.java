@@ -27,18 +27,18 @@ public interface AdminService {
      * 根据组织名查询所有学生的学号，姓名，组织
      *
      * @param organizeName 组织名
-     * @param pageNum   起始页
-     * @param pageSize  每页显示的条数
+     * @param pageNum      起始页
+     * @param pageSize     每页显示的条数
      * @return 执行结果
      */
-    PageInfo<User> findAllByorganizeName(String organizeName, int pageNum, int pageSize);
+    PageInfo<User> findAllByOrganizeName(String organizeName, int pageNum, int pageSize);
 
     /**
      * 查询不同组织的截图已交人员
      *
      * @param organizeName 组织名
-     * @param pageNum   起始页
-     * @param pageSize  每页显示的条数
+     * @param pageNum      起始页
+     * @param pageSize     每页显示的条数
      * @return 执行结果
      */
     PageInfo<User> findSubmitted(String organizeName, int pageNum, int pageSize);
@@ -47,8 +47,8 @@ public interface AdminService {
      * 查询不同组织的截图未交人员
      *
      * @param organizeName 组织名
-     * @param pageNum   起始页
-     * @param pageSize  每页显示的条数
+     * @param pageNum      起始页
+     * @param pageSize     每页显示的条数
      * @return 学生信息
      */
     PageInfo<User> findUnpaid(String organizeName, int pageNum, int pageSize);

@@ -28,7 +28,7 @@ public class AdminController {
     public R<List<User>> findAllByOrganizeName(@RequestParam int page, @RequestParam int limit, HttpSession session) {
         // 从session中取出当前管理员所在的组织作为参数传递
         User admin = (User) session.getAttribute("admin");
-        PageInfo<User> pageInfo = adminService.findAllByorganizeName(admin.getOrganizeName(), page, limit);
+        PageInfo<User> pageInfo = adminService.findAllByOrganizeName(admin.getOrganizeName(), page, limit);
         return R.ok0(pageInfo.getList(), pageInfo.getTotal());
     }
 
