@@ -27,23 +27,4 @@ public class ClazzController {
         return R.ok(clazzService.getClazz(clazzName, session));
     }
 
-    @Operation(summary = "修改季数和期数")
-    @PutMapping("/issue/{season}/{period}/{clazzName}")
-    public R<Integer> updateIssue(@PathVariable String season, @PathVariable String period, @PathVariable String clazzName) {
-        Clazz clazz = new Clazz();
-        clazz.setSeason(season);
-        clazz.setPeriod(period);
-        clazz.setClazzName(clazzName);
-        return R.ok(clazzService.updateIssue(clazz));
-    }
-
-    @Operation(summary = "开启/关闭系统")
-    @PutMapping("/isEnable/{isEnable}/{clazzName}")
-    public R<Integer> updateIsEnable(@PathVariable boolean isEnable, @PathVariable String clazzName, HttpSession session) {
-        Clazz clazz = new Clazz();
-        clazz.setIsEnable(isEnable);
-        clazz.setClazzName(clazzName);
-        return R.ok(clazzService.updateIsEnable(clazz, session));
-    }
-
 }
