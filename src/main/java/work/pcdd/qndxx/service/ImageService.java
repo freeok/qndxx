@@ -17,7 +17,7 @@ public interface ImageService extends IService<Image> {
     /**
      * 上传图片
      *
-     * @param id           学号
+     * @param id           账号
      * @param name         学生姓名
      * @param par          图片类型：upload1、upload2分别表示朋友圈截图，首页截图
      * @param organizeName 组织名
@@ -40,7 +40,7 @@ public interface ImageService extends IService<Image> {
     void deleteUpload(Integer organizeId);
 
     /**
-     * 根据学号查询upload表字段
+     * 根据账号查询upload表字段
      *
      * @param userId 用户id
      * @return 执行结果

@@ -16,7 +16,7 @@ import java.util.List;
 public interface UserMapper extends BaseMapper<User> {
 
     /**
-     * 根据学号查询学生
+     * 根据账号查询学生
      *
      * @param userId 用户id
      * @return User bean
@@ -24,7 +24,7 @@ public interface UserMapper extends BaseMapper<User> {
     User findById(String userId);
 
     /**
-     * 在指定的组织中根据学号或姓名模糊查询学生
+     * 在指定的组织中根据账号或姓名模糊查询学生
      *
      * @param user user bean
      * @return user bean
@@ -37,7 +37,7 @@ public interface UserMapper extends BaseMapper<User> {
     User login(User user);
 
     /**
-     * 根据组织名查询所有学生的学号，姓名，组织
+     * 根据组织名查询所有学生的账号，姓名，组织
      *
      * @return 学生信息
      */
@@ -79,7 +79,7 @@ public interface UserMapper extends BaseMapper<User> {
     int findUnpaidCount(Integer organizeId);
 
     /**
-     * 根据学号修改管理员密码
+     * 根据账号修改管理员密码
      *
      * @param user 管理员（学生）bean
      * @return 影响的行数

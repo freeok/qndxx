@@ -37,7 +37,7 @@ public class AuthController {
 
     @Operation(summary = "管理员登录")
     @PostMapping("/admin/auth/login/{userId}/{pwd}")
-    public R<String> adminLogin(@Parameter(name = "学号") @PathVariable String userId, @Parameter(name = "密码") @PathVariable String pwd, HttpSession session) {
+    public R<String> adminLogin(@Parameter(name = "账号") @PathVariable String userId, @Parameter(name = "密码") @PathVariable String pwd, HttpSession session) {
         return authService.login(userId, pwd, session);
     }
 

@@ -5,7 +5,7 @@
 
 <mapper namespace="work.pcdd.qndxx.mapper.UserMapper">
 
-    <!--根据学号查询学生-->
+    <!--根据账号查询学生-->
     <select id="findById" resultType="user">
         SELECT user_id, username, pwd, role, user.organize_id, organize_name
         FROM user,

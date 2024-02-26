@@ -15,7 +15,7 @@ import java.util.Map;
 public interface UserService extends IService<User> {
 
     /**
-     * 在指定的组织中根据学号或姓名模糊查询学生
+     * 在指定的组织中根据账号或姓名模糊查询学生
      */
     R fuzzyQuery(User user);
 
