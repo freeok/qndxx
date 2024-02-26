@@ -1,5 +1,7 @@
 package work.pcdd.qndxx.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +20,7 @@ import java.util.Date;
 public class Organize implements Serializable {
 
     @Schema(name = "组织 ID")
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     @Schema(name = "组织名")

@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * created by 2021/1/6
  */
 @SpringBootApplication
-@MapperScan("work.pcdd.qndxx.mapper")
 public class QndxxApplication {
 
     public static void main(String[] args) {

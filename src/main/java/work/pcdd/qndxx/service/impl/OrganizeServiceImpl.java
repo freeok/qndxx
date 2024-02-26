@@ -1,5 +1,6 @@
 package work.pcdd.qndxx.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import work.pcdd.qndxx.entity.Organize;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpSession;
  */
 @Service
 @RequiredArgsConstructor
-public class OrganizeServiceImpl implements OrganizeService {
+public class OrganizeServiceImpl extends ServiceImpl<OrganizeMapper, Organize> implements OrganizeService {
 
     private final OrganizeMapper organizeMapper;
 

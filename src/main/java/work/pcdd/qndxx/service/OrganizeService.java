@@ -1,5 +1,6 @@
 package work.pcdd.qndxx.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import work.pcdd.qndxx.entity.Organize;
 
 import javax.servlet.http.HttpSession;
@@ -7,7 +8,7 @@ import javax.servlet.http.HttpSession;
 /**
  * @author pcdd
  */
-public interface OrganizeService {
+public interface OrganizeService extends IService<Organize> {
 
     /**
      * 根据组织查询organize表

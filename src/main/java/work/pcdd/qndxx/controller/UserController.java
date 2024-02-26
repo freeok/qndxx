@@ -1,16 +1,17 @@
 package work.pcdd.qndxx.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import work.pcdd.qndxx.entity.User;
+import work.pcdd.qndxx.mapper.UserMapper;
 import work.pcdd.qndxx.service.UserService;
 import work.pcdd.qndxx.util.R;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 
 /**
@@ -24,6 +25,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @Operation(summary = "模糊查询用户")
     @GetMapping("/user/fuzzyQuery")
@@ -36,39 +38,42 @@ public class UserController {
 
     @Operation(summary = "根据组织名查询所有用户")
     @GetMapping("/user/findAllByOrganizeName")
-    public R<List<User>> findAllByOrganizeName(@RequestParam int page, @RequestParam int limit, HttpSession session) {
+    public R findAllByOrganizeName(@RequestParam int page, @RequestParam int limit, HttpSession session) {
         // 从session中取出当前管理员所在的组织作为参数传递
         User admin = (User) session.getAttribute("admin");
-        PageInfo<User> pageInfo = userService.findAllByOrganizeName(admin.getOrganizeId(), page, limit);
+        PageInfo<Object> pageInfo = PageHelper.startPage(page, limit)
+                .doSelectPageInfo(() -> userMapper.findAllUserByOrganize(admin.getOrganizeId()));
         return R.ok0(pageInfo.getList(), pageInfo.getTotal());
     }
 
     @Operation(summary = "查询截图已交用户信息")
     @GetMapping("/user/findSubmitted")
-    public R<List<User>> findSubmitted(@RequestParam int page, @RequestParam int limit, HttpSession session) {
+    public R findSubmitted(@RequestParam int page, @RequestParam int limit, HttpSession session) {
         User admin = (User) session.getAttribute("admin");
-        PageInfo<User> pageInfo = userService.findSubmitted(admin.getOrganizeId(), page, limit);
+        PageInfo<Object> pageInfo = PageHelper.startPage(page, limit)
+                .doSelectPageInfo(() -> userMapper.findSubmitted(admin.getOrganizeId()));
         return R.ok0(pageInfo.getList(), pageInfo.getTotal());
     }
 
     @Operation(summary = "查询截图未交用户信息")
     @GetMapping("/user/findUnpaid")
-    public R<List<User>> findUnpaid(@RequestParam int page, @RequestParam int limit, HttpSession session) {
+    public R findUnpaid(@RequestParam int page, @RequestParam int limit, HttpSession session) {
         User admin = (User) session.getAttribute("admin");
-        PageInfo<User> pageInfo = userService.findUnpaid(admin.getOrganizeId(), page, limit);
+        PageInfo<Object> pageInfo = PageHelper.startPage(page, limit)
+                .doSelectPageInfo(() -> userMapper.findUnpaid(admin.getOrganizeId()));
         return R.ok0(pageInfo.getList(), pageInfo.getTotal());
     }
 
     @Operation(summary = "查询截图已交人数")
     @GetMapping("/user/findSubmittedCount")
     public R<Integer> findSubmittedCount(@RequestParam Integer organizeId) {
-        return R.ok(userService.findSubmittedCount(organizeId));
+        return R.ok(userMapper.findSubmittedCount(organizeId));
     }
 
     @Operation(summary = "查询截图未交人数")
     @GetMapping("/user/findUnpaidCount")
     public R<Integer> findUnpaidCount(@RequestParam Integer organizeId) {
-        return R.ok(userService.findUnpaidCount(organizeId));
+        return R.ok(userMapper.findUnpaidCount(organizeId));
     }
 
     @Operation(summary = "添加用户")
@@ -78,19 +83,17 @@ public class UserController {
         user.setUserId(userId);
         user.setUsername(username);
         user.setOrganizeName(organizeName);
-        return userService.add(user);
+        return R.ok(userService.save(user));
     }
 
     @Operation(summary = "更新用户信息")
     @PutMapping("/user/update")
-    public R<Integer> update(@RequestParam String userId,
-                             @RequestParam String oldId,
-                             @RequestParam String username) {
+    public R update(@RequestParam String userId, @RequestParam String oldId, @RequestParam String username) {
         User user = new User();
         user.setUserId(userId);
         user.setOldId(oldId);
         user.setUsername(username);
-        return R.ok(userService.update(user));
+        return R.ok(userService.saveOrUpdate(user));
     }
 
     @Operation(summary = "修改管理员密码")
@@ -101,8 +104,8 @@ public class UserController {
 
     @Operation(summary = "删除用户")
     @DeleteMapping("/user/delete/{userId}")
-    public R<Integer> delete(@PathVariable String userId) {
-        return R.ok(userService.delete(userId));
+    public R delete(@PathVariable String userId) {
+        return R.ok(userService.removeById(userId));
     }
 
 }

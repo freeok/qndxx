@@ -3,6 +3,7 @@ package work.pcdd.qndxx.service.impl;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ZipUtil;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +38,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(rollbackFor = Exception.class)
-public class ImageServiceImpl implements ImageService {
+public class ImageServiceImpl extends ServiceImpl<ImageMapper, Image> implements ImageService {
 
     private final ImageMapper imageMapper;
     private final OrganizeMapper organizeMapper;
