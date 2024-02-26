@@ -8,20 +8,20 @@
     <!-- 查询用上传记录 -->
     <select id="list">
         SELECT *
-        FROM upload
+        FROM image
         WHERE user_id = #{userId}
     </select>
 
     <!-- 新增一条记录，若主键已存在，则覆盖 -->
     <insert id="add">
-        INSERT INTO upload(user_id, img_key, size, ext_name, created_at)
+        INSERT INTO image(user_id, img_key, size, ext_name, created_at)
         VALUES (#{userId}, #{imgKey}, #{size}, #{extName}, #{createdAt})
     </insert>
 
     <!-- 删除组织删除upload表记录 -->
     <delete id="delete">
         DELETE
-        FROM upload
+        FROM image
         WHERE user_id IN (SELECT user_id FROM user WHERE organize_id = #{organizeId})
     </delete>
 

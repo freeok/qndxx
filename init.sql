@@ -142,10 +142,10 @@ INSERT INTO `user`
 VALUES ('202097596172', '萧傲珊', '1', 'user', 1);
 
 -- ----------------------------
--- Table structure for upload
+-- Table structure for image
 -- ----------------------------
-DROP TABLE IF EXISTS `upload`;
-CREATE TABLE `upload`
+DROP TABLE IF EXISTS `image`;
+CREATE TABLE `image`
 (
     `id`         int auto_increment NOT NULL,
     `user_id`    varchar(255)       NOT NULL,
@@ -158,7 +158,7 @@ CREATE TABLE `upload`
 ) COMMENT ='上传记录表';
 
 -- ----------------------------
--- Records of upload
+-- Records of image
 -- ----------------------------
 
 -- ----------------------------

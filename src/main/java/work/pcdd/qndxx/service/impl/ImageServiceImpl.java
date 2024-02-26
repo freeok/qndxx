@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import work.pcdd.qndxx.common.RCode;
+import work.pcdd.qndxx.entity.Image;
 import work.pcdd.qndxx.entity.Organize;
-import work.pcdd.qndxx.entity.Upload;
 import work.pcdd.qndxx.mapper.ImageMapper;
 import work.pcdd.qndxx.mapper.OrganizeMapper;
 import work.pcdd.qndxx.service.ImageService;
@@ -85,13 +85,13 @@ public class ImageServiceImpl implements ImageService {
         }
 
         // 保存上传记录
-        Upload upload = new Upload();
-        upload.setUserId(id);
-        upload.setImgKey(relativePath);
-        upload.setSize(size.doubleValue());
-        upload.setExtName(extension);
-        upload.setCreatedAt(new Date());
-        imageMapper.add(upload);
+        Image image = new Image();
+        image.setUserId(id);
+        image.setImgKey(relativePath);
+        image.setSize(size.doubleValue());
+        image.setExtName(extension);
+        image.setCreatedAt(new Date());
+        imageMapper.add(image);
 
         return R.ok("上传成功");
     }
@@ -139,7 +139,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<Upload> list(String userId) {
+    public List<Image> list(String userId) {
         return imageMapper.list(userId);
     }
 

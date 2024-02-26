@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import work.pcdd.qndxx.entity.Upload;
+import work.pcdd.qndxx.entity.Image;
 import work.pcdd.qndxx.service.ImageService;
 import work.pcdd.qndxx.util.R;
 
@@ -45,7 +45,7 @@ public class ImageController {
 
     @Operation(summary = "查询用上传记录")
     @GetMapping("/list/{userId}")
-    public R<List<Upload>> list(@PathVariable String userId) {
+    public R<List<Image>> list(@PathVariable String userId) {
         return R.ok(imageService.list(userId));
     }
 
