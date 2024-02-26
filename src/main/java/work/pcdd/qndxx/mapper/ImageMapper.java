@@ -1,6 +1,5 @@
 package work.pcdd.qndxx.mapper;
 
-import work.pcdd.qndxx.entity.Image;
 import work.pcdd.qndxx.entity.Upload;
 
 import java.util.List;
@@ -16,15 +15,7 @@ public interface ImageMapper {
      * @param upload 上传记录表对象
      * @return 影响的行数
      */
-    int addUpload(Upload upload);
-
-    /**
-     * 增加一条上传图片信息
-     *
-     * @param image 图片表对象
-     * @return 影响的行数
-     */
-    int addImage(Image image);
+    int add(Upload upload);
 
     /**
      * 根据组织删除upload表记录
@@ -32,8 +23,8 @@ public interface ImageMapper {
      * @param organizeName 组织名
      * @return 影响的行数
      */
-    int deleteUpload(String organizeName);
+    int delete(String organizeName);
 
-    List<Upload> isUploaded(String userId);
+    List<Upload> exists(String userId);
 
 }
