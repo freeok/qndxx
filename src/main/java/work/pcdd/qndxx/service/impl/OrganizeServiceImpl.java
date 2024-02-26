@@ -16,23 +16,4 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class OrganizeServiceImpl extends ServiceImpl<OrganizeMapper, Organize> implements OrganizeService {
 
-    private final OrganizeMapper organizeMapper;
-
-    @Override
-    public Organize getOne(Integer organizeId, HttpSession session) {
-        Organize organize = organizeMapper.getOne(organizeId);
-        session.setAttribute("organize", organize);
-        return organize;
-    }
-
-    @Override
-    public Integer updateIssue(Organize organize) {
-        return organizeMapper.updateIssue(organize);
-    }
-
-    @Override
-    public Integer updateIsEnable(Organize organize, HttpSession session) {
-        return organizeMapper.updateIsEnable(organize);
-    }
-
 }

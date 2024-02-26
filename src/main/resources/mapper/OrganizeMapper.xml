@@ -4,26 +4,4 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="work.pcdd.qndxx.mapper.OrganizeMapper">
 
-    <!-- 查询organize表 -->
-    <select id="getOne" resultType="organize">
-        SELECT *
-        FROM organize
-        WHERE id = #{organizeId}
-    </select>
-
-    <!-- 根据组织修改季数和期数 -->
-    <update id="updateIssue" >
-        UPDATE organize
-        SET season = #{season},
-            period =#{period}
-        WHERE organize_name = #{organizeName}
-    </update>
-
-    <!-- 修改组织系统状态（开启或关闭） -->
-    <update id="updateIsEnable" >
-        UPDATE organize
-        SET is_enable = #{isEnable}
-        WHERE id = #{id}
-    </update>
-
 </mapper>
