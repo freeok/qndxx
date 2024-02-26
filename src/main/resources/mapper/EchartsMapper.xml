@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="work.pcdd.qndxx.mapper.EchartsMapper">
+
+    <select id="getSubmitEcharts">
+        SELECT DATE_FORMAT(created_at, '%Y-%m-%d %H:00:00') AS hour_start,
+               COUNT(*)                                     AS record_count
+        FROM image
+        GROUP BY DATE_FORMAT(created_at, '%Y-%m-%d %H:00:00')
+        ORDER BY hour_start;
+    </select>
+
+</mapper>

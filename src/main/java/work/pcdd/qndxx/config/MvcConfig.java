@@ -91,11 +91,6 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(adminInterceptor())
                 // api
                 .addPathPatterns("/admin/**")
-                .addPathPatterns("/user/**")
-                .addPathPatterns("/image/download/**")
-                .addPathPatterns("/image/reset/**")
-                .addPathPatterns("/organize/issue/**")
-                .addPathPatterns("/organize/isEnable/**")
                 // 页面
                 .addPathPatterns("/menu/*")
                 .addPathPatterns("/common/**")

@@ -34,7 +34,7 @@ public class SwaggerConfig {
         Info info = new Info()
                 .title("qndxx")
                 .description("青年大学习截图上交系统")
-                .version("2.0.0");
+                .version("2.1.0");
         return new OpenAPI().info(info);
     }
 

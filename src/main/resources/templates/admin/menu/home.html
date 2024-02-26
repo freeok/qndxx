@@ -332,7 +332,7 @@
               </tr>
               <tr>
                 <td>当前版本</td>
-                <td>v2.0.0</td>
+                <td>v2.1.0</td>
               </tr>
               <tr>
                 <td>主要功能</td>
@@ -368,7 +368,7 @@
 
     $(function () {
       // 根据组织名获取organize表字段
-      $.get('/organize/' + organizeId, (res) => {
+      $.get('/user/organize/' + organizeId, (res) => {
         console.log(res)
         Cookies.set('organize', res.data.organizeName, {expires: 30})
         $('#season').text(res.data.season)
@@ -376,13 +376,13 @@
       });
 
       // 获取截图已交人数
-      $.get('/admin/findSubmittedCount', {organizeId: organizeId}, (res) => {
+      $.get('/admin/user/findSubmittedCount', {organizeId: organizeId}, (res) => {
         console.log(res)
         $('#submittedCount').text(res.data);
       });
 
       // 获取截图未交人数
-      $.get('/admin/findUnpaidCount', {organizeId: organizeId}, (res) => {
+      $.get('/admin/user/findUnpaidCount', {organizeId: organizeId}, (res) => {
         console.log(res)
         $('#unpaidCount').text(res.data);
       });

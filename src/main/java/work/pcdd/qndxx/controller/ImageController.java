@@ -19,16 +19,15 @@ import java.util.List;
 /**
  * @author pcdd
  */
-@Tag(name = "图片相关API")
+@Tag(name = "图片相关 API")
 @RestController
-@RequestMapping("/image")
 @RequiredArgsConstructor
 public class ImageController {
 
     private final ImageService imageService;
 
     @Operation(summary = "截图上传")
-    @PostMapping("/upload/{id}/{name}/{par}/{organizeName}")
+    @PostMapping("/user/image/upload/{id}/{name}/{par}/{organizeName}")
     public R upload(@RequestParam("file") MultipartFile mf
             , @PathVariable("id") String id
             , @PathVariable("name") String name
@@ -38,19 +37,19 @@ public class ImageController {
     }
 
     @Operation(summary = "截图下载")
-    @GetMapping("/download/{organizeName}")
+    @GetMapping("/admin/image/download/{organizeName}")
     public void download(HttpServletRequest req, HttpServletResponse resp, @PathVariable String organizeName) {
         imageService.download(req, resp, organizeName);
     }
 
     @Operation(summary = "查询用上传记录")
-    @GetMapping("/list/{userId}")
+    @GetMapping("/user/image/list/{userId}")
     public R<List<Image>> list(@PathVariable String userId) {
         return R.ok(imageService.list(userId));
     }
 
     @Operation(summary = "根据图片路径返回图片的base64编码")
-    @PostMapping("/base64")
+    @GetMapping("/user/image/base64")
     public R<String> getImageBase64(HttpServletRequest req, HttpServletResponse resp) {
         resp.setContentType("application/json;charset=utf-8");
 
@@ -63,13 +62,13 @@ public class ImageController {
     }
 
     @Operation(summary = "结束指定组织本轮提交")
-    @DeleteMapping("/reset/{organizeId}")
+    @DeleteMapping("/admin/image/reset/{organizeId}")
     public R deleteUpload(@PathVariable Integer organizeId) {
         imageService.deleteUpload(organizeId);
         return R.ok();
     }
 
-    @PostMapping("/empty")
+    @PostMapping("/user/image/empty")
     public String empty() {
         return "空api,防报405，无实际作用";
     }

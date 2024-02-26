@@ -177,7 +177,7 @@
     });
 
     function refreshCaptcha() {
-      $.get('/captcha/generate', function () {
+      $.get('/user/captcha/generate', function () {
         $("#captchaPic").attr('src', '/captcha/generate');
       });
     }
@@ -207,14 +207,14 @@
         shade: 0.5
       }); //校验loading
 
-      $.post('/captcha/verify/' + captcha, (res) => {
+      $.post('/user/captcha/verify/' + captcha, (res) => {
         if (res.code === 1005) {
           layer.msg(res.msg, {icon: 5, anim: 6});
           $password.val("").focus();
           $captcha.val("");
           refreshCaptcha();
         } else {
-          $.post('/auth/admin/login/' + username + '/' + password, (res) => {
+          $.post('/admin/auth/login/' + username + '/' + password, (res) => {
             console.log(res)
             if (res.code === 200) {
               window.location = '/console';
