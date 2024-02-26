@@ -74,7 +74,7 @@
       table.render({
         elem: '#currentTableId',
         // 默认会自动传递两个参数：?page=1&limit=10（该参数可通过 request 属性自定义）
-        url: '/admin/user/findAllByOrganizeName',
+        url: '/admin/user/list',
         // 启用分页组件 https://layui.dev/2.7/docs/modules/laypage.html#options
         page: {
           curr: 1,
@@ -118,7 +118,7 @@
       let username = data.field.username;
       //执行搜索重载
       table.reload('currentTableId', {
-        url: `/admin/user/fuzzyQuery?userId=${userId}&username=${username}`
+        url: `/admin/user/fuzzy-query?userId=${userId}&username=${username}`
       });
       return false;
     });

@@ -39,7 +39,7 @@
     </select>
 
     <!-- 查询当前组织的所有用户 -->
-    <select id="findAllUserByOrganize" resultType="user">
+    <select id="list" resultType="user">
         SELECT user_id, username, organize_name
         FROM user,
              organize

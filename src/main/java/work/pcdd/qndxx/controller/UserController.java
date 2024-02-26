@@ -28,7 +28,7 @@ public class UserController {
     private final UserMapper userMapper;
 
     @Operation(summary = "模糊查询用户")
-    @GetMapping("/user/fuzzyQuery")
+    @GetMapping("/user/fuzzy-query")
     public R fuzzyQuery(@RequestParam String userId, @RequestParam String username) {
         User user = new User();
         user.setUserId(userId);
@@ -36,13 +36,13 @@ public class UserController {
         return userService.fuzzyQuery(user);
     }
 
-    @Operation(summary = "根据组织名查询所有用户")
-    @GetMapping("/user/findAllByOrganizeName")
+    @Operation(summary = "查询当前组织的所有用户")
+    @GetMapping("/user/list")
     public R findAllByOrganizeName(@RequestParam int page, @RequestParam int limit, HttpSession session) {
         // 从session中取出当前管理员所在的组织作为参数传递
         User admin = (User) session.getAttribute("admin");
         PageInfo<Object> pageInfo = PageHelper.startPage(page, limit)
-                .doSelectPageInfo(() -> userMapper.findAllUserByOrganize(admin.getOrganizeId()));
+                .doSelectPageInfo(() -> userMapper.list(admin.getOrganizeId()));
         return R.ok0(pageInfo.getList(), pageInfo.getTotal());
     }
 

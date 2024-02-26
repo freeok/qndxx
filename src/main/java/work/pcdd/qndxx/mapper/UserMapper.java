@@ -41,7 +41,7 @@ public interface UserMapper extends BaseMapper<User> {
      *
      * @return 用户信息
      */
-    List<User> findAllUserByOrganize(Integer organizeId);
+    List<User> list(Integer organizeId);
 
     /**
      * 查询所有用户
