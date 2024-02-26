@@ -70,12 +70,6 @@ public class UserController {
         return R.ok(userMapper.findSubmittedCount(organizeId));
     }
 
-    @Operation(summary = "查询截图未交人数")
-    @GetMapping("/user/findUnpaidCount")
-    public R<Integer> findUnpaidCount(@RequestParam Integer organizeId) {
-        return R.ok(userMapper.findUnpaidCount(organizeId));
-    }
-
     @Operation(summary = "添加用户")
     @PostMapping("/user/add/{userId}/{username}/{organizeName}")
     public R add(@PathVariable String userId, @PathVariable String username, @PathVariable String organizeName) {
