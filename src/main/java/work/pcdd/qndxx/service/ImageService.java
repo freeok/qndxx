@@ -1,7 +1,7 @@
 package work.pcdd.qndxx.service;
 
 import org.springframework.web.multipart.MultipartFile;
-import work.pcdd.qndxx.entity.Upload;
+import work.pcdd.qndxx.entity.Image;
 import work.pcdd.qndxx.util.R;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +44,6 @@ public interface ImageService {
      * @param userId 用户id
      * @return 执行结果
      */
-    List<Upload> list(String userId);
+    List<Image> list(String userId);
 
 }

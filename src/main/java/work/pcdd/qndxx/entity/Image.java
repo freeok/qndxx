@@ -11,9 +11,9 @@ import java.util.Date;
  */
 @Data
 @Schema(description = "上传记录表")
-public class Upload implements Serializable {
+public class Image implements Serializable {
 
-    @Schema(name = "上传 ID")
+    @Schema(name = "上传记录 ID")
     private Integer id;
 
     @Schema(name = "图片路径")

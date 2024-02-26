@@ -38,9 +38,9 @@
                username,
                created_at
         FROM user,
-             upload
+             image
         WHERE organize_id = #{organizeId}
-          AND user.user_id = upload.user_id
+          AND user.user_id = image.user_id
         GROUP BY user_id
         ORDER BY created_at DESC
     </select>
@@ -53,9 +53,9 @@
         WHERE user_id NOT IN
               (SELECT user.user_id
                FROM user,
-                    upload
+                    image
                WHERE organize_id = #{organizeId}
-                 AND user.user_id = upload.user_id)
+                 AND user.user_id = image.user_id)
           AND organize_id = #{organizeId}
     </select>
 
@@ -63,9 +63,9 @@
     <select id="findSubmittedCount">
         SELECT count(distinct user.user_id)
         FROM user,
-             upload
+             image
         WHERE organize_id = #{organizeId}
-          AND user.user_id = upload.user_id
+          AND user.user_id = image.user_id
     </select>
 
     <!--查询不同组织的截图未交人员-->
@@ -74,9 +74,9 @@
         FROM user
         WHERE user_id NOT IN (SELECT user.user_id
                               FROM user,
-                                   upload
+                                   image
                               WHERE organize_id = #{organizeId}
-                                AND user.user_id = upload.user_id)
+                                AND user.user_id = image.user_id)
           AND organize_id = #{organizeId}
     </select>
 
@@ -90,7 +90,7 @@
     <select id="getSubmitEcharts">
         SELECT DATE_FORMAT(created_at, '%Y-%m-%d %H:00:00') AS hour_start,
                COUNT(*)                                     AS record_count
-        FROM upload
+        FROM image
         GROUP BY DATE_FORMAT(created_at, '%Y-%m-%d %H:00:00')
         ORDER BY hour_start;
     </select>
