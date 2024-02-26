@@ -5,44 +5,43 @@
 
 <mapper namespace="work.pcdd.qndxx.mapper.UserMapper">
     <!--根据学号查询学生-->
-    <select id="findById" parameterType="string" resultType="user">
-        SELECT user_id, username, pwd, role, organize_name
-        FROM user
+    <select id="findById"  >
+        SELECT user_id, username, pwd, role, user.organize_id, organize_name
+        FROM user,
+             organize
         WHERE user_id = #{userId}
+          AND user.organize_id = organize.id
     </select>
 
-    <!--在指定的组织中根据学号或姓名模糊查询学生-->
-    <select id="findByName" parameterType="user" resultType="user">
+    <!--模糊查询学生-->
+    <select id="fuzzyQuery"  >
         SELECT user_id, username, organize_name
-        FROM user
-        WHERE organize_name = #{organizeName}
-        <if test="username!=null and username!=''">
+        FROM user,organize
+        WHERE user.organize_id = organize.id
+        <if test="userId!=null and userId!=''">
+            AND user_id = #{userId}
+        </if>
+        <if test="userId==null or userId==''">
             AND username LIKE CONCAT('%',#{username},'%')
         </if>
     </select>
 
     <!--添加学生-->
-    <insert id="add" parameterType="user">
-        INSERT INTO user(user_id, username, organize_name)
-        VALUES (#{userId}, #{username}, #{organizeName})
+    <insert id="add" >
+        INSERT INTO user(user_id, username, role, organize_id)
+        VALUES (#{userId}, #{username}, #{role}, #{organize_id})
     </insert>
 
     <!--更新学生信息-->
-    <update id="update" parameterType="user">
+    <update id="update" >
         UPDATE user
-        SET username = #{username} ,organize_name = #{organizeName}
-        <!--        <if test="pwd!=null and pwd!=''">
-                    ,pwd = #{pwd}
-                </if>
-                <if test="role!=null and role!=''">
-                    ,role = #{role}
-                </if>-->
-        WHERE user_id = #{userId}
+        SET user_id  = ${userId},
+            username = #{username}
+        WHERE user_id = #{oldId}
     </update>
 
-
     <!--根据学号删除学生-->
-    <delete id="delete" parameterType="string">
+    <delete id="delete" >
         DELETE
         FROM user
         WHERE user_id = #{userId}

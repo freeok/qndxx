@@ -5,87 +5,93 @@
 
 <mapper namespace="work.pcdd.qndxx.mapper.AdminMapper">
     <!--管理员登录-->
-    <select id="login" parameterType="user" resultType="user">
-        SELECT user_id, username, pwd, role, organize_name
-        FROM user
+    <select id="login">
+        SELECT user_id, username, pwd, role, organize_id, organize_name
+        FROM user,
+             organize
         WHERE user_id = #{userId}
+          AND user.organize_id = organize.id
           AND pwd = #{pwd}
           AND role IN ('admin', 'sa')
     </select>
 
-    <!--根据组织名查询所有学生的学号，姓名，组织-->
-    <select id="findAllByorganizeName" parameterType="string" resultType="user">
+    <!-- 查询当前组织的所有学生 -->
+    <select id="findAllUserByOrganize">
         SELECT user_id, username, organize_name
-        FROM user
-        WHERE organize_name = #{organizeName}
+        FROM user,
+             organize
+        WHERE organize_id = #{organizeId}
         ORDER BY user_id
     </select>
 
     <!--查询所有学生-->
-    <select id="findAll" resultType="user">
+    <select id="findAll">
         SELECT user_id, username, pwd, role, organize_name
-        FROM user
+        FROM user,
+             organize
+        WHERE user.organize_id = organize.id
     </select>
 
     <!--查询不同组织的截图已交人员-->
-    <select id="findSubmitted" parameterType="string" resultType="map">
+    <select id="findSubmitted" resultType="map">
         SELECT user.user_id,
                username,
-               upload_time
+               created_at
         FROM user,
              upload
-        WHERE organize_name = #{organizeName}
+        WHERE organize_id = #{organizeId}
           AND user.user_id = upload.user_id
         GROUP BY user_id
-        ORDER BY upload_time DESC
+        ORDER BY created_at DESC
     </select>
 
     <!--查询不同组织的截图未交人员-->
-    <select id="findUnpaid" parameterType="string" resultType="user">
+    <select id="findUnpaid">
         SELECT user_id,
                username
         FROM user
-        WHERE user_id NOT IN (SELECT user.user_id
-                              FROM user,
-                                   upload
-                              WHERE organize_name = #{organizeName}
-                                AND user.user_id = upload.user_id)
-          AND organize_name = #{organizeName}
+        WHERE user_id NOT IN
+              (SELECT user.user_id
+               FROM user,
+                    upload
+               WHERE organize_id = #{organizeId}
+                 AND user.user_id = upload.user_id)
+          AND organize_id = #{organizeId}
     </select>
 
     <!--查询不同组织的截图已交人数-->
-    <select id="findSubmittedCount" parameterType="string" resultType="int">
+    <select id="findSubmittedCount">
         SELECT count(distinct user.user_id)
         FROM user,
              upload
-        WHERE organize_name = #{organizeName}
+        WHERE organize_id = #{organizeId}
           AND user.user_id = upload.user_id
     </select>
 
     <!--查询不同组织的截图未交人员-->
-    <select id="findUnpaidCount" parameterType="string" resultType="int">
+    <select id="findUnpaidCount">
         SELECT COUNT(*)
         FROM user
         WHERE user_id NOT IN (SELECT user.user_id
                               FROM user,
                                    upload
-                              WHERE organize_name = #{organizeName}
+                              WHERE organize_id = #{organizeId}
                                 AND user.user_id = upload.user_id)
-          AND organize_name = #{organizeName}
+          AND organize_id = #{organizeId}
     </select>
 
     <!--管理员修改密码-->
-    <update id="updPwd" parameterType="user">
+    <update id="updPwd">
         UPDATE user
         SET pwd = #{pwd}
         WHERE user_id = #{userId}
     </update>
 
     <select id="getSubmitEcharts">
-        SELECT DATE_FORMAT(upload_time, '%Y-%m-%d %H:00:00') AS hour_start,
-               COUNT(*)                                      AS record_count
+        SELECT DATE_FORMAT(created_at, '%Y-%m-%d %H:00:00') AS hour_start,
+               COUNT(*)                                     AS record_count
         FROM upload
-        GROUP BY DATE_FORMAT(upload_time, '%Y-%m-%d %H:00:00')
+        GROUP BY DATE_FORMAT(created_at, '%Y-%m-%d %H:00:00')
         ORDER BY hour_start;
     </select>
 

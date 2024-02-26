@@ -43,10 +43,10 @@ public class ImageController {
         imageService.download(req, resp, organizeName);
     }
 
-    @Operation(summary = "判断用户是否上传")
-    @GetMapping("/isUploaded/{userId}")
-    public R<List<Upload>> isUploaded(@PathVariable String userId) {
-        return R.ok(imageService.isUploaded(userId));
+    @Operation(summary = "查询用上传记录")
+    @GetMapping("/list/{userId}")
+    public R<List<Upload>> list(@PathVariable String userId) {
+        return R.ok(imageService.list(userId));
     }
 
     @Operation(summary = "根据图片路径返回图片的base64编码")
@@ -63,9 +63,9 @@ public class ImageController {
     }
 
     @Operation(summary = "结束指定组织本轮提交")
-    @DeleteMapping("/reset/{organizeName}")
-    public R deleteUpload(@PathVariable String organizeName) {
-        imageService.deleteUpload(organizeName);
+    @DeleteMapping("/reset/{organizeId}")
+    public R deleteUpload(@PathVariable Integer organizeId) {
+        imageService.deleteUpload(organizeId);
         return R.ok();
     }
 

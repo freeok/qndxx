@@ -362,12 +362,13 @@
       miniTab = layui.miniTab
     miniTab.listen();
 
+    let organizeId = [[${session.admin.getOrganizeId()}]];
     let organizeName = [[${session.admin.getOrganizeName()}]];
     console.log(organizeName)
 
     $(function () {
       // 根据组织名获取organize表字段
-      $.get('/organize/' + organizeName, (res) => {
+      $.get('/organize/' + organizeId, (res) => {
         console.log(res)
         Cookies.set('organize', res.data.organizeName, {expires: 30})
         $('#season').text(res.data.season)
@@ -375,13 +376,13 @@
       });
 
       // 获取截图已交人数
-      $.get('/admin/findSubmittedCount/' + organizeName, (res) => {
+      $.get('/admin/findSubmittedCount', {organizeId: organizeId}, (res) => {
         console.log(res)
         $('#submittedCount').text(res.data);
       });
 
       // 获取截图未交人数
-      $.get('/admin/findUnpaidCount/' + organizeName, (res) => {
+      $.get('/admin/findUnpaidCount', {organizeId: organizeId}, (res) => {
         console.log(res)
         $('#unpaidCount').text(res.data);
       });

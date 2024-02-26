@@ -21,10 +21,16 @@
           <div class="layui-form-item">
 
             <div class="layui-inline">
+              <label class="layui-form-label">学号</label>
+              <div class="layui-input-inline">
+                <input type="text" name="userId" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+
+            <div class="layui-inline">
               <label class="layui-form-label">姓名</label>
               <div class="layui-input-inline">
-                <input type="text" name="username" autocomplete="off" class="layui-input"
-                       lay-verify="required">
+                <input type="text" name="username" autocomplete="off" class="layui-input">
               </div>
             </div>
 
@@ -108,11 +114,11 @@
 
     // 监听搜索操作
     form.on('submit(data-search-btn)', function (data) {
+      let userId = data.field.userId;
       let username = data.field.username;
-      let organizeName = Cookies.get('organize');
       //执行搜索重载
       table.reload('currentTableId', {
-        url: '/user/findByIdOrName/' + username + '/' + organizeName
+        url: `/user/fuzzyQuery?userId=${userId}&username=${username}`
       });
       return false;
     });

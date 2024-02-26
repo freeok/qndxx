@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import work.pcdd.qndxx.common.RCode;
+import work.pcdd.qndxx.entity.Organize;
 import work.pcdd.qndxx.entity.Upload;
 import work.pcdd.qndxx.mapper.ImageMapper;
+import work.pcdd.qndxx.mapper.OrganizeMapper;
 import work.pcdd.qndxx.service.ImageService;
 import work.pcdd.qndxx.util.R;
 import work.pcdd.qndxx.util.UploadUtils;
@@ -38,6 +40,7 @@ import java.util.List;
 public class ImageServiceImpl implements ImageService {
 
     private final ImageMapper imageMapper;
+    private final OrganizeMapper organizeMapper;
 
     /**
      * 截图上传
@@ -87,7 +90,7 @@ public class ImageServiceImpl implements ImageService {
         upload.setImgKey(relativePath);
         upload.setSize(size.doubleValue());
         upload.setExtName(extension);
-        upload.setUploadTime(new Date());
+        upload.setCreatedAt(new Date());
         imageMapper.add(upload);
 
         return R.ok("上传成功");
@@ -124,9 +127,10 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public void deleteUpload(String organizeName) {
-        imageMapper.delete(organizeName);
-        String path = UploadUtils.IMG_REAL_PATH + organizeName;
+    public void deleteUpload(Integer organizeId) {
+        Organize organize = organizeMapper.getOne(organizeId);
+        imageMapper.delete(organize.getId());
+        String path = UploadUtils.IMG_REAL_PATH + organize.getOrganizeName();
         log.info("delete:" + path);
         // 删除指定组织的图片目录
         FileUtil.del(path);
@@ -135,8 +139,8 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<Upload> isUploaded(String userId) {
-        return imageMapper.exists(userId);
+    public List<Upload> list(String userId) {
+        return imageMapper.list(userId);
     }
 
 }

@@ -78,14 +78,16 @@
     let form = layui.form,
       layer = layui.layer;
 
+    let organizeId;
     let organizeName;
 
     $(function () {
+      organizeId = [[${session.admin.getOrganizeId()}]];
       organizeName = [[${session.admin.getOrganizeName()}]];
-      console.log(organizeName)
+
       $("#className2").text(organizeName);
       // 获取期数
-      $.get('/organize/' + organizeName, (res) => {
+      $.get('/organize/' + organizeId, (res) => {
         console.log(res)
         $("#season").val(res.data.season);
         $("#period").val(res.data.period);
@@ -100,7 +102,6 @@
     $("#btnSave").on('click', () => {
       let season = $("#season").val();
       let period = $("#period").val();
-      let organizeName = [[${session.admin.getOrganizeName()}]];
       // 1-100的整数
       //let reg = /^[1-9]\d?|100$/;
       let reg = /^[1-9]\d?$/;
@@ -129,18 +130,19 @@
     // 监听开关
     form.on('switch(filter)', function (data) {
       let isEnable = data.elem.checked;
-      console.log(isEnable); //开关是否开启，true或者false
+      console.log(isEnable ? '开启' : '关闭');
       $.ajax({
         type: 'put',
-        url: '/organize/isEnable/' + data.elem.checked + '/' + organizeName,
+        url: '/organize/action',
+        data: {
+          isEnable: isEnable,
+          organizeId: organizeId
+        },
         dataType: 'json',
         success: (res) => {
           if (res.code === 200) {
             layer.msg(isEnable ? "系统已开启" : "系统已关闭");
           }
-        },
-        error: () => {
-          alert("put请求失败！");
         }
       });
     });
@@ -150,20 +152,16 @@
       layer.confirm("确定开启吗？", {title: '警告'}, () => {
         $.ajax({
           type: 'delete',
-          url: '/image/reset/' + organizeName,
+          url: `/image/reset/${organizeId}`,
           dataType: 'json',
           success: (res) => {
             if (res.code === 200) {
               layer.msg("操作成功", {icon: 1, offset: 't'});
             }
-          },
-          error: () => {
-            alert("delete请求失败！");
           }
         });
       });
     });
-
 
   });
 </script>

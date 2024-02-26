@@ -17,14 +17,17 @@ import java.util.Date;
 @Schema(name = "组织表")
 public class Organize implements Serializable {
 
+    @Schema(name = "组织 ID")
+    private Integer id;
+
     @Schema(name = "组织名")
     private String organizeName;
 
     @Schema(name = "季数")
-    private String season;
+    private Integer season;
 
     @Schema(name = "期数")
-    private String period;
+    private Integer period;
 
     @Schema(name = "系统启动状态")
     private Boolean isEnable;

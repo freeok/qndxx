@@ -18,8 +18,8 @@ public class OrganizeServiceImpl implements OrganizeService {
     private final OrganizeMapper organizeMapper;
 
     @Override
-    public Organize getOne(String organizeName, HttpSession session) {
-        Organize organize = organizeMapper.getOne(organizeName);
+    public Organize getOne(Integer organizeId, HttpSession session) {
+        Organize organize = organizeMapper.getOne(organizeId);
         session.setAttribute("organize", organize);
         return organize;
     }

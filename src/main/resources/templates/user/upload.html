@@ -118,12 +118,14 @@
   layui.use(['element', 'layer', 'upload', 'form'], function () {
     const layer = layui.layer, upload = layui.upload;
     const $ = layui.$
+    const user = [[${session.user}]]
 
-    let lastPath, par, index;
-    let userId = $("#userId").text();
-    let username = $("#username").text();
-    let organizeName = [[${session.user.getOrganizeName()}]];
-    let role = [[${session.user.getRole()}]];
+    let lastPath, par, index
+    let userId = $("#userId").text()
+    let username = $("#username").text()
+    let organizeId = user.organizeId
+    let organizeName = user.organizeName
+    let role = user.role
 
     $(function () {
       // 显示加载效果
@@ -133,7 +135,7 @@
       });
 
       // 获取organize表字段
-      $.get('/organize/' + organizeName, (res) => {
+      $.get('/organize/' + organizeId, (res) => {
         $("#issue").text(`青年大学习第 ${res.data.season} 季第 ${res.data.period} 期`);
         if (!res.data.isEnable) {
           let className = [[${session.user.getOrganizeName()}]];
@@ -166,7 +168,7 @@
         $('#location').text(location);
 
         // 判断用户是否已交朋友圈/首页截图，若已交，则显示对应的截图
-        $.get('/image/isUploaded/' + userId, (res) => {
+        $.get('/image/list/' + userId, (res) => {
           // 有上交记录
           if (res.data.length !== 0) {
             let data = [];
@@ -175,7 +177,7 @@
               let temp = imgKey.substring(0, imgKey.lastIndexOf('/'))
               let pageName = temp.substring(temp.lastIndexOf('/') + 1)
               let obj = {}
-              obj[pageName] = res.data[i].uploadTime;
+              obj[pageName] = res.data[i].createdAt;
               data[i] = obj;
             }
 

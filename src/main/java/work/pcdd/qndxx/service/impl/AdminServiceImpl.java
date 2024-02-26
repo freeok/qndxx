@@ -40,31 +40,31 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public PageInfo<User> findAllByOrganizeName(String organizeName, int pageNum, int pageSize) {
+    public PageInfo<User> findAllByOrganizeName(Integer organizeId, int pageNum, int pageSize) {
         return PageHelper.startPage(pageNum, pageSize)
-                .doSelectPageInfo(() -> adminMapper.findAllByorganizeName(organizeName));
+                .doSelectPageInfo(() -> adminMapper.findAllUserByOrganize(organizeId));
     }
 
     @Override
-    public PageInfo<User> findSubmitted(String organizeName, int pageNum, int pageSize) {
+    public PageInfo<User> findSubmitted(Integer organizeId, int pageNum, int pageSize) {
         return PageHelper.startPage(pageNum, pageSize)
-                .doSelectPageInfo(() -> adminMapper.findSubmitted(organizeName));
+                .doSelectPageInfo(() -> adminMapper.findSubmitted(organizeId));
     }
 
     @Override
-    public PageInfo<User> findUnpaid(String organizeName, int pageNum, int pageSize) {
+    public PageInfo<User> findUnpaid(Integer organizeId, int pageNum, int pageSize) {
         return PageHelper.startPage(pageNum, pageSize)
-                .doSelectPageInfo(() -> adminMapper.findUnpaid(organizeName));
+                .doSelectPageInfo(() -> adminMapper.findUnpaid(organizeId));
     }
 
     @Override
-    public Integer findSubmittedCount(String organizeName) {
-        return adminMapper.findSubmittedCount(organizeName);
+    public Integer findSubmittedCount(Integer organizeId) {
+        return adminMapper.findSubmittedCount(organizeId);
     }
 
     @Override
-    public Integer findUnpaidCount(String organizeName) {
-        return adminMapper.findUnpaidCount(organizeName);
+    public Integer findUnpaidCount(Integer organizeId) {
+        return adminMapper.findUnpaidCount(organizeId);
     }
 
     @Override

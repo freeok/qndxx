@@ -27,13 +27,14 @@
 <script src="/lib/js.cookie.min.js"></script>
 
 <script th:inline="javascript">
-  let organize;
   $(function () {
-    organize = Cookies.get('organize')
-    $.get('/admin/findSubmittedCount/' + organize, (res) => {
+    let organizeId = [[${session.admin.getOrganizeId()}]];
+    let organizeName = Cookies.get('organize')
+
+    $.get('/admin/findSubmittedCount/' , {organizeId: organizeId}, (res) => {
       $('#submittedCount').text('已交' + res.data + '人');
       if (res.data > 0) {
-        $('#download').attr('href', '/image/download/' + organize)
+        $('#download').attr('href', '/image/download/' + organizeName)
           .find('button')
           .removeClass('layui-btn-disabled')
           .attr('disabled', false);
@@ -41,5 +42,6 @@
     });
   });
 </script>
+
 </body>
 </html>

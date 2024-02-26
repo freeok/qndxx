@@ -19,7 +19,7 @@
   <div class="layui-form-item">
     <label class="layui-form-label">学号</label>
     <div class="layui-input-block">
-      <input type="number" name="userId" value="" class="layui-input layui-disabled" disabled>
+      <input type="number" name="userId" value="" class="layui-input">
     </div>
   </div>
 
@@ -33,17 +33,10 @@
   <div class="layui-form-item">
     <label class="layui-form-label">组织</label>
     <div class="layui-input-block">
-      <input type="text" name="organizeName" placeholder="请输入组织" value="" class="layui-input"
-             lay-verify="required">
+      <input type="text" name="organizeName" placeholder="请输入组织" value="" class="layui-input  layui-disabled"
+             disabled lay-verify="required">
     </div>
   </div>
-
-  <!--<div class="layui-form-item">
-      <label class="layui-form-label">邮箱</label>
-      <div class="layui-input-block">
-          <input type="email" name="email" placeholder="请输入邮箱" value="" class="layui-input">
-      </div>
-  </div>-->
 
   <div class="layui-form-item">
     <div class="layui-input-block">
@@ -56,7 +49,7 @@
 
 <script>
   layui.use(['form'], function () {
-    var form = layui.form,
+    const form = layui.form,
       layer = layui.layer,
       $ = layui.$;
 
@@ -77,15 +70,19 @@
     form.on('submit(saveBtn)', function (data) {
       let userId = data.field.userId;
       let username = data.field.username;
-      let organizeName = data.field.organizeName;
       $.ajax({
         type: 'put',
-        url: '/user/update/' + userId + '/' + username + '/' + organizeName + '/' + null + '/' + null,
+        url: '/user/update',
+        data: {
+          userId: userId,
+          oldId: user[0],
+          username: username
+        },
         success: (res) => {
           if (res.code === 200) {
             layer.msg('保存成功', {icon: 1, offset: 't', time: 1000}, function () {
               // 关闭弹出层
-              var iframeIndex = parent.layer.getFrameIndex(window.name);
+              let iframeIndex = parent.layer.getFrameIndex(window.name);
               parent.layer.close(iframeIndex);
             })
           }
