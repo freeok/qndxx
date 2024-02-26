@@ -1,5 +1,6 @@
 package work.pcdd.qndxx.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import work.pcdd.qndxx.entity.Image;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 /**
  * @author pcdd
  */
-public interface ImageMapper {
+public interface ImageMapper extends BaseMapper<Image> {
 
     /**
      * 增加一条图片上传记录

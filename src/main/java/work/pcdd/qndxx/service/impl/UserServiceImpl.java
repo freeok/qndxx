@@ -1,7 +1,6 @@
 package work.pcdd.qndxx.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import work.pcdd.qndxx.common.RCode;
@@ -18,7 +17,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     private final UserMapper userMapper;
 
@@ -26,43 +25,6 @@ public class UserServiceImpl implements UserService {
     public R fuzzyQuery(User user) {
         List<User> list = userMapper.fuzzyQuery(user);
         return R.ok0(list, (long) list.size());
-    }
-
-    @Override
-    public PageInfo<User> findAllByOrganizeName(Integer organizeId, int pageNum, int pageSize) {
-        return PageHelper.startPage(pageNum, pageSize)
-                .doSelectPageInfo(() -> userMapper.findAllUserByOrganize(organizeId));
-    }
-
-    @Override
-    public PageInfo<User> findSubmitted(Integer organizeId, int pageNum, int pageSize) {
-        return PageHelper.startPage(pageNum, pageSize)
-                .doSelectPageInfo(() -> userMapper.findSubmitted(organizeId));
-    }
-
-    @Override
-    public PageInfo<User> findUnpaid(Integer organizeId, int pageNum, int pageSize) {
-        return PageHelper.startPage(pageNum, pageSize)
-                .doSelectPageInfo(() -> userMapper.findUnpaid(organizeId));
-    }
-
-    @Override
-    public Integer findSubmittedCount(Integer organizeId) {
-        return userMapper.findSubmittedCount(organizeId);
-    }
-
-    @Override
-    public Integer findUnpaidCount(Integer organizeId) {
-        return userMapper.findUnpaidCount(organizeId);
-    }
-
-    @Override
-    public R add(User user) {
-        // 添加学生前判断学号是否存在，若存在，则拒绝添加
-        if (userMapper.findById(user.getUserId()) != null) {
-            return R.fail(RCode.USER_HAS_EXISTED);
-        }
-        return R.ok(userMapper.add(user));
     }
 
     @Override
@@ -84,14 +46,5 @@ public class UserServiceImpl implements UserService {
         return R.fail(RCode.ADMIN_UPDATE_PASSWORD_FAIL);
     }
 
-    @Override
-    public Integer update(User user) {
-        return userMapper.update(user);
-    }
-
-    @Override
-    public Integer delete(String userId) {
-        return userMapper.delete(userId);
-    }
 
 }

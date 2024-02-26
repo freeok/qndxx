@@ -1,5 +1,7 @@
 package work.pcdd.qndxx.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +19,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @Schema(name = "用户 ID")
+    @TableId
     private String userId;
 
     @Schema(name = "用户名")

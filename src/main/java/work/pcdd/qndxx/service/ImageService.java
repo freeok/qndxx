@@ -1,5 +1,6 @@
 package work.pcdd.qndxx.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.multipart.MultipartFile;
 import work.pcdd.qndxx.entity.Image;
 import work.pcdd.qndxx.util.R;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * @author pcdd
  */
-public interface ImageService {
+public interface ImageService extends IService<Image> {
 
     /**
      * 上传图片

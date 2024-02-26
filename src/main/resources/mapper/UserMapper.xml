@@ -56,7 +56,7 @@
     </select>
 
     <!--查询不同组织的截图已交人员-->
-    <select id="findSubmitted" resultType="map">
+    <select id="findSubmitted" resultType="user">
         SELECT user.user_id,
                username,
                created_at
@@ -110,25 +110,6 @@
         WHERE user_id = #{userId}
     </update>
 
-    <!--添加学生-->
-    <insert id="add">
-        INSERT INTO user(user_id, username, role, organize_id)
-        VALUES (#{userId}, #{username}, #{role}, #{organize_id})
-    </insert>
 
-    <!--更新学生信息-->
-    <update id="update">
-        UPDATE user
-        SET user_id  = ${userId},
-            username = #{username}
-        WHERE user_id = #{oldId}
-    </update>
-
-    <!--根据学号删除学生-->
-    <delete id="delete">
-        DELETE
-        FROM user
-        WHERE user_id = #{userId}
-    </delete>
 
 </mapper>

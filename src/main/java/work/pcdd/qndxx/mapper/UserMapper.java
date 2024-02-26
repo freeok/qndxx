@@ -1,10 +1,9 @@
 package work.pcdd.qndxx.mapper;
 
-import org.apache.ibatis.annotations.MapKey;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import work.pcdd.qndxx.entity.User;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 说明：
@@ -14,7 +13,7 @@ import java.util.Map;
  *
  * @author pcdd
  */
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<User> {
 
     /**
      * 根据学号查询学生
@@ -56,8 +55,7 @@ public interface UserMapper {
      *
      * @return 学生信息
      */
-    @MapKey("user_id")
-    List<Map<String, Object>> findSubmitted(Integer organizeId);
+    List<User> findSubmitted(Integer organizeId);
 
     /**
      * 根据组织查询截图未交名单
@@ -88,28 +86,5 @@ public interface UserMapper {
      */
     int updPwd(User user);
 
-    /**
-     * 增加学生
-     *
-     * @param user user bean
-     * @return 影响的行数
-     */
-    int add(User user);
-
-    /**
-     * 更新学生信息
-     *
-     * @param user user bean
-     * @return 影响的行数
-     */
-    int update(User user);
-
-    /**
-     * 根据学号删除学生
-     *
-     * @param userId 用户id
-     * @return 影响的行数
-     */
-    int delete(String userId);
 
 }

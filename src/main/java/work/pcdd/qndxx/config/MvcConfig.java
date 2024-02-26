@@ -86,7 +86,6 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(userInterceptor())
                 // api
                 .addPathPatterns("/user/image/**")
-                .addPathPatterns("/user/organize/**")
                 // 页面
                 .addPathPatterns("/upload/**");
 
