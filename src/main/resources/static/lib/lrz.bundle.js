@@ -9,7 +9,7 @@
     }
 })(this, function () {
     return /******/ (function (modules) { // webpackBootstrap
-        /******/ 	// install a JSONP callback for chunk loading
+        /******/ 	// install a JSONP callback for chunk loadi ng
         /******/
         var parentJsonpFunction = window["webpackJsonp"];
         /******/
