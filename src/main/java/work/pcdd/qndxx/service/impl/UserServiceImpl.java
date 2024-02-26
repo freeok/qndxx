@@ -46,5 +46,4 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return R.fail(RCode.ADMIN_UPDATE_PASSWORD_FAIL);
     }
 
-
 }
