@@ -257,7 +257,7 @@
       },
       before: function (obj) {
         console.log('upload before')
-        //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+        // 预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
         obj.preview(function (index, file, result) {// index得到文件索引 file得到文件对象 result 得到文件base64编码，比如图片
           let beforeSize = (file.size / 1024).toFixed(2);
           console.log("压缩前的大小:" + beforeSize + "kb")
@@ -268,7 +268,7 @@
 
           console.log('file', file)
           /* 图片加文字 */
-          imgAddText(result, organizeName + "_" + userId + "_" + username, "80px 微软雅黑", "red").then(res => {
+          imgAddText(result, organizeName + "_" + userId + "_" + username, "red").then(res => {
             // res：加了文字后图片的base64
             // 将base64转换为blob类型 并指定文件名
             file = base642Blob(res, userId + "_" + username + ".jpg")
