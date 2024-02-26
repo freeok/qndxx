@@ -53,6 +53,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- pagehelper 兼容 mp -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>sqlparser4.5</artifactId>

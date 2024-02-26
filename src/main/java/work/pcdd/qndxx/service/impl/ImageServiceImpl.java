@@ -16,6 +16,7 @@ import work.pcdd.qndxx.entity.Organize;
 import work.pcdd.qndxx.mapper.ImageMapper;
 import work.pcdd.qndxx.mapper.OrganizeMapper;
 import work.pcdd.qndxx.service.ImageService;
+import work.pcdd.qndxx.service.OrganizeService;
 import work.pcdd.qndxx.util.R;
 import work.pcdd.qndxx.util.UploadUtils;
 
@@ -29,7 +30,6 @@ import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author pcdd
@@ -41,7 +41,7 @@ import java.util.List;
 public class ImageServiceImpl extends ServiceImpl<ImageMapper, Image> implements ImageService {
 
     private final ImageMapper imageMapper;
-    private final OrganizeMapper organizeMapper;
+    private final OrganizeService organizeService;
 
     /**
      * 截图上传
@@ -128,8 +128,8 @@ public class ImageServiceImpl extends ServiceImpl<ImageMapper, Image> implements
     }
 
     @Override
-    public void deleteUpload(Integer organizeId) {
-        Organize organize = organizeMapper.getOne(organizeId);
+    public void reset(Integer organizeId) {
+        Organize organize = organizeService.getById(organizeId);
         imageMapper.delete(organize.getId());
         String path = UploadUtils.IMG_REAL_PATH + organize.getOrganizeName();
         log.info("delete:" + path);
@@ -137,11 +137,6 @@ public class ImageServiceImpl extends ServiceImpl<ImageMapper, Image> implements
         FileUtil.del(path);
         // 删除指定组织的压缩包
         FileUtil.del(path + ".zip");
-    }
-
-    @Override
-    public List<Image> list(String userId) {
-        return imageMapper.list(userId);
     }
 
 }

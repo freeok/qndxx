@@ -1,6 +1,7 @@
 package work.pcdd.qndxx.controller;
 
 import cn.hutool.core.codec.Base64;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +46,8 @@ public class ImageController {
     @Operation(summary = "查询用上传记录")
     @GetMapping("/user/image/list/{userId}")
     public R<List<Image>> list(@PathVariable String userId) {
-        return R.ok(imageService.list(userId));
+        LambdaQueryWrapper<Image> queryWrapper = new LambdaQueryWrapper<Image>().select().eq(Image::getUserId, userId);
+        return R.ok(imageService.list(queryWrapper));
     }
 
     @Operation(summary = "根据图片路径返回图片的base64编码")
@@ -63,8 +65,8 @@ public class ImageController {
 
     @Operation(summary = "结束指定组织本轮提交")
     @DeleteMapping("/admin/image/reset/{organizeId}")
-    public R deleteUpload(@PathVariable Integer organizeId) {
-        imageService.deleteUpload(organizeId);
+    public R reset(@PathVariable Integer organizeId) {
+        imageService.reset(organizeId);
         return R.ok();
     }
 
