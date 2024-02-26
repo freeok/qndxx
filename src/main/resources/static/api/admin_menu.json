@@ -34,15 +34,15 @@
           "target": "_self"
         },
         {
-          "title": "系统管理",
-          "href": "/menu/settings",
-          "icon": "fa fa-gears",
-          "target": "_self"
-        },
-        {
           "title": "组织管理",
           "href": "/menu/class-mgmt",
           "icon": "fa fa-user",
+          "target": "_self"
+        },
+        {
+          "title": "系统管理",
+          "href": "/menu/settings",
+          "icon": "fa fa-gears",
           "target": "_self"
         }
       ]
