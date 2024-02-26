@@ -170,8 +170,7 @@
                           <div class="panel-content">
                             <h5 class="no-margins"
                                 style="font-weight:bold;overflow: hidden;text-overflow:ellipsis;white-space: nowrap; "
-                                id="organize"
-                                th:text="${session.admin.getOrganizeName()}">
+                                id="organize">
                               <i
                                 class="layui-icon layui-icon-loading-1 layui-anim layui-anim-rotate layui-anim-loop"></i>
                             </h5>
@@ -363,28 +362,17 @@
     miniTab.listen();
 
     let organizeId = [[${session.admin.getOrganizeId()}]];
-    let organizeName = [[${session.admin.getOrganizeName()}]];
-    console.log(organizeName)
 
     $(function () {
       // 根据组织名获取organize表字段
-      $.get('/user/organize/' + organizeId, (res) => {
+      $.get('/admin/statistics', {organizeId: organizeId}, (res) => {
         console.log(res)
         Cookies.set('organize', res.data.organizeName, {expires: 30})
+        $('#organize').text(res.data.organizeName)
         $('#season').text(res.data.season)
         $('#period').text(res.data.period)
-      });
-
-      // 获取截图已交人数
-      $.get('/admin/user/findSubmittedCount', {organizeId: organizeId}, (res) => {
-        console.log(res)
-        $('#submittedCount').text(res.data);
-      });
-
-      // 获取截图未交人数
-      $.get('/admin/user/findUnpaidCount', {organizeId: organizeId}, (res) => {
-        console.log(res)
-        $('#unpaidCount').text(res.data);
+        $('#submittedCount').text(res.data.submittedCount);
+        $('#unpaidCount').text(res.data.unpaidCount);
       });
     });
 

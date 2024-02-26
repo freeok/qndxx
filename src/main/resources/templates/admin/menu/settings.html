@@ -75,8 +75,9 @@
 <script th:inline="javascript">
 
   layui.use(['form', 'layer'], function () {
-    let form = layui.form,
-      layer = layui.layer;
+    const form = layui.form,
+      layer = layui.layer,
+      $ = layui.$
 
     let organizeId;
     let organizeName;
@@ -109,10 +110,14 @@
         layer.msg("请输入1-99的整数");
         return;
       }
-      $.ajax({
-        type: 'put',
-        url: '/admin/organize/issue/' + season + '/' + period + '/' + organizeName,
-        dataType: 'json',
+      $.post({
+        url: '/admin/organize/update',
+        data: JSON.stringify({
+          id: organizeId,
+          season: season,
+          period: period
+        }),
+        contentType: 'application/json',
         success: (res) => {
           if (res.code === 200) {
             layer.msg("保存成功", {
@@ -120,9 +125,6 @@
               offset: 't'
             });
           }
-        },
-        error: () => {
-          alert("put请求失败！");
         }
       });
     });
@@ -131,14 +133,13 @@
     form.on('switch(filter)', function (data) {
       let isEnable = data.elem.checked;
       console.log(isEnable ? '开启' : '关闭');
-      $.ajax({
-        type: 'put',
-        url: '/admin/organize/action',
-        data: {
-          isEnable: isEnable,
-          organizeId: organizeId
-        },
-        dataType: 'json',
+      $.post({
+        url: '/admin/organize/update',
+        data: JSON.stringify({
+          id: organizeId,
+          isEnable: isEnable
+        }),
+        contentType: 'application/json',
         success: (res) => {
           if (res.code === 200) {
             layer.msg(isEnable ? "系统已开启" : "系统已关闭");
