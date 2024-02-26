@@ -6,7 +6,7 @@
 <mapper namespace="work.pcdd.qndxx.mapper.ImageMapper">
 
     <!-- 查询用上传记录 -->
-    <select id="list">
+    <select id="list" resultType="image">
         SELECT *
         FROM image
         WHERE user_id = #{userId}

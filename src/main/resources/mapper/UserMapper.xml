@@ -6,7 +6,7 @@
 <mapper namespace="work.pcdd.qndxx.mapper.UserMapper">
 
     <!--根据学号查询学生-->
-    <select id="findById">
+    <select id="findById" resultType="user">
         SELECT user_id, username, pwd, role, user.organize_id, organize_name
         FROM user,
              organize
@@ -15,7 +15,7 @@
     </select>
 
     <!--模糊查询学生-->
-    <select id="fuzzyQuery">
+    <select id="fuzzyQuery" resultType="user">
         SELECT user_id, username, organize_name
         FROM user,organize
         WHERE user.organize_id = organize.id
@@ -28,7 +28,7 @@
     </select>
 
     <!--管理员登录-->
-    <select id="login">
+    <select id="login" resultType="user">
         SELECT user_id, username, pwd, role, organize_id, organize_name
         FROM user,
              organize
@@ -39,7 +39,7 @@
     </select>
 
     <!-- 查询当前组织的所有学生 -->
-    <select id="findAllUserByOrganize">
+    <select id="findAllUserByOrganize" resultType="user">
         SELECT user_id, username, organize_name
         FROM user,
              organize
@@ -48,7 +48,7 @@
     </select>
 
     <!--查询所有学生-->
-    <select id="findAll">
+    <select id="findAll" resultType="user">
         SELECT user_id, username, pwd, role, organize_name
         FROM user,
              organize
@@ -69,7 +69,7 @@
     </select>
 
     <!--查询不同组织的截图未交人员-->
-    <select id="findUnpaid">
+    <select id="findUnpaid" resultType="user">
         SELECT user_id,
                username
         FROM user
@@ -83,7 +83,7 @@
     </select>
 
     <!--查询不同组织的截图已交人数-->
-    <select id="findSubmittedCount">
+    <select id="findSubmittedCount" resultType="int">
         SELECT count(distinct user.user_id)
         FROM user,
              image
@@ -92,7 +92,7 @@
     </select>
 
     <!--查询不同组织的截图未交人员-->
-    <select id="findUnpaidCount">
+    <select id="findUnpaidCount" resultType="int">
         SELECT COUNT(*)
         FROM user
         WHERE user_id NOT IN (SELECT user.user_id
