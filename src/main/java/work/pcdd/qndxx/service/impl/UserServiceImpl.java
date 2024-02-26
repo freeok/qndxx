@@ -46,8 +46,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public R findByName(User user) {
-        List<User> list = userMapper.findByName(user);
+    public R fuzzyQuery(User user) {
+        List<User> list = userMapper.fuzzyQuery(user);
         return R.ok0(list, (long) list.size());
     }
 

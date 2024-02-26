@@ -28,7 +28,7 @@ public class AdminController {
     public R<List<User>> findAllByOrganizeName(@RequestParam int page, @RequestParam int limit, HttpSession session) {
         // 从session中取出当前管理员所在的组织作为参数传递
         User admin = (User) session.getAttribute("admin");
-        PageInfo<User> pageInfo = adminService.findAllByOrganizeName(admin.getOrganizeName(), page, limit);
+        PageInfo<User> pageInfo = adminService.findAllByOrganizeName(admin.getOrganizeId(), page, limit);
         return R.ok0(pageInfo.getList(), pageInfo.getTotal());
     }
 
@@ -36,7 +36,7 @@ public class AdminController {
     @GetMapping("/findSubmitted")
     public R<List<User>> findSubmitted(@RequestParam int page, @RequestParam int limit, HttpSession session) {
         User admin = (User) session.getAttribute("admin");
-        PageInfo<User> pageInfo = adminService.findSubmitted(admin.getOrganizeName(), page, limit);
+        PageInfo<User> pageInfo = adminService.findSubmitted(admin.getOrganizeId(), page, limit);
         return R.ok0(pageInfo.getList(), pageInfo.getTotal());
     }
 
@@ -44,20 +44,20 @@ public class AdminController {
     @GetMapping("/findUnpaid")
     public R<List<User>> findUnpaid(@RequestParam int page, @RequestParam int limit, HttpSession session) {
         User admin = (User) session.getAttribute("admin");
-        PageInfo<User> pageInfo = adminService.findUnpaid(admin.getOrganizeName(), page, limit);
+        PageInfo<User> pageInfo = adminService.findUnpaid(admin.getOrganizeId(), page, limit);
         return R.ok0(pageInfo.getList(), pageInfo.getTotal());
     }
 
     @Operation(summary = "查询截图已交人数")
-    @GetMapping("/findSubmittedCount/{organizeName}")
-    public R<Integer> findSubmittedCount(@PathVariable("organizeName") String organizeName) {
-        return R.ok(adminService.findSubmittedCount(organizeName));
+    @GetMapping("/findSubmittedCount")
+    public R<Integer> findSubmittedCount(@RequestParam Integer organizeId) {
+        return R.ok(adminService.findSubmittedCount(organizeId));
     }
 
     @Operation(summary = "查询截图未交人数")
-    @GetMapping("/findUnpaidCount/{organizeName}")
-    public R<Integer> findUnpaidCount(@PathVariable("organizeName") String organizeName) {
-        return R.ok(adminService.findUnpaidCount(organizeName));
+    @GetMapping("/findUnpaidCount")
+    public R<Integer> findUnpaidCount(@RequestParam Integer organizeId) {
+        return R.ok(adminService.findUnpaidCount(organizeId));
     }
 
     @Operation(summary = "修改管理员密码")

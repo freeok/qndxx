@@ -13,22 +13,22 @@ import java.util.Date;
 @Schema(description = "上传记录表")
 public class Upload implements Serializable {
 
-    @Schema(name = "id")
+    @Schema(name = "上传 ID")
     private Integer id;
-
-    @Schema(name = "用户id")
-    private String userId;
 
     @Schema(name = "图片路径")
     private String imgKey;
 
-    @Schema(name = "图片大小（单位kb）")
+    @Schema(name = "图片大小(KB)")
     private Double size;
 
     @Schema(name = "图片扩展名")
     private String extName;
 
     @Schema(name = "上传时间")
-    private Date uploadTime;
+    private Date createdAt;
+
+    @Schema(name = "用户 ID")
+    private String userId;
 
 }

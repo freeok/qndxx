@@ -10,10 +10,9 @@ public interface OrganizeMapper {
     /**
      * organize
      *
-     * @param organizeName 组织名
      * @return Organize bean
      */
-    Organize getOne(String organizeName);
+    Organize getOne(Integer organizeId);
 
     /**
      * 根据组织修改期数

@@ -17,4 +17,7 @@ public class System implements Serializable {
     @Schema(name = "公告信息")
     private String notice;
 
+    @Schema(name = "系统版本")
+    private String version;
+
 }

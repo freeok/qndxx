@@ -28,7 +28,7 @@ public interface UserMapper {
      * @param user user bean
      * @return user bean
      */
-    List<User> findByName(User user);
+    List<User> fuzzyQuery(User user);
 
     /**
      * 增加学生

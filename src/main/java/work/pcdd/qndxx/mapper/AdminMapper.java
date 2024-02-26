@@ -13,19 +13,15 @@ public interface AdminMapper {
 
     /**
      * 管理员登录
-     *
-     * @param stu 管理员（学生）bean
-     * @return 管理员（学生）bean
      */
-    User login(User stu);
+    User login(User user);
 
     /**
      * 根据组织名查询所有学生的学号，姓名，组织
      *
-     * @param organizeName 组织名
      * @return 学生信息
      */
-    List<User> findAllByorganizeName(String organizeName);
+    List<User> findAllUserByOrganize(Integer organizeId);
 
     /**
      * 查询所有学生
@@ -37,35 +33,31 @@ public interface AdminMapper {
     /**
      * 根据组织查询截图已交名单
      *
-     * @param organizeName 组织名
      * @return 学生信息
      */
     @MapKey("user_id")
-    List<Map<String, Object>> findSubmitted(String organizeName);
+    List<Map<String, Object>> findSubmitted(Integer organizeId);
 
     /**
      * 根据组织查询截图未交名单
      *
-     * @param organizeName 组织名
      * @return 学生信息
      */
-    List<User> findUnpaid(String organizeName);
+    List<User> findUnpaid(Integer organizeId);
 
     /**
      * 根据组织查询截图已交人数
      *
-     * @param organizeName 组织名
      * @return 记录数
      */
-    int findSubmittedCount(String organizeName);
+    int findSubmittedCount(Integer organizeId);
 
     /**
      * 根据组织查询截图未交交人数
      *
-     * @param organizeName 组织名
      * @return 记录数
      */
-    int findUnpaidCount(String organizeName);
+    int findUnpaidCount(Integer organizeId);
 
     /**
      * 根据学号修改管理员密码

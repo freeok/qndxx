@@ -22,14 +22,14 @@ public class OrganizeController {
     private final OrganizeService organizeService;
 
     @Operation(summary = "查询组织信息")
-    @GetMapping("/{organizeName}")
-    public R<Organize> getOne(@PathVariable("organizeName") String organizeName, HttpSession session) {
-        return R.ok(organizeService.getOne(organizeName, session));
+    @GetMapping("/{organizeId}")
+    public R<Organize> getOne(@PathVariable("organizeId") Integer organizeId, HttpSession session) {
+        return R.ok(organizeService.getOne(organizeId, session));
     }
 
     @Operation(summary = "修改季数和期数")
     @PutMapping("/issue/{season}/{period}/{organizeName}")
-    public R<Integer> updateIssue(@PathVariable String season, @PathVariable String period, @PathVariable String organizeName) {
+    public R<Integer> updateIssue(@PathVariable Integer season, @PathVariable Integer period, @PathVariable String organizeName) {
         Organize organize = new Organize();
         organize.setSeason(season);
         organize.setPeriod(period);
@@ -38,11 +38,11 @@ public class OrganizeController {
     }
 
     @Operation(summary = "开启/关闭系统")
-    @PutMapping("/isEnable/{isEnable}/{organizeName}")
-    public R<Integer> updateIsEnable(@PathVariable boolean isEnable, @PathVariable String organizeName, HttpSession session) {
+    @PutMapping("/action")
+    public R<Integer> updateIsEnable(@RequestParam Boolean isEnable, @RequestParam Integer organizeId, HttpSession session) {
         Organize organize = new Organize();
+        organize.setId(organizeId);
         organize.setIsEnable(isEnable);
-        organize.setOrganizeName(organizeName);
         return R.ok(organizeService.updateIsEnable(organize, session));
     }
 

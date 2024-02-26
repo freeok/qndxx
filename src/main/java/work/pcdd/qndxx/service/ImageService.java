@@ -30,16 +30,13 @@ public interface ImageService {
      *
      * @param req  request对象
      * @param resp response对象
-     * @return 执行结果
      */
     void download(HttpServletRequest req, HttpServletResponse resp, String organizeName);
 
     /**
      * 根据组织删除upload表记录
-     *
-     * @return 执行结果
      */
-    void deleteUpload(String organizeName);
+    void deleteUpload(Integer organizeId);
 
     /**
      * 根据学号查询upload表字段
@@ -47,6 +44,6 @@ public interface ImageService {
      * @param userId 用户id
      * @return 执行结果
      */
-    List<Upload> isUploaded(String userId);
+    List<Upload> list(String userId);
 
 }

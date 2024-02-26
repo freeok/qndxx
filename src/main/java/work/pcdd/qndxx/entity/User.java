@@ -31,4 +31,9 @@ public class User implements Serializable {
     @Schema(name = "组织名")
     private String organizeName;
 
+    @Schema(name = "组织 ID")
+    private Integer organizeId;
+
+    private String oldId;
+
 }

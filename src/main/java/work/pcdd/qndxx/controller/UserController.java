@@ -22,12 +22,12 @@ public class UserController {
     private final UserService userService;
 
     @Operation(summary = "模糊查询用户")
-    @GetMapping("/findByIdOrName/{username}/{organizeName}")
-    public R findByIdOrName(@PathVariable String username, @PathVariable String organizeName) {
+    @GetMapping("/fuzzyQuery")
+    public R fuzzyQuery(@RequestParam String userId, @RequestParam String username) {
         User user = new User();
+        user.setUserId(userId);
         user.setUsername(username);
-        user.setOrganizeName(organizeName);
-        return userService.findByName(user);
+        return userService.fuzzyQuery(user);
     }
 
     @Operation(summary = "添加用户")
@@ -41,18 +41,14 @@ public class UserController {
     }
 
     @Operation(summary = "更新用户信息")
-    @PutMapping("/update/{userId}/{username}/{organizeName}/{pwd}/{role}")
-    public R<Integer> update(@PathVariable String userId
-            , @PathVariable String username
-            , @PathVariable String organizeName
-            , @PathVariable String pwd
-            , @PathVariable String role) {
+    @PutMapping("/update")
+    public R<Integer> update(@RequestParam String userId,
+                             @RequestParam String oldId,
+                             @RequestParam String username) {
         User user = new User();
         user.setUserId(userId);
+        user.setOldId(oldId);
         user.setUsername(username);
-        user.setOrganizeName(organizeName);
-        user.setPwd(pwd);
-        user.setRole(role);
         return R.ok(userService.update(user));
     }
 

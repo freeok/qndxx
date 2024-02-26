@@ -2,28 +2,28 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="work.pcdd.qndxx.mapper.OrganizeMapper">
-    <!--根据组织名查询organize表-->
-    <select id="getOne" parameterType="string" resultType="organize">
-        SELECT organize_name, season, period, is_enable, created_at
+
+    <!-- 查询organize表 -->
+    <select id="getOne">
+        SELECT *
         FROM organize
-        WHERE organize_name = #{organizeName}
+        WHERE id = #{organizeId}
     </select>
 
-    <!--根据组织修改季数和期数-->
-    <update id="updateIssue" parameterType="organize">
+    <!-- 根据组织修改季数和期数 -->
+    <update id="updateIssue" >
         UPDATE organize
         SET season = #{season},
             period =#{period}
         WHERE organize_name = #{organizeName}
     </update>
 
-    <!--根据组织修改系统状态（开启或关闭）-->
-    <update id="updateIsEnable" parameterType="organize">
+    <!-- 修改组织系统状态（开启或关闭） -->
+    <update id="updateIsEnable" >
         UPDATE organize
         SET is_enable = #{isEnable}
-        WHERE organize_name = #{organizeName}
+        WHERE id = #{id}
     </update>
 
 </mapper>
