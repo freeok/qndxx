@@ -5,10 +5,7 @@ import com.ramostear.captcha.support.CaptchaStyle;
 import com.ramostear.captcha.support.CaptchaType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import work.pcdd.qndxx.common.RCode;
 import work.pcdd.qndxx.util.R;
 
@@ -33,9 +30,9 @@ public class CaptchaController {
     }
 
     @Operation(summary = "验证码校验")
-    @PostMapping("/user/captcha/{code}")
-    public R verify(@PathVariable("code") String code, HttpServletRequest request) {
-        if (HappyCaptcha.verification(request, code, true)) {
+    @PostMapping("/user/captcha/verify")
+    public R verify(@RequestParam("captcha") String captcha, HttpServletRequest request) {
+        if (HappyCaptcha.verification(request, captcha, true)) {
             HappyCaptcha.remove(request);
             return R.ok();
         }
