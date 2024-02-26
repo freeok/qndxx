@@ -18,7 +18,7 @@ public interface ImageService extends IService<Image> {
      * 上传图片
      *
      * @param id           账号
-     * @param name         学生姓名
+     * @param name         用户姓名
      * @param par          图片类型：upload1、upload2分别表示朋友圈截图，首页截图
      * @param organizeName 组织名
      * @param mf           MultipartFile对象

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * 学生表
+ * 用户表
  *
  * @author pcdd
  */
