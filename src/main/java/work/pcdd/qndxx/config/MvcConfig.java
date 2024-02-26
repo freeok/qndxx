@@ -84,6 +84,9 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // 用户拦截器
         registry.addInterceptor(userInterceptor())
+                // api
+                .addPathPatterns("/user/image/**")
+                .addPathPatterns("/user/organize/**")
                 // 页面
                 .addPathPatterns("/upload/**");
 
@@ -91,6 +94,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(adminInterceptor())
                 // api
                 .addPathPatterns("/admin/**")
+                .excludePathPatterns("/admin/auth/**")
                 // 页面
                 .addPathPatterns("/menu/*")
                 .addPathPatterns("/common/**")
