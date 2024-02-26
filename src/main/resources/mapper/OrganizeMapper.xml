@@ -5,7 +5,7 @@
 <mapper namespace="work.pcdd.qndxx.mapper.OrganizeMapper">
 
     <!-- 查询organize表 -->
-    <select id="getOne">
+    <select id="getOne" resultType="organize">
         SELECT *
         FROM organize
         WHERE id = #{organizeId}
