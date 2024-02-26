@@ -175,6 +175,6 @@ CREATE TABLE `system`
 -- Records of param
 -- ----------------------------
 INSERT INTO `system`(version)
-VALUES ('v2.0.0');
+VALUES ('v2.1.0');
 
 SET FOREIGN_KEY_CHECKS = 1;

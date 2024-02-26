@@ -31,10 +31,10 @@
     let organizeId = [[${session.admin.getOrganizeId()}]];
     let organizeName = Cookies.get('organize')
 
-    $.get('/admin/findSubmittedCount/' , {organizeId: organizeId}, (res) => {
+    $.get('/admin/user/findSubmittedCount/' , {organizeId: organizeId}, (res) => {
       $('#submittedCount').text('已交' + res.data + '人');
       if (res.data > 0) {
-        $('#download').attr('href', '/image/download/' + organizeName)
+        $('#download').attr('href', '/admin/image/download/' + organizeName)
           .find('button')
           .removeClass('layui-btn-disabled')
           .attr('disabled', false);

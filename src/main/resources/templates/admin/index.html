@@ -165,7 +165,7 @@
     })
 
     $('.login-out').on("click", function () {
-      $.get('/auth/admin/logout', () => {
+      $.get('/admin/auth/logout', () => {
         window.location = '/console/login';
       });
     });

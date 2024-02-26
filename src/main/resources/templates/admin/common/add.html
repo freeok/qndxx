@@ -57,7 +57,7 @@
       let username = data.field.username;
       let organizeName = Cookies.get('organize');
       // TODO fix bug: organizeName is null
-      $.post('/user/add/' + userId + '/' + username + '/' + organizeName, (res) => {
+      $.post('/admin/user/add/' + userId + '/' + username + '/' + organizeName, (res) => {
         console.log(res)
         let iframeIndex = parent.layer.getFrameIndex(window.name);
         if (res.code === 200) {

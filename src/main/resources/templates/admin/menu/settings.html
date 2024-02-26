@@ -87,7 +87,7 @@
 
       $("#className2").text(organizeName);
       // 获取期数
-      $.get('/organize/' + organizeId, (res) => {
+      $.get('/user/organize/' + organizeId, (res) => {
         console.log(res)
         $("#season").val(res.data.season);
         $("#period").val(res.data.period);
@@ -111,7 +111,7 @@
       }
       $.ajax({
         type: 'put',
-        url: '/organize/issue/' + season + '/' + period + '/' + organizeName,
+        url: '/admin/organize/issue/' + season + '/' + period + '/' + organizeName,
         dataType: 'json',
         success: (res) => {
           if (res.code === 200) {
@@ -133,7 +133,7 @@
       console.log(isEnable ? '开启' : '关闭');
       $.ajax({
         type: 'put',
-        url: '/organize/action',
+        url: '/admin/organize/action',
         data: {
           isEnable: isEnable,
           organizeId: organizeId
@@ -152,7 +152,7 @@
       layer.confirm("确定开启吗？", {title: '警告'}, () => {
         $.ajax({
           type: 'delete',
-          url: `/image/reset/${organizeId}`,
+          url: `/admin/image/reset/${organizeId}`,
           dataType: 'json',
           success: (res) => {
             if (res.code === 200) {
