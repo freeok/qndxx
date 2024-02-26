@@ -9,6 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 public class FileUploadDTO {
 
+    /**
+     * 变量名一定为 file
+     */
     private MultipartFile file;
     private String userId;
     private String username;
