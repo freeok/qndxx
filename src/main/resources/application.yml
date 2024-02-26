@@ -23,15 +23,15 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     default-property-inclusion: non_null
 
-mybatis:
+mybatis-plus:
   # 映射文件路径
-  mapper-locations: classpath:mapper/*Mapper.xml
+  mapper-locations: classpath:mapper/*.xml
   # 扫描实体类的位置，在此处指明扫描实体类的包，在mapper中就可以不用写实体类的全路径名了
   type-aliases-package: work.pcdd.qndxx.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 开启下划线转驼峰，例如某个表字段user_id在JavaBean中就可以写为userId
-    map-underscore-to-camel-case: true
+    map-underscore-to-camel-case:
     cache-enabled: true
 
 # 分页助手
