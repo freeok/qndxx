@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import work.pcdd.qndxx.common.RCode;
-import work.pcdd.qndxx.entity.Image;
 import work.pcdd.qndxx.entity.Upload;
 import work.pcdd.qndxx.mapper.ImageMapper;
 import work.pcdd.qndxx.service.ImageService;
@@ -28,7 +27,6 @@ import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author pcdd
@@ -66,7 +64,7 @@ public class ImageServiceImpl implements ImageService {
         String fileName = mf.getOriginalFilename();
         log.info("fileName:" + fileName);
         // 获取文件扩展名
-        String extension = Objects.requireNonNull(fileName).substring(fileName.lastIndexOf("."));
+        String extension = FileUtil.extName(fileName);
         // 获取指定文件在当前项目的绝对路径
         String filePath = UploadUtils.getRealPath("image", organizeName, dirName, fileName);
         log.info("filePath:" + filePath);
@@ -83,19 +81,14 @@ public class ImageServiceImpl implements ImageService {
             log.error(e.getMessage(), e);
         }
 
-        Image image = new Image();
-        image.setImgKey(relativePath);
-        image.setImgSize(size.doubleValue());
-        image.setImgExtension(extension);
-        // 将上传图片的路径、图片大小、图片扩展名保存到image表
-        imageMapper.addImage(image);
-
+        // 保存上传记录
         Upload upload = new Upload();
         upload.setUserId(id);
         upload.setImgKey(relativePath);
+        upload.setSize(size.doubleValue());
+        upload.setExtName(extension);
         upload.setUploadTime(new Date());
-        // 将上传者的学号、文件路径、上传时间保存到upload表
-        imageMapper.addUpload(upload);
+        imageMapper.add(upload);
 
         return R.ok("上传成功");
     }
@@ -132,9 +125,9 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public void deleteUpload(String organizeName) {
-        imageMapper.deleteUpload(organizeName);
+        imageMapper.delete(organizeName);
         String path = UploadUtils.IMG_REAL_PATH + organizeName;
-        log.info("deleteUpload:" + path);
+        log.info("delete:" + path);
         // 删除指定组织的图片目录
         FileUtil.del(path);
         // 删除指定组织的压缩包
@@ -143,7 +136,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public List<Upload> isUploaded(String userId) {
-        return imageMapper.isUploaded(userId);
+        return imageMapper.exists(userId);
     }
 
 }

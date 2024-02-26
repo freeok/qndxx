@@ -8,10 +8,10 @@ DROP TABLE IF EXISTS `organize`;
 CREATE TABLE `organize`
 (
     `organize_name` varchar(50)         NOT NULL,
-    `season`     tinyint(3) UNSIGNED NULL DEFAULT NULL,
-    `period`     tinyint(3) UNSIGNED NULL DEFAULT NULL,
-    `is_enable`  bit(1)              NULL DEFAULT NULL,
-    `created_at` datetime(0)         NULL DEFAULT NULL,
+    `season`        tinyint(3) UNSIGNED NULL DEFAULT NULL,
+    `period`        tinyint(3) UNSIGNED NULL DEFAULT NULL,
+    `is_enable`     bit(1)              NULL DEFAULT NULL,
+    `created_at`    datetime(0)         NULL DEFAULT NULL,
     PRIMARY KEY (`organize_name`)
 );
 
@@ -22,46 +22,15 @@ INSERT INTO `organize`
 VALUES ('计算机科学与技术 2020', 12, 8, b'1', '2021-01-23 15:14:07');
 
 -- ----------------------------
--- Table structure for image
--- ----------------------------
-DROP TABLE IF EXISTS `image`;
-CREATE TABLE `image`
-(
-    `img_key`       char(150)     NOT NULL,
-    `img_size`      decimal(9, 2) NULL DEFAULT NULL,
-    `img_extension` char(5)       NULL DEFAULT NULL,
-    PRIMARY KEY (`img_key`)
-);
-
--- ----------------------------
--- Records of image
--- ----------------------------
-
--- ----------------------------
--- Table structure for system
--- ----------------------------
-DROP TABLE IF EXISTS `system`;
-CREATE TABLE `system`
-(
-    `notice` text NULL
-);
-
--- ----------------------------
--- Records of param
--- ----------------------------
-INSERT INTO `system`
-VALUES (NULL);
-
--- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`
 (
-    `user_id`     char(12)    NOT NULL,
-    `username`   varchar(12) NULL DEFAULT NULL,
-    `pwd`        char(16)    NULL DEFAULT NULL,
-    `role`       varchar(6)  NULL DEFAULT NULL,
+    `user_id`       char(12)    NOT NULL,
+    `username`      varchar(12) NULL DEFAULT NULL,
+    `pwd`           char(16)    NULL DEFAULT NULL,
+    `role`          varchar(6)  NULL DEFAULT NULL,
     `organize_name` varchar(50) NULL DEFAULT NULL,
     PRIMARY KEY (`user_id`)
 );
@@ -178,13 +147,32 @@ VALUES ('202097596172', '萧傲珊', '1', 'user', '计算机科学与技术 2020
 DROP TABLE IF EXISTS `upload`;
 CREATE TABLE `upload`
 (
-    `user_id`      char(12)    NOT NULL,
-    `img_key`     char(150)   NOT NULL,
-    `upload_time` datetime(0) NULL DEFAULT NULL,
-    PRIMARY KEY (`user_id`, `img_key`)
+    `id`          int auto_increment NOT NULL,
+    `user_id`     char(12)           NOT NULL,
+    `img_key`     char(150)          NOT NULL,
+    `size`        decimal(9, 2)      NULL DEFAULT NULL,
+    `ext_name`    char(5)            NULL DEFAULT NULL,
+    `upload_time` datetime(0)        NULL DEFAULT NULL,
+    PRIMARY KEY (`id`)
 );
 
 -- ----------------------------
 -- Records of upload
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for system
+-- ----------------------------
+DROP TABLE IF EXISTS `system`;
+CREATE TABLE `system`
+(
+    `notice` text NULL
+);
+
+-- ----------------------------
+-- Records of param
+-- ----------------------------
+INSERT INTO `system`
+VALUES (NULL);
+
 SET FOREIGN_KEY_CHECKS = 1;

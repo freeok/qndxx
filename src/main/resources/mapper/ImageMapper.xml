@@ -5,7 +5,7 @@
 
 <mapper namespace="work.pcdd.qndxx.mapper.ImageMapper">
     <!--查询用户是否上传-->
-    <select id="isUploaded" parameterType="string" resultType="upload">
+    <select id="exists" parameterType="string" resultType="upload">
         SELECT user_id,
                img_key,
                upload_time
@@ -14,19 +14,13 @@
     </select>
 
     <!--向upload表增加一条新记录，若主键已存在，则覆盖-->
-    <insert id="addUpload" parameterType="upload">
-        REPLACE INTO upload
-        VALUES (#{userId}, #{imgKey}, #{uploadTime})
-    </insert>
-
-    <!--向image表增加一条新记录，若主键已存在，则覆盖-->
-    <insert id="addImage" parameterType="image">
-        REPLACE INTO image
-        VALUES (#{imgKey}, #{imgSize}, #{imgExtension})
+    <insert id="add" parameterType="upload">
+        INSERT INTO upload(user_id, img_key, size, ext_name, upload_time)
+        VALUES (#{userId}, #{imgKey}, #{size}, #{extName}, #{uploadTime})
     </insert>
 
     <!--删除组织删除upload表记录-->
-    <delete id="deleteUpload" parameterType="string">
+    <delete id="delete" parameterType="string">
         DELETE
         FROM upload
         WHERE user_id IN (SELECT user_id FROM user WHERE organize_name = #{organizeName})
