@@ -25,9 +25,4 @@ public interface ImageMapper extends BaseMapper<Image> {
      */
     int delete(Integer organizeId);
 
-    /**
-     * 查询用上传记录
-     */
-    List<Image> list(String userId);
-
 }

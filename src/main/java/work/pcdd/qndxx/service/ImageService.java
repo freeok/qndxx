@@ -37,14 +37,6 @@ public interface ImageService extends IService<Image> {
     /**
      * 根据组织删除upload表记录
      */
-    void deleteUpload(Integer organizeId);
-
-    /**
-     * 根据账号查询upload表字段
-     *
-     * @param userId 用户id
-     * @return 执行结果
-     */
-    List<Image> list(String userId);
+    void reset(Integer organizeId);
 
 }

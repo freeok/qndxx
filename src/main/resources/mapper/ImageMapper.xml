@@ -5,13 +5,6 @@
 
 <mapper namespace="work.pcdd.qndxx.mapper.ImageMapper">
 
-    <!-- 查询用上传记录 -->
-    <select id="list" resultType="image">
-        SELECT *
-        FROM image
-        WHERE user_id = #{userId}
-    </select>
-
     <!-- 新增一条记录，若主键已存在，则覆盖 -->
     <insert id="add">
         INSERT INTO image(user_id, img_key, size, ext_name, created_at)
