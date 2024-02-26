@@ -120,7 +120,7 @@
     const $ = layui.$
     const user = [[${session.user}]]
 
-    let lastPath, par, index
+    let lastPath, type, index
     let userId = $("#userId").text()
     let username = $("#username").text()
     let organizeId = user.organizeId
@@ -160,10 +160,10 @@
 
         lastPath = window.location.href.substring(window.location.href.lastIndexOf('/') + 1)
         // 传给上传请求的参数，判断打开的是的朋友圈截图上传页面，还是首页截图上传页面
-        par = (lastPath === "moments" ? "upload1" : "upload2");
+        type = (lastPath === "moments" ? "upload1" : "upload2");
         console.log("lastPath:" + lastPath)
-        console.log("par:" + par)
-        let location = par === 'upload1' ? '朋友圈截图上交' : '首页截图上交';
+        console.log("type:" + type)
+        let location = type === 'upload1' ? '朋友圈截图上交' : '首页截图上交';
         let locationImgUrl;
         $('#location').text(location);
 
@@ -184,10 +184,10 @@
             let uploadTime;
             for (let i = 0; i < data.length; i++) {
               let key = Object.keys(data[i]).toString();
-              if (key === '朋友圈截图' && par === 'upload1') {
+              if (key === '朋友圈截图' && type === 'upload1') {
                 uploadTime = data[i][key];
               }
-              if (key === '首页截图' && par === 'upload2') {
+              if (key === '首页截图' && type === 'upload2') {
                 uploadTime = data[i][key];
               }
             }
@@ -280,18 +280,22 @@
               fieldName: 'file',
               quality: 0.7
             }).then(function (rst) {
-              // res.formData.append('file', rst.base64); // 添加额外参数
+              // 添加额外参数
+              rst.formData.append('userId', userId);
+              rst.formData.append('username', username);
+              rst.formData.append('organizeName', organizeName);
+              rst.formData.append('type', type);
+
               let afterSize = (rst.fileLen / 1024).toFixed(2);
               console.log("压缩后的大小:" + afterSize + "kb")
               console.log("体积减少：" + ((1 - afterSize / beforeSize) * 100).toFixed(2) + "%")
               layerMsg.html(anim + '图片上传中');
 
-              $.ajax({
-                url: `/user/image/upload/${userId}/${username}/${par}/${organizeName}`,
-                type: 'post',
+              $.post({
+                url: '/user/image/upload',
                 data: rst.formData,
-                processData: false,
                 contentType: false,
+                processData: false,
                 success: function (res) {
                   console.log(res)
                   layer.msg('上传成功，耗时:' + (new Date().getTime() - start) / 1000 + "s", {

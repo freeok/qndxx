@@ -13,15 +13,14 @@ import org.springframework.web.multipart.MultipartFile;
 import work.pcdd.qndxx.common.RCode;
 import work.pcdd.qndxx.entity.Image;
 import work.pcdd.qndxx.entity.Organize;
+import work.pcdd.qndxx.entity.dto.FileUploadDTO;
 import work.pcdd.qndxx.mapper.ImageMapper;
-import work.pcdd.qndxx.mapper.OrganizeMapper;
 import work.pcdd.qndxx.service.ImageService;
 import work.pcdd.qndxx.service.OrganizeService;
 import work.pcdd.qndxx.util.R;
 import work.pcdd.qndxx.util.UploadUtils;
 
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
@@ -45,22 +44,17 @@ public class ImageServiceImpl extends ServiceImpl<ImageMapper, Image> implements
 
     /**
      * 截图上传
-     *
-     * @param id           账号
-     * @param name         用户姓名
-     * @param type         图片类型：upload1、upload2分别表示朋友圈截图，首页截图
-     * @param organizeName 组织名
-     * @param mf           MultipartFile对象
      */
     @Override
-    public R upload(String id, String name, String type, String organizeName, MultipartFile mf) {
+    public R upload(FileUploadDTO dto) {
+        MultipartFile mf = dto.getFile();
         // 若文件不存在，则拒绝上传
         if (mf.isEmpty()) {
             return R.fail(RCode.FILE_NOT_FOUND);
         }
 
         // 判断上传到哪个目录
-        String dirName = "upload1".equals(type) ? "朋友圈截图" : "首页截图";
+        String dirName = "upload1".equals(dto.getType()) ? "朋友圈截图" : "首页截图";
         // 获取文件大小(B => KB)，保留两位小数
         BigDecimal size = NumberUtil.round(mf.getSize() / 1024.0, 2);
         log.info("fileSize:" + size.doubleValue() + "KB");
@@ -70,7 +64,7 @@ public class ImageServiceImpl extends ServiceImpl<ImageMapper, Image> implements
         // 获取文件扩展名
         String extension = FileUtil.extName(fileName);
         // 获取指定文件在当前项目的绝对路径
-        String filePath = UploadUtils.getRealPath("image", organizeName, dirName, fileName);
+        String filePath = UploadUtils.getRealPath("image", dto.getOrganizeName(), dirName, fileName);
         log.info("filePath:" + filePath);
         // 相对路径
         String relativePath = filePath.substring(filePath.indexOf("uploads"));
@@ -87,7 +81,7 @@ public class ImageServiceImpl extends ServiceImpl<ImageMapper, Image> implements
 
         // 保存上传记录
         Image image = new Image();
-        image.setUserId(id);
+        image.setUserId(dto.getUserId());
         image.setImgKey(relativePath);
         image.setSize(size.doubleValue());
         image.setExtName(extension);
@@ -100,13 +94,12 @@ public class ImageServiceImpl extends ServiceImpl<ImageMapper, Image> implements
     /**
      * 截图下载
      *
-     * @param req          request对象
      * @param resp         response对象
      * @param organizeName 组织名
      */
     @SneakyThrows
     @Override
-    public void download(HttpServletRequest req, HttpServletResponse resp, String organizeName) {
+    public void download(HttpServletResponse resp, String organizeName) {
         // 指定压缩哪一个目录（目录名即为组织名）
         String filePath = UploadUtils.IMG_REAL_PATH + organizeName;
         log.info("filePath:" + filePath);

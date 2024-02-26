@@ -6,8 +6,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import work.pcdd.qndxx.entity.Image;
+import work.pcdd.qndxx.entity.dto.FileUploadDTO;
 import work.pcdd.qndxx.service.ImageService;
 import work.pcdd.qndxx.util.R;
 
@@ -27,20 +27,16 @@ public class ImageController {
 
     private final ImageService imageService;
 
-    @Operation(summary = "截图上传")
-    @PostMapping("/user/image/upload/{id}/{name}/{par}/{organizeName}")
-    public R upload(@RequestParam("file") MultipartFile mf
-            , @PathVariable("id") String id
-            , @PathVariable("name") String name
-            , @PathVariable("par") String par
-            , @PathVariable("organizeName") String organizeName) {
-        return imageService.upload(id, name, par, organizeName, mf);
+    @Operation(summary = "图片上传")
+    @PostMapping("/user/image/upload")
+    public R upload(FileUploadDTO dto) {
+        return imageService.upload(dto);
     }
 
-    @Operation(summary = "截图下载")
-    @GetMapping("/admin/image/download/{organizeName}")
-    public void download(HttpServletRequest req, HttpServletResponse resp, @PathVariable String organizeName) {
-        imageService.download(req, resp, organizeName);
+    @Operation(summary = "图片下载")
+    @GetMapping("/admin/image/download")
+    public void download(HttpServletResponse resp, @RequestParam String organizeName) {
+        imageService.download(resp, organizeName);
     }
 
     @Operation(summary = "查询用上传记录")
