@@ -1,4 +1,36 @@
 /**
+ * 图片加文字
+ * @param  base64 图片base64编码
+ * @param  text 文字内容
+ * @param color 文字颜色
+ * @return string 图片base64编码
+ */
+async function imgAddText(base64, text, color) {
+  // 1.base64编码转canvas
+  const tempCanvas = await imgToCanvas(base64);
+  // 2.canvas添加水印
+  const canvas = addWatermark(tempCanvas, text, color);
+  // 3.canvas转成img
+  const img = canvasToImg(canvas);
+  // 查看效果
+  //document.body.appendChild(img);
+  return img.src;
+}
+
+// 将base64转换为blob类型，目的为了兼容IE
+function base642Blob(dataUrl, fileName) {
+  let arr = dataUrl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+    bStr = atob(arr[1]), n = bStr.length, u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bStr.charCodeAt(n);
+  }
+  let blob = new Blob([u8arr], {type: mime});
+  blob.lastModifiedDate = new Date();
+  blob.name = fileName;
+  return blob
+}
+
+/**
  * base64编码 => canvas
  */
 async function imgToCanvas(base64) {
@@ -57,38 +89,6 @@ function canvasToImg(canvas) {
   // 指定格式 JPG
   image.src = canvas.toDataURL("image/jpg");
   return image;
-}
-
-/**
- * 图片加文字
- * @param  base64 图片base64编码
- * @param  text 文字内容
- * @param color 文字颜色
- * @return string 图片base64编码
- */
-async function imgAddText(base64, text, color) {
-  // 1.base64编码转canvas
-  const tempCanvas = await imgToCanvas(base64);
-  // 2.canvas添加水印
-  const canvas = addWatermark(tempCanvas, text, color);
-  // 3.canvas转成img
-  const img = canvasToImg(canvas);
-  // 查看效果
-  //document.body.appendChild(img);
-  return img.src;
-}
-
-// 将base64转换为blob类型，目的为了兼容IE
-function base642Blob(dataUrl, fileName) {
-  let arr = dataUrl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-    bStr = atob(arr[1]), n = bStr.length, u8arr = new Uint8Array(n);
-  while (n--) {
-    u8arr[n] = bStr.charCodeAt(n);
-  }
-  let blob = new Blob([u8arr], {type: mime});
-  blob.lastModifiedDate = new Date();
-  blob.name = fileName;
-  return blob
 }
 
 // 将base64转换为file类型
