@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import work.pcdd.qndxx.entity.Image;
-import work.pcdd.qndxx.entity.dto.FileUploadDTO;
+import work.pcdd.qndxx.common.dto.FileUploadDTO;
 import work.pcdd.qndxx.service.ImageService;
 import work.pcdd.qndxx.util.R;
 

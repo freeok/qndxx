@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import work.pcdd.qndxx.common.RCode;
 import work.pcdd.qndxx.entity.Image;
 import work.pcdd.qndxx.entity.Organize;
-import work.pcdd.qndxx.entity.dto.FileUploadDTO;
+import work.pcdd.qndxx.common.dto.FileUploadDTO;
 import work.pcdd.qndxx.mapper.ImageMapper;
 import work.pcdd.qndxx.service.ImageService;
 import work.pcdd.qndxx.service.OrganizeService;

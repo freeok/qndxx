@@ -1,4 +1,4 @@
-package work.pcdd.qndxx.entity.dto;
+package work.pcdd.qndxx.common.dto;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
