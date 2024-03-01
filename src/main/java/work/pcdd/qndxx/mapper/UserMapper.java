@@ -1,6 +1,7 @@
 package work.pcdd.qndxx.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import work.pcdd.qndxx.common.vo.UploadDetailsVO;
 import work.pcdd.qndxx.entity.User;
 
 import java.util.List;
@@ -50,19 +51,7 @@ public interface UserMapper extends BaseMapper<User> {
      */
     List<User> findAll();
 
-    /**
-     * 根据组织查询截图已交名单
-     *
-     * @return 用户信息
-     */
-    List<User> findSubmitted(Integer organizeId);
-
-    /**
-     * 根据组织查询截图未交名单
-     *
-     * @return 用户信息
-     */
-    List<User> findUnpaid(Integer organizeId);
+    List<UploadDetailsVO> getUploadDetails(Integer organizeId);
 
     /**
      * 根据组织查询截图已交人数

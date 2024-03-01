@@ -46,21 +46,13 @@ public class UserController {
         return R.ok0(pageInfo.getList(), pageInfo.getTotal());
     }
 
-    @Operation(summary = "查询截图已交用户信息")
-    @GetMapping("/user/findSubmitted")
-    public R findSubmitted(@RequestParam int page, @RequestParam int limit, HttpSession session) {
+    @Operation(summary = "查询截图上交情况")
+    @GetMapping("/user/upload-details")
+    public R getSubmitDetails(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int limit, HttpSession session) {
         User admin = (User) session.getAttribute("admin");
+        Integer organizeId = admin.getOrganizeId();
         PageInfo<Object> pageInfo = PageHelper.startPage(page, limit)
-                .doSelectPageInfo(() -> userMapper.findSubmitted(admin.getOrganizeId()));
-        return R.ok0(pageInfo.getList(), pageInfo.getTotal());
-    }
-
-    @Operation(summary = "查询截图未交用户信息")
-    @GetMapping("/user/findUnpaid")
-    public R findUnpaid(@RequestParam int page, @RequestParam int limit, HttpSession session) {
-        User admin = (User) session.getAttribute("admin");
-        PageInfo<Object> pageInfo = PageHelper.startPage(page, limit)
-                .doSelectPageInfo(() -> userMapper.findUnpaid(admin.getOrganizeId()));
+                .doSelectPageInfo(() -> userMapper.getUploadDetails(organizeId));
         return R.ok0(pageInfo.getList(), pageInfo.getTotal());
     }
 

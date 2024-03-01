@@ -55,31 +55,18 @@
         WHERE user.organize_id = organize.id
     </select>
 
-    <!--查询不同组织的截图已交人员-->
-    <select id="findSubmitted" resultType="user">
-        SELECT user.user_id,
-               username,
-               created_at
-        FROM user,
-             image
-        WHERE organize_id = #{organizeId}
-          AND user.user_id = image.user_id
+    <!-- 查询截图上交情况 -->
+    <select id="getUploadDetails" resultType="work.pcdd.qndxx.common.vo.UploadDetailsVO">
+        SELECT u.user_id,
+               u.username,
+               IF(i.id IS NULL, '未交', '已交')     AS has_uploaded,
+               IF(i.id IS NULL, NULL, i.created_at) AS created_at
+        FROM user u
+                 LEFT JOIN image i ON u.user_id = i.user_id
+                 LEFT JOIN organize o ON u.organize_id = o.id
+        WHERE u.organize_id = #{organizeId}
         GROUP BY user_id
-        ORDER BY created_at DESC
-    </select>
-
-    <!--查询不同组织的截图未交人员-->
-    <select id="findUnpaid" resultType="user">
-        SELECT user_id,
-               username
-        FROM user
-        WHERE user_id NOT IN
-              (SELECT user.user_id
-               FROM user,
-                    image
-               WHERE organize_id = #{organizeId}
-                 AND user.user_id = image.user_id)
-          AND organize_id = #{organizeId}
+        ORDER BY has_uploaded, created_at
     </select>
 
     <!--查询不同组织的截图已交人数-->
@@ -109,7 +96,6 @@
         SET pwd = #{pwd}
         WHERE user_id = #{userId}
     </update>
-
 
 
 </mapper>
