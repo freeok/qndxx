@@ -7,7 +7,7 @@
 
     <select id="getSubmitEcharts">
         SELECT DATE_FORMAT(created_at, '%Y-%m-%d %H:00:00') AS hour_start,
-               COUNT(*)                                     AS record_count
+               COUNT(DISTINCT user_id)                      AS record_count
         FROM image
         GROUP BY DATE_FORMAT(created_at, '%Y-%m-%d %H:00:00')
         ORDER BY hour_start;
