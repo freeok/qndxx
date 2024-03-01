@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh">
 <head>
   <meta charset="utf-8">
   <title>layui</title>
@@ -14,87 +14,84 @@
 <div class="layuimini-container">
   <div class="layuimini-main">
 
-    <div class="layui-col-md6" style="margin-top: 30px;">
-      <span style="text-align: center;color: #5FB878;"><h2>已交人员名单</h2></span>
-      <table class="layui-hide" id="currentTableId2" lay-filter="currentTableFilter2"></table>
-    </div>
+    <fieldset class="table-search-fieldset">
+      <legend>搜索信息</legend>
+      <div style="margin: 10px 10px 10px 10px">
+        <form class="layui-form layui-form-pane" action="">
+          <div class="layui-form-item">
 
-    <div class="layui-col-md6" style="margin-top: 30px;">
-      <span style="text-align: center;color: #FF5722;"><h2>未交人员名单</h2></span>
-      <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
-    </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">账号</label>
+              <div class="layui-input-inline">
+                <input type="text" name="userId" autocomplete="off" class="layui-input">
+              </div>
+            </div>
 
-    <!-- <script type="text/html" id="toolbarDemo">
+            <div class="layui-inline">
+              <label class="layui-form-label">姓名</label>
+              <div class="layui-input-inline">
+                <input type="text" name="username" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+
+            <div class="layui-inline">
+              <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                      lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </fieldset>
+
+    <script type="text/html" id="toolbarDemo">
       <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add">一键提醒</button>
+        <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="remind-all">一键提醒</button>
+        <button class="layui-btn layui-btn-primary layui-btn-sm layui-border" lay-event="all">全部名单</button>
+        <button class="layui-btn  layui-btn-sm data-add-btn" lay-event="submitted">已交名单</button>
+        <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="no-submitted">未交名单
+        </button>
       </div>
     </script>
+
+    <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
     <script type="text/html" id="currentTableBar">
-      <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="remind">提醒</a>
-    </script> -->
+      <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit {{d.hasUploaded==='已交' ? 'layui-hide' : ''}}"
+         lay-event="remind">提醒</a>
+    </script>
 
   </div>
 </div>
 
 <script src="/lib/layui-v2.5.6/layui.js" charset="utf-8"></script>
-<script th:inline="javascript">
 
+<script>
   layui.use(['form', 'table'], function () {
     const $ = layui.jquery,
       form = layui.form,
-      table = layui.table
+      table = layui.table;
 
-    showSubmittedTable()
-    showUnpaidTable()
-
-    function showSubmittedTable() {
-      // 加载已交人员名单
-      table.render({
-        elem: '#currentTableId2',
-        url: '/admin/user/findSubmitted',
-        page: {
-          curr: 1,
-          limit: 10,
-          layout: ['prev', 'page', 'next', 'skip', 'limit', 'refresh']
-        },
-        toolbar: '#toolbarDemo',
-        defaultToolbar: ['filter', 'exports', 'print', {
-          title: '提示',
-          layEvent: 'LAYTABLE_TIPS',
-          icon: 'layui-icon-tips'
-        }],
-        cols: [
-          [
-            {field: 'userId', title: '账号', sort: true},
-            {field: 'username', title: '姓名'},
-            {
-              field: 'upload_time',
-              width: '40%',
-              title: '上传时间'//,templet: '<div>{{ layui.util.toDateString(d.upload_time, "yyyy-MM-dd HH:mm:ss") }}</div>'
-            },
-          ]
-        ],
-        skin: 'line',
-        text: {
-          none: '暂无上交人员' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
-        },
-        done: function (res, curr, count) {
-          console.log(`已交表格 当前页${curr} 总条数${count}`)
-        }
-      });
-    }
-
-    function showUnpaidTable() {
-      // 加载未交人员名单
+    // 分页表格
+    function showTable() {
       table.render({
         elem: '#currentTableId',
-        url: '/admin/user/findUnpaid',
+        // 默认会自动传递两个参数：?page=1&limit=10（该参数可通过 request 属性自定义）
+        url: '/admin/user/upload-details',
+        // 启用分页组件 https://layui.dev/2.7/docs/modules/laypage.html#options
         page: {
           curr: 1,
           limit: 10,
-          layout: ['prev', 'page', 'next', 'skip', 'limit', 'refresh']
+          layout: ['prev', 'page', 'next', 'skip', 'count', 'limit', 'refresh']
         },
+        // page 为 true 才生效，key 写死
+        /*request: {
+          page: 1,
+          limit: 10
+        },*/
+        loading: true,
         toolbar: '#toolbarDemo',
+        // 设置头部工具栏右侧图标
         defaultToolbar: ['filter', 'exports', 'print', {
           title: '提示',
           layEvent: 'LAYTABLE_TIPS',
@@ -102,32 +99,75 @@
         }],
         cols: [
           [
-            {field: 'userId', title: '账号', sort: true},
-            {field: 'username', title: '姓名'},
-            {title: '操作', toolbar: '#currentTableBar', align: "right"}
+            {type: "checkbox", width: 50},
+            {field: 'userId', width: 150, title: '账号', sort: true},
+            {field: 'username', width: 150, title: '姓名'},
+            {
+              field: 'hasUploaded',
+              width: 100,
+              title: '状态',
+              templet: d => {
+                let style = d.hasUploaded === '已交' ? "layui-bg-green" : '';
+                return '<div><span class="layui-badge ' + style + '">' + d.hasUploaded + '</span></div>';
+              }
+            },
+            {field: 'createdAt', title: '上传时间'},
+            {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: 'right'}
           ]
         ],
         skin: 'line',
-        text: {
-          none: '全员已上交' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
-        },
-        done: function (res, curr, count) {  //如果是异步请求数据方式，res即为你接口返回的信息。
-          console.log(`未交表格 当前页${curr} 总条数${count}`)
+        // 数据渲染完毕的回调函数
+        done: function (res, curr, count) {
         }
       });
     }
 
-    table.on('tool(currentTableFilter)', function (obj) {
-      let data = obj.data;
-      console.log(data)
-      if (obj.event === 'remind') {
-        console.log('提醒')
-        return false;
+    showTable();
+
+    // 监听搜索操作
+    form.on('submit(data-search-btn)', function (data) {
+      let userId = data.field.userId;
+      let username = data.field.username;
+      //执行搜索重载
+      table.reload('currentTableId', {
+        url: `/admin/user/fuzzy-query?userId=${userId}&username=${username}`
+      });
+      return false;
+    });
+
+    // 复选框上方按钮
+    table.on('toolbar(currentTableFilter)', function (obj) {
+      if (obj.event === 'remind-all') {
+        layer.msg('一键提醒')
+      }
+      if (obj.event === 'all') {
+        layer.msg('全部名单')
+      }
+      if (obj.event === 'submitted') {
+        layer.msg('已交名单')
+      }
+      if (obj.event === 'no-submitted') {
+        layer.msg('未交名单')
       }
     });
 
-  });
-</script>
+    // 监听表格复选框选择
+    table.on('checkbox(currentTableFilter)', function (obj) {
+      console.log(obj)
+    });
 
+    // 右侧按钮
+    table.on('tool(currentTableFilter)', function (obj) {
+      let data = obj.data;
+      let event = obj.event;
+      let userId = data.userId;
+      let username = data.username;
+      let organizeName = data.organizeName;
+      if (event === 'remind') {
+        layer.msg('提醒 ' + obj.data.username)
+      }
+    });
+  })
+</script>
 </body>
 </html>
