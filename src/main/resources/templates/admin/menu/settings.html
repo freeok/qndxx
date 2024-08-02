@@ -1,170 +1,170 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="utf-8">
-  <title>layui</title>
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <link rel="stylesheet" href="/lib/layui-v2.5.6/css/layui.css" media="all">
-  <link rel="stylesheet" href="/css/public.css" media="all">
-</head>
-<body>
-<div class="layuimini-container">
-  <div class="layuimini-main">
-    <blockquote class="layui-elem-quote">
-      注：修改季数或期数，仅起到显示作用
-    </blockquote>
-    <form class="layui-form layui-form-pane" action="">
-      <div class="layui-form-item">
-        <div class="layui-inline">
-          <label class="layui-form-label">季数</label>
-          <div class="layui-input-inline">
-            <input type="number" id="season" autocomplete="off" class="layui-input" min="1" max="100">
+  <head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/lib/layui-v2.5.6/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
+  </head>
+  <body>
+    <div class="layuimini-container">
+      <div class="layuimini-main">
+        <blockquote class="layui-elem-quote">
+          注：修改季数或期数，仅起到显示作用
+        </blockquote>
+        <form class="layui-form layui-form-pane" action="">
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">季数</label>
+              <div class="layui-input-inline">
+                <input type="number" id="season" autocomplete="off" class="layui-input" min="1" max="100">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">期数</label>
+              <div class="layui-input-inline">
+                <input type="number" id="period" autocomplete="off" class="layui-input" min="1" max="100">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <div class="layui-input-inline">
+                <input type="button" id="btnSave" class="layui-btn layui-btn-normal" value="保存">
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="layui-inline">
-          <label class="layui-form-label">期数</label>
-          <div class="layui-input-inline">
-            <input type="number" id="period" autocomplete="off" class="layui-input" min="1" max="100">
-          </div>
-        </div>
-        <div class="layui-inline">
-          <div class="layui-input-inline">
-            <input type="button" id="btnSave" class="layui-btn layui-btn-normal" value="保存">
-          </div>
-        </div>
+
+        </form>
       </div>
-
-    </form>
-  </div>
-</div>
-
-<div class="layuimini-container" style="margin-top: 30px;">
-  <div class="layuimini-main">
-    <blockquote class="layui-elem-quote">
-      注：开启或关闭系统，在关闭期间该组织的所有成员无法使用此系统。
-    </blockquote>
-    <form class="layui-form" action="">
-      <div class="layui-form-item">
-        <label class="layui-form-label">系统状态</label>
-        <div class="layui-input-block">
-          <input type="checkbox" id="open" lay-skin="switch" lay-filter="filter"
-                 lay-text="开启|关闭">
-        </div>
-      </div>
-
-    </form>
-  </div>
-</div>
-
-<div class="layuimini-container" style="margin-top: 30px;">
-  <div class="layuimini-main">
-    <blockquote class="layui-elem-quote">
-      注：此操作会删除<span id="className2" style="color:red;"></span>全体成员本期已上传的图片、记录，请谨慎操作。
-    </blockquote>
-    <div class="layui-form-item">
-      <input type="button" id="btnEnd" class="layui-btn layui-btn-radius layui-btn-danger layui-btn-fluid"
-             value="我已知晓，开启新一轮的提交">
     </div>
-  </div>
-</div>
 
-<script src="/lib/layui-v2.5.6/layui.js" charset="utf-8"></script>
-<script src="/lib/jquery-3.7.1.min.js"></script>
-<script th:inline="javascript">
+    <div class="layuimini-container" style="margin-top: 30px;">
+      <div class="layuimini-main">
+        <blockquote class="layui-elem-quote">
+          注：开启或关闭系统，在关闭期间该组织的所有成员无法使用此系统。
+        </blockquote>
+        <form class="layui-form" action="">
+          <div class="layui-form-item">
+            <label class="layui-form-label">系统状态</label>
+            <div class="layui-input-block">
+              <input type="checkbox" id="open" lay-skin="switch" lay-filter="filter"
+                     lay-text="开启|关闭">
+            </div>
+          </div>
 
-  layui.use(['form', 'layer'], function () {
-    const form = layui.form,
-      layer = layui.layer,
-      $ = layui.$
+        </form>
+      </div>
+    </div>
 
-    let organizeId;
-    let organizeName;
+    <div class="layuimini-container" style="margin-top: 30px;">
+      <div class="layuimini-main">
+        <blockquote class="layui-elem-quote">
+          注：此操作会删除<span id="className2" style="color:red;"></span>全体成员本期已上传的图片、记录，请谨慎操作。
+        </blockquote>
+        <div class="layui-form-item">
+          <input type="button" id="btnEnd" class="layui-btn layui-btn-radius layui-btn-danger layui-btn-fluid"
+                 value="我已知晓，开启新一轮的提交">
+        </div>
+      </div>
+    </div>
 
-    $(function () {
-      organizeId = [[${session.admin.getOrganizeId()}]];
-      organizeName = [[${session.admin.getOrganizeName()}]];
+    <script src="/lib/layui-v2.5.6/layui.js" charset="utf-8"></script>
+    <script src="/lib/jquery-3.7.1.min.js"></script>
+    <script th:inline="javascript">
 
-      $("#className2").text(organizeName);
-      // 获取期数
-      $.get('/user/organize/' + organizeId, (res) => {
-        console.log(res)
-        $("#season").val(res.data.season);
-        $("#period").val(res.data.period);
-        // 根据系统状态设置开关状态
-        if (res.data.isEnable) {
-          $("#open").attr("checked", true);
-        }
-        form.render('checkbox');
-      });
-    });
+      layui.use(['form', 'layer'], function () {
+        const form = layui.form,
+          layer = layui.layer,
+          $ = layui.$
 
-    $("#btnSave").on('click', () => {
-      let season = $("#season").val();
-      let period = $("#period").val();
-      // 1-100的整数
-      //let reg = /^[1-9]\d?|100$/;
-      let reg = /^[1-9]\d?$/;
-      if (!(reg.test(season) && reg.test(period))) {
-        layer.msg("请输入1-99的整数");
-        return;
-      }
-      $.post({
-        url: '/admin/organize/update',
-        data: JSON.stringify({
-          id: organizeId,
-          season: season,
-          period: period
-        }),
-        contentType: 'application/json',
-        success: (res) => {
-          if (res.code === 200) {
-            layer.msg("保存成功", {
-              icon: 1,
-              offset: 't'
-            });
-          }
-        }
-      });
-    });
+        let organizeId;
+        let organizeName;
 
-    // 监听开关
-    form.on('switch(filter)', function (data) {
-      let isEnable = data.elem.checked;
-      console.log(isEnable ? '开启' : '关闭');
-      $.post({
-        url: '/admin/organize/update',
-        data: JSON.stringify({
-          id: organizeId,
-          isEnable: isEnable
-        }),
-        contentType: 'application/json',
-        success: (res) => {
-          if (res.code === 200) {
-            layer.msg(isEnable ? "系统已开启" : "系统已关闭");
-          }
-        }
-      });
-    });
+        $(function () {
+          organizeId = [[${session.admin.getOrganizeId()}]];
+          organizeName = [[${session.admin.getOrganizeName()}]];
 
-    // 开启下一轮
-    $("#btnEnd").on('click', () => {
-      layer.confirm("确定开启吗？", {title: '警告'}, () => {
-        $.ajax({
-          type: 'delete',
-          url: `/admin/image/reset/${organizeId}`,
-          dataType: 'json',
-          success: (res) => {
-            if (res.code === 200) {
-              layer.msg("操作成功", {icon: 1, offset: 't'});
+          $("#className2").text(organizeName);
+          // 获取期数
+          $.get('/user/organize/' + organizeId, (res) => {
+            console.log(res)
+            $("#season").val(res.data.season);
+            $("#period").val(res.data.period);
+            // 根据系统状态设置开关状态
+            if (res.data.isEnable) {
+              $("#open").attr("checked", true);
             }
-          }
+            form.render('checkbox');
+          });
         });
-      });
-    });
 
-  });
-</script>
-</body>
+        $("#btnSave").on('click', () => {
+          let season = $("#season").val();
+          let period = $("#period").val();
+          // 1-100的整数
+          //let reg = /^[1-9]\d?|100$/;
+          let reg = /^[1-9]\d?$/;
+          if (!(reg.test(season) && reg.test(period))) {
+            layer.msg("请输入1-99的整数");
+            return;
+          }
+          $.post({
+            url: '/admin/organize/update',
+            data: JSON.stringify({
+              id: organizeId,
+              season: season,
+              period: period
+            }),
+            contentType: 'application/json',
+            success: (res) => {
+              if (res.code === 200) {
+                layer.msg("保存成功", {
+                  icon: 1,
+                  offset: 't'
+                });
+              }
+            }
+          });
+        });
+
+        // 监听开关
+        form.on('switch(filter)', function (data) {
+          let isEnable = data.elem.checked;
+          console.log(isEnable ? '开启' : '关闭');
+          $.post({
+            url: '/admin/organize/update',
+            data: JSON.stringify({
+              id: organizeId,
+              isEnable: isEnable
+            }),
+            contentType: 'application/json',
+            success: (res) => {
+              if (res.code === 200) {
+                layer.msg(isEnable ? "系统已开启" : "系统已关闭");
+              }
+            }
+          });
+        });
+
+        // 开启下一轮
+        $("#btnEnd").on('click', () => {
+          layer.confirm("确定开启吗？", {title: '警告'}, () => {
+            $.ajax({
+              type: 'delete',
+              url: `/admin/image/reset/${organizeId}`,
+              dataType: 'json',
+              success: (res) => {
+                if (res.code === 200) {
+                  layer.msg("操作成功", {icon: 1, offset: 't'});
+                }
+              }
+            });
+          });
+        });
+
+      });
+    </script>
+  </body>
 </html>

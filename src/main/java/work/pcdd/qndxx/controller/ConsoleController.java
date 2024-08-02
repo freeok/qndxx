@@ -58,6 +58,7 @@ public class ConsoleController {
             xList.add(hourStart);
             yList.add(recordCount);
         });
+        // TODO 封装 VO
         Map<String, List<Object>> map = new LinkedHashMap<>();
         map.put("x", xList);
         map.put("y", yList);
