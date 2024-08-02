@@ -7,8 +7,6 @@ import work.pcdd.qndxx.entity.Organize;
 import work.pcdd.qndxx.mapper.OrganizeMapper;
 import work.pcdd.qndxx.service.OrganizeService;
 
-import javax.servlet.http.HttpSession;
-
 /**
  * @author pcdd
  */

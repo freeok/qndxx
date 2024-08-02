@@ -1,47 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="utf-8">
-  <title>layui</title>
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <link rel="stylesheet" href="/lib/layui-v2.5.6/css/layui.css" media="all">
-  <link rel="stylesheet" href="/css/public.css" media="all">
-</head>
-<body>
-<input type="hidden" th:value="${session.admin.getOrganizeName()}">
-<div class="layuimini-container">
-  <div class="layuimini-main">
-    <a id="download">
-      <button class="layui-btn layui-btn-lg layui-btn-disabled" disabled>
-        打包下载
-        <span class="layui-badge layui-bg-orange" id="submittedCount"></span>
-      </button>
-    </a>
-  </div>
-</div>
+  <head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/lib/layui-v2.5.6/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
+  </head>
+  <body>
+    <input type="hidden" th:value="${session.admin.getOrganizeName()}">
+    <div class="layuimini-container">
+      <div class="layuimini-main">
+        <a id="download">
+          <button class="layui-btn layui-btn-lg layui-btn-disabled" disabled>
+            打包下载
+            <span class="layui-badge layui-bg-orange" id="submittedCount"></span>
+          </button>
+        </a>
+      </div>
+    </div>
 
-<script src="/lib/layui-v2.5.6/layui.js" charset="utf-8"></script>
-<script src="/lib/jquery-3.7.1.min.js"></script>
-<script src="/lib/js.cookie.min.js"></script>
+    <script src="/lib/layui-v2.5.6/layui.js" charset="utf-8"></script>
+    <script src="/lib/jquery-3.7.1.min.js"></script>
+    <script src="/lib/js.cookie.min.js"></script>
 
-<script th:inline="javascript">
-  $(function () {
-    let organizeId = [[${session.admin.getOrganizeId()}]];
-    let organizeName = Cookies.get('organize')
+    <script th:inline="javascript">
+      $(function () {
+        let organizeId = [[${session.admin.getOrganizeId()}]];
+        let organizeName = Cookies.get('organize')
 
-    $.get('/admin/user/findSubmittedCount', {organizeId: organizeId}, (res) => {
-      $('#submittedCount').text('已交' + res.data + '人');
-      if (res.data > 0) {
-        $('#download').attr('href', `/admin/image/download?organizeName=${organizeName}`)
-          .find('button')
-          .removeClass('layui-btn-disabled')
-          .attr('disabled', false);
-      }
-    });
-  });
-</script>
+        $.get('/admin/user/findSubmittedCount', {organizeId: organizeId}, (res) => {
+          $('#submittedCount').text('已交' + res.data + '人');
+          if (res.data > 0) {
+            $('#download').attr('href', `/admin/image/download?organizeName=${organizeName}`)
+              .find('button')
+              .removeClass('layui-btn-disabled')
+              .attr('disabled', false);
+          }
+        });
+      });
+    </script>
 
-</body>
+  </body>
 </html>

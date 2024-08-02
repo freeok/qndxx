@@ -3,8 +3,6 @@ package work.pcdd.qndxx.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import work.pcdd.qndxx.entity.Image;
 
-import java.util.List;
-
 /**
  * @author pcdd
  */

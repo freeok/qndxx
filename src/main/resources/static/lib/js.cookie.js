@@ -2,16 +2,20 @@
 ;
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (function () {
-    var current = global.Cookies;
-    var exports = global.Cookies = factory();
-    exports.noConflict = function () { global.Cookies = current; return exports; };
-  })());
-})(this, (function () { 'use strict';
+    typeof define === 'function' && define.amd ? define(factory) :
+      (global = typeof globalThis !== 'undefined' ? globalThis : global || self, (function () {
+        var current = global.Cookies;
+        var exports = global.Cookies = factory();
+        exports.noConflict = function () {
+          global.Cookies = current;
+          return exports;
+        };
+      })());
+})(this, (function () {
+  'use strict';
 
   /* eslint-disable no-var */
-  function assign (target) {
+  function assign(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -20,6 +24,7 @@
     }
     return target
   }
+
   /* eslint-enable no-var */
 
   /* eslint-disable no-var */
@@ -41,8 +46,8 @@
 
   /* eslint-disable no-var */
 
-  function init (converter, defaultAttributes) {
-    function set (name, value, attributes) {
+  function init(converter, defaultAttributes) {
+    function set(name, value, attributes) {
       if (typeof document === 'undefined') {
         return
       }
@@ -86,7 +91,7 @@
         name + '=' + converter.write(value, name) + stringifiedAttributes)
     }
 
-    function get (name) {
+    function get(name) {
       if (typeof document === 'undefined' || (arguments.length && !name)) {
         return
       }
@@ -106,7 +111,8 @@
           if (name === found) {
             break
           }
-        } catch (e) {}
+        } catch (e) {
+        }
       }
 
       return name ? jar[name] : jar
@@ -133,13 +139,13 @@
         }
       },
       {
-        attributes: { value: Object.freeze(defaultAttributes) },
-        converter: { value: Object.freeze(converter) }
+        attributes: {value: Object.freeze(defaultAttributes)},
+        converter: {value: Object.freeze(converter)}
       }
     )
   }
 
-  var api = init(defaultConverter, { path: '/' });
+  var api = init(defaultConverter, {path: '/'});
   /* eslint-enable no-var */
 
   return api;
