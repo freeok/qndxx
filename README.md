@@ -20,7 +20,7 @@
 2. Spring Boot 2.7.18
 3. MySQL 8
 4. MyBatis、PageHelper
-5. API 文档使用 Swagger3 (http://127.0.0.1:8080/swagger-ui/index.html)
+5. API 文档使用 Swagger 3 (http://127.0.0.1:8080/swagger-ui/index.html)
 
 前端：Thymeleaf、jQuery、Layui、LAYUI MINI
 
